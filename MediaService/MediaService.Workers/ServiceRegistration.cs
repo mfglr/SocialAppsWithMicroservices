@@ -1,10 +1,22 @@
 ﻿using MassTransit;
 using MediaService.Infrastructure;
+using System.Reflection;
 
 namespace MediaService.Workers
 {
     internal static class ServiceRegistration
     {
+
+        public static IServiceCollection AddAutoMapper(this IServiceCollection services, IConfiguration configuration) =>
+            services
+                .AddAutoMapper(
+                    cfg => {
+                        cfg.LicenseKey = configuration["AutoMapper:LicenseKey"]!;
+                    },
+                    Assembly.GetExecutingAssembly()
+                );
+
+
         public static IServiceCollection AddMasstransit(this IServiceCollection services, IConfiguration configuration) =>
             services
                 .AddMassTransit(
@@ -15,6 +27,7 @@ namespace MediaService.Workers
                         x.AddConsumer<SetMediaThumbnail>();
                         x.AddConsumer<SetMediaTranscodedBlobName>();
                         x.AddConsumer<SetMediaMetadata>();
+                        x.AddConsumer<DeleteMedia>();
 
                         x.UsingRabbitMq((context, cfg) =>
                         {

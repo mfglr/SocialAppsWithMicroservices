@@ -1,4 +1,6 @@
-﻿namespace PostService.Domain
+﻿using Shared.Objects;
+
+namespace PostService.Domain
 {
     public class Content
     {

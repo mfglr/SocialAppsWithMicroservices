@@ -1,5 +1,5 @@
 ﻿using Azure.AI.ContentSafety;
-using ContentModerator.Application;
+using Shared.Objects;
 
 namespace ContentModerator.Infrastructure.AzureAIContentModeration
 {

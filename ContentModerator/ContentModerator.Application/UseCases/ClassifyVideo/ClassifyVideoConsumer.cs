@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using Shared.Objects;
 
 namespace ContentModerator.Application.UseCases.ClassifyVideo
 {
@@ -15,7 +16,7 @@ namespace ContentModerator.Application.UseCases.ClassifyVideo
             {
                 _tempDirectoryManager.Create();
 
-                using var inputStream = await _blobService.ReadAsync(context.Message.ContainerName, context.Message.BlobName, context.CancellationToken);
+                var inputStream = await _blobService.ReadAsync(context.Message.ContainerName, context.Message.BlobName, context.CancellationToken);
 
                 var inputPath = await _tempDirectoryManager.AddAsync(inputStream, context.CancellationToken);
                 inputStream.Close();

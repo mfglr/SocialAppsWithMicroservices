@@ -1,4 +1,6 @@
-﻿namespace Shared.Events.Media
+﻿using Shared.Objects;
+
+namespace Shared.Events.Media
 {
-    public record MediaClassfiedEvent(Guid Id, int Hate, int SelfHarm, int Sexual, int Violence);
+    public record MediaClassfiedEvent(Guid Id, ModerationResult ModerationResult);
 }

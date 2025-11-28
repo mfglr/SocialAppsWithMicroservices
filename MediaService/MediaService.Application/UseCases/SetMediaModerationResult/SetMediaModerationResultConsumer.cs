@@ -1,24 +1,22 @@
-﻿using MassTransit;
+﻿using AutoMapper;
+using MassTransit;
 using MediaService.Domain;
 
 namespace MediaService.Application.UseCases.SetMediaModerationResult
 {
-    internal class SetMediaModerationResultConsumer(IMediaRepository mediaRepository) : IConsumer<SetMediaModerationResultRequest>
+    internal class SetMediaModerationResultConsumer(IMediaRepository mediaRepository, IMapper mapper) : IConsumer<SetMediaModerationResultRequest>
     {
         private readonly IMediaRepository _mediaRepository = mediaRepository;
+        private readonly IMapper _mapper = mapper;
 
         public async Task Consume(ConsumeContext<SetMediaModerationResultRequest> context)
         {
             var media = (await _mediaRepository.GetByIdAsync(context.Message.Id, context.CancellationToken))!;
-            var moderationResult = 
-                new ModerationResult(
-                    context.Message.Hate,
-                    context.Message.SelfHarm,
-                    context.Message.Sexual,
-                    context.Message.Violance
-                );
-            media.SetModerationResult(moderationResult);
+            media.SetModerationResult(context.Message.ModerationResult);
             await _mediaRepository.UdateAsync(media, context.CancellationToken);
+
+            var response = _mapper.Map<Media, SetMediaModerationResultResponse>(media);
+            await context.RespondAsync(response);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Shared.Events.Media
+﻿using Shared.Objects;
+
+namespace Shared.Events.Media
 {
-    public record MediaMeatadataExtractedEvent(Guid Id, double Width, double Height, double Duration);
+    public record MediaMeatadataExtractedEvent(Guid Id, Metadata Metadata);
 }

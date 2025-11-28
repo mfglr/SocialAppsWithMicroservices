@@ -14,12 +14,13 @@ namespace ThumbnailGenerator.Workers
         {
             var client = _mediator.CreateRequestClient<GenerateThumbnailRequest>();
             var response = await client.GetResponse<GenerateThumbnailResponse>(new (context.Message.ContainerName, context.Message.BlobName, 720, false));
-            await _publishEndpoint.Publish(new MediaThumbnailGeneratedEvent(
-                context.Message.Id,
-                response.Message.BlobName,
-                720,
-                false
-            ),context.CancellationToken);
+            await _publishEndpoint.Publish(
+                new MediaThumbnailGeneratedEvent(
+                    context.Message.Id,
+                    new(response.Message.BlobName, 720, false)
+                ),
+                context.CancellationToken
+            );
         }
     }
 }

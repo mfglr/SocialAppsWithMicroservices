@@ -1,4 +1,6 @@
-﻿namespace Shared.Events.Media
+﻿using Shared.Objects;
+
+namespace Shared.Events.Media
 {
-    public record MediaThumbnailGeneratedEvent(Guid Id, string BlobName, double Resulation, bool IsSquare);
+    public record MediaThumbnailGeneratedEvent(Guid Id, Thumbnail Thumbnail);
 }

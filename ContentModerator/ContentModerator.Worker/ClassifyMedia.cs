@@ -1,10 +1,9 @@
-﻿using MassTransit;
+﻿using ContentModerator.Application.UseCases.ClassifyImage;
+using ContentModerator.Application.UseCases.ClassifyVideo;
+using MassTransit;
 using MassTransit.Mediator;
-using ContentModerator.Application;
 using Shared.Events.Media;
 using Shared.Objects;
-using ContentModerator.Application.UseCases.ClassifyVideo;
-using ContentModerator.Application.UseCases.ClassifyImage;
 
 namespace ContentModerator.Worker
 {
@@ -40,13 +39,8 @@ namespace ContentModerator.Worker
             }
 
             await _publishEndpoint.Publish(
-                new MediaClassfiedEvent(
-                    context.Message.Id,
-                    moderationResult.Hate,
-                    moderationResult.SelfHarm,
-                    moderationResult.Sexual,
-                    moderationResult.Violence
-                )
+                new MediaClassfiedEvent(context.Message.Id,moderationResult),
+                context.CancellationToken
             );
         }
     }

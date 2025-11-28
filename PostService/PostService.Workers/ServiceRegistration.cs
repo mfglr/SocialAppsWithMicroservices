@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using PostService.Infrastructure;
 using PostService.Workers;
 
 namespace PostService.Workers
@@ -10,6 +11,7 @@ namespace PostService.Workers
                 x =>
                 {
                     x.AddConsumer<SetContentModerationResult>();
+                    x.AddConsumer<SetMedia>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {
@@ -19,7 +21,27 @@ namespace PostService.Workers
                             h.Password(configration["RabbitMQ:Password"]!);
                         });
 
-                        cfg.ConfigureEndpoints(context);
+                        var retryLimit = 5;
+
+                        cfg.ReceiveEndpoint("SetContentModerationResult", e =>
+                        {
+                            e.UseMessageRetry(rc =>
+                            {
+                                rc.Immediate(retryLimit);
+                                rc.Handle<AppConcurrencyException>();
+                            });
+                            e.ConfigureConsumer<SetContentModerationResult>(context);
+                        });
+
+                        cfg.ReceiveEndpoint("SetMedia", e =>
+                        {
+                            e.UseMessageRetry(rc =>
+                            {
+                                rc.Immediate(retryLimit);
+                                rc.Handle<AppConcurrencyException>();
+                            });
+                            e.ConfigureConsumer<SetMedia>(context);
+                        });
                     });
 
                 }

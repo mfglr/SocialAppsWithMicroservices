@@ -1,4 +1,6 @@
-﻿namespace PostService.Application.UseCases.SetContentModerationResult
+﻿using Shared.Objects;
+
+namespace PostService.Application.UseCases.SetContentModerationResult
 {
-    public record SetContentModerationResultRequest(Guid Id, int Hate, int SelfHarm, int Sexual, int Violence);
+    public record SetContentModerationResultRequest(Guid Id, ModerationResult ModerationResult);
 }

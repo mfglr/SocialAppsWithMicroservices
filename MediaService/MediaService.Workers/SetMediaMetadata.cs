@@ -1,23 +1,34 @@
-﻿using MassTransit;
+﻿using AutoMapper;
+using MassTransit;
 using MassTransit.Mediator;
 using MediaService.Application.UseCases.SetMediaMetadata;
 using Shared.Events.Media;
 
 namespace MediaService.Workers
 {
-    internal class SetMediaMetadata(IMediator mediator) : IConsumer<MediaMeatadataExtractedEvent>
+    internal class SetMediaMetadata(IMediator mediator, IPublishEndpoint publishEndpoint, IMapper mapper) : IConsumer<MediaMeatadataExtractedEvent>
     {
         private readonly IMediator _mediator = mediator;
+        private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
+        private readonly IMapper _mapper = mapper;
 
-        public Task Consume(ConsumeContext<MediaMeatadataExtractedEvent> context) =>
-            _mediator.Send(
+        public async Task Consume(ConsumeContext<MediaMeatadataExtractedEvent> context)
+        {
+            var client = _mediator.CreateRequestClient<SetMediaMetadataRequest>();
+            var response = await client.GetResponse<SetMediaMetaDataResponse>(
                 new SetMediaMetadataRequest(
                     context.Message.Id,
-                    context.Message.Width,
-                    context.Message.Height,
-                    context.Message.Duration
+                    context.Message.Metadata
                 ),
                 context.CancellationToken
             );
+            
+            if (response.Message.IsPreprocessingCompleted)
+                await _publishEndpoint.Publish(
+                    _mapper.Map<SetMediaMetaDataResponse,MediaPreprocessingCompletedEvent>(response.Message),
+                    context.CancellationToken
+                );
+        }
+
     }
 }

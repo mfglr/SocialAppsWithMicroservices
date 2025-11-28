@@ -1,4 +1,6 @@
-﻿namespace Shared.Events.PostService
+﻿using Shared.Objects;
+
+namespace Shared.Events.PostService
 {
-    public record PostContentClassifiedEvent(Guid Id, int Hate, int SelfHarm, int Sexual, int Violence);
+    public record PostContentClassifiedEvent(Guid Id, ModerationResult ModerationResult);
 }

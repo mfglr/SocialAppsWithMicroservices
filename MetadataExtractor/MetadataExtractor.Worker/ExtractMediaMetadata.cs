@@ -1,8 +1,8 @@
 ﻿using MassTransit;
 using MassTransit.Mediator;
-using MetadataExtractor.Application;
-using MetadataExtractor.Application.UseCases.ExtractMediaDimention;
+using MetadataExtractor.Application.UseCases.ExtractMediaMetadata;
 using Shared.Events.Media;
+using Shared.Objects;
 
 namespace MetadataExtractor.Worker
 {
@@ -20,12 +20,7 @@ namespace MetadataExtractor.Worker
             ));
 
             await _publishEndpoint.Publish(
-                new MediaMeatadataExtractedEvent(
-                    context.Message.Id,
-                    response.Message.Width,
-                    response.Message.Height,
-                    response.Message.Duration
-                ),
+                new MediaMeatadataExtractedEvent(context.Message.Id,response.Message),
                 context.CancellationToken
             );
         }

@@ -9,15 +9,8 @@ namespace PostService.Application.UseCases.SetContentModerationResult
 
         public async Task Consume(ConsumeContext<SetContentModerationResultRequest> context)
         {
-            var moderationResult = 
-                new ModerationResult(
-                    context.Message.Hate,
-                    context.Message.SelfHarm,
-                    context.Message.Sexual,
-                    context.Message.Violence
-                );
             var post = (await _repository.GetByIdAsync(context.Message.Id, context.CancellationToken))!;
-            post.SetContentModerationResult(moderationResult);
+            post.SetContentModerationResult(context.Message.ModerationResult);
             await _repository.UpdateAsync(post, context.CancellationToken);
         }
     }

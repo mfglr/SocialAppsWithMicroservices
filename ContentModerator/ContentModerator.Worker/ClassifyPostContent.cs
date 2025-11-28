@@ -1,8 +1,8 @@
-﻿using ContentModerator.Application;
-using ContentModerator.Application.UseCases.ClassifyText;
+﻿using ContentModerator.Application.UseCases.ClassifyText;
 using MassTransit;
 using MassTransit.Mediator;
 using Shared.Events.PostService;
+using Shared.Objects;
 
 namespace ContentModerator.Worker
 {
@@ -17,13 +17,10 @@ namespace ContentModerator.Worker
 
             var client = _mediator.CreateRequestClient<ClassifyTextRequest>();
             var response = await client.GetResponse<ModerationResult>(new ClassifyTextRequest(context.Message.Content));
-            await _publishEndpoint.Publish(new PostContentClassifiedEvent(
-                context.Message.Id,
-                response.Message.Hate,
-                response.Message.SelfHarm,
-                response.Message.Sexual,
-                response.Message.Violence
-            ));
+            await _publishEndpoint.Publish(
+                new PostContentClassifiedEvent(context.Message.Id, response.Message),
+                context.CancellationToken
+            );
         }
     }
 }

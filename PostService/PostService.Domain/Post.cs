@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Shared.Objects;
+using System.Text.Json.Serialization;
 
 namespace PostService.Domain
 {
@@ -12,29 +13,29 @@ namespace PostService.Domain
         public DateTime? UpdatedAt { get; private set; }
         public int Version { get; private set; }
         public Content? Content { get; private set; }
-        public int NumberOfMedia { get; private set; }
+        public IReadOnlyList<Media> Media { get; private set; }
 
         [JsonConstructor]
-        private Post(Guid id, DateTime createdAt, DateTime? updatedAt, int version, Content? content, int numberOfMedia)
+        private Post(Guid id, DateTime createdAt, DateTime? updatedAt, int version, Content? content, IReadOnlyList<Media> media)
         {
             Id = id;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
             Version = version;
             Content = content;
-            NumberOfMedia = numberOfMedia;
+            Media = media;
         }
 
-        public Post(Content? content, int numberOfMedia)
+        public Post(Content? content, IReadOnlyList<Media> media)
         {
-            if (content == null && numberOfMedia == 0)
+            if (content == null && media.Count == 0)
                 throw new Exception("Post content exception.");
 
-            if (numberOfMedia > MaxMediaLength)
+            if (media.Count > MaxMediaLength)
                 throw new Exception("Post media exception.");
 
             Content = content;
-            NumberOfMedia = numberOfMedia;
+            Media = media;
         }
 
         public void Create()
@@ -49,5 +50,20 @@ namespace PostService.Domain
             Version++;
             Content = Content?.SetModerationResult(result);
         }
+
+        public void SetMedia(string blobName,string? transcodedBlobName, Metadata metaData, ModerationResult moderationResult, IEnumerable<Thumbnail> thumbnails)
+        {
+            Version++;
+            Media =
+                [
+                    ..Media
+                        .Select(
+                            x => x.BlobName == blobName
+                                ? x.Set(transcodedBlobName, metaData, moderationResult, thumbnails)
+                                : x
+                        )
+                ];
+        }
+
     }
 }

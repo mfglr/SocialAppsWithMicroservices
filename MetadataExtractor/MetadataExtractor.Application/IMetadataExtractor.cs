@@ -1,7 +1,7 @@
-﻿namespace MetadataExtractor.Application
-{
-    public record Metadata(double Width, double Height, double Duration);
+﻿using Shared.Objects;
 
+namespace MetadataExtractor.Application
+{
     public interface IMetadataExtractor
     {
         Task<Metadata> Extract(string input, string tempPath, CancellationToken cancellationToken);

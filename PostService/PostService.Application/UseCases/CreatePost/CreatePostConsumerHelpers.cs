@@ -7,12 +7,11 @@ namespace PostService.Application.UseCases.CreatePost
     internal static class CreatePostConsumerHelpers
     {
 
-        public static IReadOnlyList<CreatePostResponse_Media> GenerateMedia(IReadOnlyList<MediaType> types, IReadOnlyList<string> blobNames)
+        public static IReadOnlyList<Media> GenerateMedia(IReadOnlyList<MediaType> types, IReadOnlyList<string> blobNames)
         {
-            List<CreatePostResponse_Media> medias = [];
+            List<Media> medias = [];
             for (int i = 0; i < blobNames.Count; i++)
-                medias.Add(new CreatePostResponse_Media(
-                    Post.MediaContainerName,
+                medias.Add(new Media(
                     blobNames.ElementAt(i),
                     types.ElementAt(i)
                 ));

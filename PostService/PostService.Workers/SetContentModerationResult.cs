@@ -10,12 +10,12 @@ namespace PostService.Workers
         private readonly IMediator _mediator = mediator;
 
         public Task Consume(ConsumeContext<PostContentClassifiedEvent> context) =>
-            _mediator.Send(new SetContentModerationResultRequest(
-                context.Message.Id,
-                context.Message.Hate,
-                context.Message.SelfHarm,
-                context.Message.Sexual,
-                context.Message.Violence
-            ));
+            _mediator.Send(
+                new SetContentModerationResultRequest(
+                    context.Message.Id,
+                    context.Message.ModerationResult
+                ),
+                context.CancellationToken
+            );
     }
 }

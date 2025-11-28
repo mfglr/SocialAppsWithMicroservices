@@ -8,6 +8,7 @@ DbConfiguration.Configure();
 
 builder.Services.AddControllers();
 builder.Services
+    .AddAutoMapper(builder.Configuration)
     .AddMassTransit(builder.Configuration)
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration);

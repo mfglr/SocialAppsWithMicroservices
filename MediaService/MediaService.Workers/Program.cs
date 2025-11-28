@@ -6,8 +6,9 @@ var builder = Host.CreateApplicationBuilder(args);
 DbConfiguration.Configure();
 
 builder.Services
+    .AddAutoMapper(builder.Configuration)
     .AddMasstransit(builder.Configuration)
-    .AddApplicationServices()
+    .AddApplicationServices(builder.Configuration)
     .AddInfrastructureServices();
 
 var host = builder.Build();
