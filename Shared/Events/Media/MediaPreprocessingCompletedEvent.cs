@@ -8,7 +8,7 @@ namespace Shared.Events.Media
         string BlobName,
         string? TranscodedBlobName,
         Metadata MetaData,
-        ModerationResult ModerationResult,
+        ModerationResult? ModerationResult,
         IReadOnlyList<Thumbnail> Thumbnails
     );
 }

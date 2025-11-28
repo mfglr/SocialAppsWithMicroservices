@@ -15,7 +15,7 @@ namespace MediaService.Application.UseCases.SetMediaThumbnail
             media.SetThumbnail(context.Message.Thumbnail);
             await _repository.UdateAsync(media, context.CancellationToken);
 
-            var response = _mapper.Map<Media, SetMediaThumbnailResponse>(media);
+            var response = _mapper.Map<Media, MediaResponse>(media);
             await context.RespondAsync(response);
         }
     }

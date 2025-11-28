@@ -19,10 +19,23 @@ namespace MetadataExtractor.Worker
                 context.Message.BlobName
             ));
 
-            await _publishEndpoint.Publish(
-                new MediaMeatadataExtractedEvent(context.Message.Id,response.Message),
-                context.CancellationToken
-            );
+            if (response.Message.Duration <= 180)
+                await _publishEndpoint.Publish(
+                    new MediaMetadataExtractedSuccessEvent(
+                        context.Message.Id,
+                        context.Message.ContainerName,
+                        context.Message.BlobName,
+                        context.Message.Type,
+                        response.Message
+                    ),
+                    context.CancellationToken
+                );
+            else
+                await _publishEndpoint.Publish(
+                    new MediaMetadataExtractedFailedEvent(context.Message.Id, response.Message),
+                    context.CancellationToken
+                );
+
         }
     }
 }

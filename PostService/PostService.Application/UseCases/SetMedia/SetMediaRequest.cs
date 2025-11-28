@@ -7,7 +7,7 @@ namespace PostService.Application.UseCases.SetMedia
         string BlobName,
         string? TranscodedBlobName,
         Metadata Metadata,
-        ModerationResult ModerationResult,
+        ModerationResult? ModerationResult,
         IReadOnlyList<Thumbnail> Thumbnailes
     );
 }

@@ -15,7 +15,7 @@ namespace MediaService.Application.UseCases.SetMediaModerationResult
             media.SetModerationResult(context.Message.ModerationResult);
             await _mediaRepository.UdateAsync(media, context.CancellationToken);
 
-            var response = _mapper.Map<Media, SetMediaModerationResultResponse>(media);
+            var response = _mapper.Map<Media, MediaResponse>(media);
             await context.RespondAsync(response);
         }
     }

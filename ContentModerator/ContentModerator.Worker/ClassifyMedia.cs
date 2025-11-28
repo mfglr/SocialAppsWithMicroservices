@@ -7,12 +7,12 @@ using Shared.Objects;
 
 namespace ContentModerator.Worker
 {
-    internal class ClassifyMedia(IMediator mediator, IPublishEndpoint publishEndpoint) : IConsumer<MediaCreatedEvent>
+    internal class ClassifyMedia(IMediator mediator, IPublishEndpoint publishEndpoint) : IConsumer<MediaMetadataExtractedSuccessEvent>
     {
         private readonly IMediator _mediator = mediator;
         private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
 
-        public async Task Consume(ConsumeContext<MediaCreatedEvent> context)
+        public async Task Consume(ConsumeContext<MediaMetadataExtractedSuccessEvent> context)
         {
             ModerationResult moderationResult;
             if(context.Message.Type == MediaType.Image)

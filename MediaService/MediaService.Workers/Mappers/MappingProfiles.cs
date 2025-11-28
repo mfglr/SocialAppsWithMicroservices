@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MediaService.Application.UseCases;
 using MediaService.Application.UseCases.SetMediaMetadata;
 using MediaService.Application.UseCases.SetMediaModerationResult;
 using MediaService.Application.UseCases.SetMediaThumbnail;
@@ -12,15 +13,8 @@ namespace MediaService.Workers.Mappers
     {
         public MappingProfiles()
         {
-            CreateMap<Media, SetMediaMetaDataResponse>();
-            CreateMap<Media, SetMediaModerationResultResponse>();
-            CreateMap<Media, SetMediaThumbnailResponse>();
-            CreateMap<Media, SetMediaTranscodedBlobNameResponse>();
-
-            CreateMap<SetMediaMetaDataResponse, MediaPreprocessingCompletedEvent>();
-            CreateMap<SetMediaModerationResultResponse, MediaPreprocessingCompletedEvent>();
-            CreateMap<SetMediaThumbnailResponse, MediaPreprocessingCompletedEvent>();
-            CreateMap<SetMediaTranscodedBlobNameResponse, MediaPreprocessingCompletedEvent>();
+            CreateMap<Media, MediaResponse>();
+            CreateMap<MediaResponse, MediaPreprocessingCompletedEvent>();
         }
     }
 }

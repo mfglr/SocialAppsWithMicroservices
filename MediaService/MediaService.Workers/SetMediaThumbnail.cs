@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MassTransit;
 using MassTransit.Mediator;
+using MediaService.Application.UseCases;
 using MediaService.Application.UseCases.SetMediaThumbnail;
 using Shared.Events.Media;
 
@@ -15,7 +16,7 @@ namespace MediaService.Workers
         public async Task Consume(ConsumeContext<MediaThumbnailGeneratedEvent> context)
         {
             var client = _mediator.CreateRequestClient<SetMediaThumbnailRequest>();
-            var response = await client.GetResponse<SetMediaThumbnailResponse>(
+            var response = await client.GetResponse<MediaResponse>(
                 new SetMediaThumbnailRequest(
                     context.Message.Id,
                     context.Message.Thumbnail
@@ -25,7 +26,7 @@ namespace MediaService.Workers
 
             if (response.Message.IsPreprocessingCompleted)
                 await _publishEndpoint.Publish(
-                    _mapper.Map<SetMediaThumbnailResponse, MediaPreprocessingCompletedEvent>(response.Message),
+                    _mapper.Map<MediaResponse, MediaPreprocessingCompletedEvent>(response.Message),
                     context.CancellationToken
                 );
         }
