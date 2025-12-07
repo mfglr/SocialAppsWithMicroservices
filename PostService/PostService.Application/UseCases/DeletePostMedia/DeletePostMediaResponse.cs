@@ -15,6 +15,8 @@ namespace PostService.Application.UseCases.DeletePostMedia
     public record DeletePostMediaResponse(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         DeletePostMediaResponse_Content? Content,
         IReadOnlyList<DeletePostMediaResponse_Media> Media,
         DeletePostMediaResponse_Media DeletedMedia

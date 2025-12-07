@@ -28,6 +28,7 @@ namespace MediaService.Workers
                         x.AddConsumer<SetMediaThumbnail>();
                         x.AddConsumer<SetMediaTranscodedBlobName>();
                         x.AddConsumer<SetMediaMetadata>();
+                        x.AddConsumer<CreatePostMedia_MediaService>();
 
                         x.UsingRabbitMq((context, cfg) =>
                         {

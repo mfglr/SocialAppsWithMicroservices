@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PostService.Application.UseCases.CreatePost;
+using PostService.Application.UseCases.CreatePostMedia;
 using PostService.Application.UseCases.DeletePostMedia;
 using PostService.Domain;
 using Shared.Events.PostService;
@@ -21,6 +22,9 @@ namespace PostService.Api.MappingProfiles
             CreateMap<DeletePostMediaResponse_Content, PostMediaDeletedEvent_Content>();
             CreateMap<DeletePostMediaResponse_Media, PostMediaDeletedEvent_Media>();
             CreateMap<DeletePostMediaResponse, PostMediaDeletedEvent>();
+
+            CreateMap<CreatePostMediaResponse_Media, PostMediaCreatedEvent_Media>();
+            CreateMap<CreatePostMediaResponse, PostMediaCreatedEvent>();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PostService.Domain;
 using QueryService.Domain.PostDomain;
 
 namespace QueryService.Infrastructure
@@ -11,7 +10,7 @@ namespace QueryService.Infrastructure
         public async Task CreateAsync(Post post, CancellationToken cancellationToken) =>
             await _sqlContext.Posts.AddAsync(post, cancellationToken);
 
-        public void Delete(Post post, CancellationToken cancellationToken) =>
+        public void Delete(Post post) =>
             _sqlContext.Remove(post);
 
         public Task<Post?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>

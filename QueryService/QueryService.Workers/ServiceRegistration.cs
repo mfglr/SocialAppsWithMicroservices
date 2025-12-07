@@ -21,9 +21,9 @@ namespace QueryService.Workers
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<PostContentModerationResultSetEventQueryService>();
-                    x.AddConsumer<SetPostMediaQueryService>();
-                    x.AddConsumer<DeletePostMediaQueryService>();
+                    x.AddConsumer<SetPostContentModerationResult_QueryService>();
+                    x.AddConsumer<SetPostMedia_QueryService>();
+                    x.AddConsumer<DeletePostMedia_QueryService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

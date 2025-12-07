@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MassTransit;
-using PostService.Domain;
 using QueryService.Domain.PostDomain;
 
 namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
@@ -17,14 +16,10 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
             if (!next.IsValidVersion) return;
 
             var prev = await _postRepository.GetByIdAsync(context.Message.Id, context.CancellationToken);
-            
             if (prev != null)
-                prev.Update(next);
+                prev.Set(next);
             else
-            {
-                next.Create();
                 await _postRepository.CreateAsync(next, context.CancellationToken);
-            }
             await _unitOfWork.CommitAsync(context.CancellationToken);
         }
     }

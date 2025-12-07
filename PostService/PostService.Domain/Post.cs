@@ -55,6 +55,12 @@ namespace PostService.Domain
             UpdatedAt = DateTime.UtcNow;
         }
 
+        public void UpdateContent(Content content)
+        {
+            Content = content;
+            Update();
+        }
+
         public void SetContentModerationResult(ModerationResult result)
         {
             Content = Content?.SetModerationResult(result);
@@ -81,6 +87,19 @@ namespace PostService.Domain
             Media = [.. Media.Where(x => x.BlobName != blobName)];
             Update();
             return media;
+        }
+
+        public void AddMedia(IReadOnlyList<Media> media, int index)
+        {
+            if (index < 0 || index >= Media.Count)
+                throw new Exception("Out of index exception");
+
+            if (Media.Count + media.Count > MaxMediaLength)
+                throw new Exception("Post media exception.");
+
+            var list = Media.ToList();
+            Media = [.. list[0..index], .. media, .. list[index..]];
+            Update();
         }
     }
 }

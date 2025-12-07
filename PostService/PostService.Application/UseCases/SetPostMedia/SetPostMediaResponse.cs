@@ -15,6 +15,8 @@ namespace PostService.Application.UseCases.SetPostMedia
     public record SetPostMediaResponse(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         SetPostMediaResponse_Content? Content,
         IReadOnlyList<SetPostMediaResponse_Media> Media
     );

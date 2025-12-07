@@ -2,6 +2,6 @@
 
 namespace MediaService.Application.UseCases.CreateMedia
 {
-    public record CreateMediadRequest_Media(string ContainerName, string BlobName, MediaType Type);
-    public record CreateMediaRequest(Guid OwnerId, IEnumerable<CreateMediadRequest_Media> Media);
+    public record CreateMediaRequest_Media(string ContainerName, string BlobName, MediaType Type);
+    public record CreateMediaRequest(Guid Id, IEnumerable<CreateMediaRequest_Media> Media);
 }

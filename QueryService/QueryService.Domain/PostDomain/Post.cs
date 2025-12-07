@@ -1,4 +1,6 @@
-﻿namespace QueryService.Domain.PostDomain
+﻿using System.Text.Json.Serialization;
+
+namespace QueryService.Domain.PostDomain
 {
     public class Post
     {
@@ -8,33 +10,31 @@
         public DateTime CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
         public Content? Content { get; private set; }
-        public IReadOnlyList<Media> Media { get; private set; }
-
+        public List<Media> Media { get; private set; } = [];
+        
         public bool IsValidVersion => !Media.Any(x => !x.IsValidVersion);
 
-        private Post(){}
+        private Post() { }
 
-        public Post(Guid id, int version, Content? content, IEnumerable<Media> media)
+        public Post(Guid id, int version, DateTime createdAt, DateTime? updatedAt, Content? content, IEnumerable<Media> media)
         {
             Id = id;
             Version = version;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
             Content = content;
-            Media = [..media];
+            Media = [.. media];
         }
 
-        public void Create()
+        public void Set(Post next)
         {
-            CreatedAt = DateTime.UtcNow;
-        }
-        
-        public void Update(Post next)
-        {
-            if (!IsValidVersion || next.Version <= Version) return;
-
+            if (next.Version <= Version)
+                return;
             Version = next.Version;
+            UpdatedAt = next.UpdatedAt;
             Content = next.Content;
-            Media = [.. next.Media];
-            UpdatedAt = DateTime.UtcNow;
+            Media = [..next.Media];
         }
+
     }
 }

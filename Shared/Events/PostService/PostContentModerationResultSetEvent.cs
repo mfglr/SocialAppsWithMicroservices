@@ -18,6 +18,8 @@ namespace Shared.Events.PostService
     public record PostContentModerationResultSetEvent(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         PostContentModerationResultSetEvent_Content? Content,
         IReadOnlyList<PostContentModerationResultSetEvent_Media> Media
     );

@@ -13,7 +13,7 @@ namespace MediaService.Application.UseCases.CreateMedia
                 .Select(
                     x =>
                         new Media(
-                            context.Message.OwnerId,
+                            context.Message.Id,
                             x.ContainerName,
                             x.BlobName,
                             x.Type

@@ -1,4 +1,4 @@
-﻿using BlobService.Application.ApplicationServices.CreateContainer;
+﻿using BlobService.Application.UseCases.CreateContainer;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +11,7 @@ namespace BlobService.Api.Controllers
         private readonly IMediator _mediator = mediator;
 
         [HttpPost]
-        public async Task Create(CreateContainerDto request, CancellationToken cancellationToken) =>
+        public async Task Create(CreateContainerRequest request, CancellationToken cancellationToken) =>
             await _mediator.Send(request,cancellationToken);
     }
 }

@@ -18,6 +18,8 @@ namespace Shared.Events.PostService
     public record PostMediaSetEvent(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         PostMediaSetEvent_Content? Content,
         IReadOnlyList<PostMediaSetEvent_Media> Media
     );

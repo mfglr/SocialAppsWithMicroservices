@@ -182,7 +182,8 @@ namespace QueryService.Infrastructure.Migrations
                                         .HasForeignKey("MediaPostId", "Media__synthesizedOrdinal");
                                 });
 
-                            b1.Navigation("Metadata");
+                            b1.Navigation("Metadata")
+                                .IsRequired();
 
                             b1.Navigation("ModerationResult");
 

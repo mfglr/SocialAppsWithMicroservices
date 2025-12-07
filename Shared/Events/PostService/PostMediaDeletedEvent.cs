@@ -11,10 +11,17 @@ namespace Shared.Events.PostService
         Metadata Metadata,
         ModerationResult ModerationResult,
         IReadOnlyList<Thumbnail> Thumbnails
-    );
+    )
+    {
+        public IEnumerable<string> BlobNames => TranscodedBlobName != null
+            ? [BlobName, TranscodedBlobName, .. Thumbnails.Select(x => x.BlobName)]
+            : [BlobName, .. Thumbnails.Select(x => x.BlobName)];
+    }
     public record PostMediaDeletedEvent(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         PostMediaDeletedEvent_Content? Content,
         IReadOnlyList<PostMediaDeletedEvent_Media> Media,
         PostMediaDeletedEvent_Media DeletedMedia

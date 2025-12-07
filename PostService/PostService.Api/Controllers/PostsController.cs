@@ -3,7 +3,9 @@ using MassTransit;
 using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using PostService.Application.UseCases.CreatePost;
+using PostService.Application.UseCases.CreatePostMedia;
 using PostService.Application.UseCases.DeletePostMedia;
+using PostService.Application.UseCases.UpdatePostContent;
 using Shared.Events.PostService;
 
 namespace PostService.Api.Controllers
@@ -30,6 +32,17 @@ namespace PostService.Api.Controllers
             return response.Message.Id;
         }
 
+        [HttpPut]
+        public async Task CreateMedia([FromForm] Guid id, [FromForm] IFormFileCollection media, [FromForm] int index, CancellationToken cancellationToken)
+        {
+            var client = _mediator.CreateRequestClient<CreatePostMediaRequest>();
+            var response = await client.GetResponse<CreatePostMediaResponse>(new CreatePostMediaRequest(id, media, index), cancellationToken);
+
+            await _publishEndpoint.Publish(
+                _mapper.Map<CreatePostMediaResponse, PostMediaCreatedEvent>(response.Message),
+                cancellationToken
+            );
+        }
 
         [HttpPut]
         public async Task DeleteMedia(DeletePostMediaRequest request, CancellationToken cancellationToken)
@@ -42,5 +55,17 @@ namespace PostService.Api.Controllers
                 cancellationToken
             );
         }
+
+        [HttpPut]
+        public async Task UpdateContent(UpdatePostContentRequest request, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(request, cancellationToken);
+            await _publishEndpoint.Publish(
+                new PostContentUpdatedEvent(request.Id, request.Content),
+                cancellationToken
+            );
+        }
+
+        
     }
 }

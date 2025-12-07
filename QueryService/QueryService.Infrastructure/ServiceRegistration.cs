@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PostService.Domain;
 using QueryService.Application;
+using QueryService.Domain.PostDomain;
 
 namespace QueryService.Infrastructure
 {

@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryService.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryService.Workers", "QueryService\QueryService.Workers\QueryService.Workers.csproj", "{0BE9E75F-5DEC-4DC0-86F0-B5267975A689}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryService.Api", "QueryService\QueryService.Api\QueryService.Api.csproj", "{4E21198F-5B6C-4557-9664-2FF5E7B44B51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +207,10 @@ Global
 		{0BE9E75F-5DEC-4DC0-86F0-B5267975A689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BE9E75F-5DEC-4DC0-86F0-B5267975A689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BE9E75F-5DEC-4DC0-86F0-B5267975A689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E21198F-5B6C-4557-9664-2FF5E7B44B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E21198F-5B6C-4557-9664-2FF5E7B44B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E21198F-5B6C-4557-9664-2FF5E7B44B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E21198F-5B6C-4557-9664-2FF5E7B44B51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -239,6 +245,7 @@ Global
 		{B219FA0E-BE18-4800-B561-112C6E3FF105} = {D6804BFD-8BD7-4EFB-81AC-13FB3F452267}
 		{618C7D12-C57F-4190-888D-B88EEFF81594} = {D6804BFD-8BD7-4EFB-81AC-13FB3F452267}
 		{0BE9E75F-5DEC-4DC0-86F0-B5267975A689} = {D6804BFD-8BD7-4EFB-81AC-13FB3F452267}
+		{4E21198F-5B6C-4557-9664-2FF5E7B44B51} = {D6804BFD-8BD7-4EFB-81AC-13FB3F452267}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E394BB55-5333-4ABF-B4E9-BEAC4395597E}

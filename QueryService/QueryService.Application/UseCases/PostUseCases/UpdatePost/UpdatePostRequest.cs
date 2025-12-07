@@ -15,6 +15,8 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
     public record UpdatePostRequest(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         UpdatePostRequest_Content? Content,
         IReadOnlyList<UpdatePostRequest_Media> Media
     );

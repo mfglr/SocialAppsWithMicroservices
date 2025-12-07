@@ -13,12 +13,13 @@ namespace MediaService.Workers
 
         public async Task Consume(ConsumeContext<PostCreatedEvent> context)
         {
+            if (context.Message.Media.Count == 0) return;
             var client = _mediator.CreateRequestClient<CreateMediaRequest>();
             var response = await client.GetResponse<CreateMediaResponse>(
                 new(
                     context.Message.Id,
                     context.Message.Media.Select(
-                        x => new CreateMediadRequest_Media(
+                        x => new CreateMediaRequest_Media(
                             x.ContainerName,
                             x.BlobName,
                             x.Type

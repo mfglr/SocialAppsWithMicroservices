@@ -1,19 +1,19 @@
-﻿using BlobService.Application.ApplicationServices.DeleteBlob;
+﻿using BlobService.Application.UseCases.DeleteBlob;
 using MassTransit;
 using MassTransit.Mediator;
-using Shared.Events.Media;
+using Shared.Events.PostService;
 
 namespace BlobService.Workers
 {
-    internal class DeleteBlobs(IMediator mediator) : IConsumer<MediaDeletedEvent>
+    internal class DeleteBlobs(IMediator mediator) : IConsumer<PostMediaDeletedEvent>
     {
         private readonly IMediator _mediator = mediator;
 
-        public Task Consume(ConsumeContext<MediaDeletedEvent> context) =>
+        public Task Consume(ConsumeContext<PostMediaDeletedEvent> context) =>
             _mediator.Send(
-                new DeleteBlobDto(
-                    context.Message.ContainerName,
-                    context.Message.BlobNames
+                new DeleteBlobRequest(
+                    context.Message.DeletedMedia.ContainerName,
+                    context.Message.DeletedMedia.BlobNames
                 ),
                 context.CancellationToken
             );

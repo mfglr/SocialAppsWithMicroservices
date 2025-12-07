@@ -8,9 +8,9 @@ namespace QueryService.Domain.PostDomain
         public string BlobName { get; private set; } = null!;
         public MediaType Type { get; private set; }
         public string? TranscodedBlobName { get; private set; }
-        public Metadata Metadata { get; private set; }
+        public Metadata Metadata { get; private set; } = null!;
         public ModerationResult? ModerationResult { get; private set; }
-        public IReadOnlyList<Thumbnail> Thumbnails { get; private set; } = null!;
+        public List<Thumbnail> Thumbnails { get; private set; } = null!;
 
         public bool IsValidVersion => ModerationResult != null;
 

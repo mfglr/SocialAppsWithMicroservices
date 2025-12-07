@@ -22,8 +22,8 @@ namespace PostService.Workers
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<SetPostContentModerationResultPostService>();
-                    x.AddConsumer<SetPostMediaPostService>();
+                    x.AddConsumer<SetPostContentModerationResult_PostService>();
+                    x.AddConsumer<SetPostMedia_PostService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {
@@ -35,24 +35,24 @@ namespace PostService.Workers
 
                         var retryLimit = 5;
 
-                        cfg.ReceiveEndpoint("SetPostContentModerationResultPostService", e =>
+                        cfg.ReceiveEndpoint("SetPostContentModerationResult_PostService", e =>
                         {
                             e.UseMessageRetry(rc =>
                             {
                                 rc.Immediate(retryLimit);
                                 rc.Handle<AppConcurrencyException>();
                             });
-                            e.ConfigureConsumer<SetPostContentModerationResultPostService>(context);
+                            e.ConfigureConsumer<SetPostContentModerationResult_PostService>(context);
                         });
 
-                        cfg.ReceiveEndpoint("SetPostMediaPostService", e =>
+                        cfg.ReceiveEndpoint("SetPostMedia_PostService", e =>
                         {
                             e.UseMessageRetry(rc =>
                             {
                                 rc.Immediate(retryLimit);
                                 rc.Handle<AppConcurrencyException>();
                             });
-                            e.ConfigureConsumer<SetPostMediaPostService>(context);
+                            e.ConfigureConsumer<SetPostMedia_PostService>(context);
                         });
                     });
 

@@ -45,5 +45,26 @@ namespace PostService.Infrastructure
             var content = await message.Content.ReadAsStringAsync(cancellationToken);
             return JsonSerializer.Deserialize<List<string>>(content)!;
         }
+
+        public async Task<string> UploadAsync(string containerName, IFormFile file, CancellationToken cancellationToken)
+        {
+            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
+            var address = $"{baseAddress}/upload";
+            var client = new HttpClient();
+            var form = new MultipartFormDataContent { { new StringContent(containerName), "containerName" } };
+
+            List<Stream> streams = [];
+
+            var stream = file.OpenReadStream();
+            streams.Add(stream);
+            var streamContent = new StreamContent(stream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
+            form.Add(streamContent, "media", "media");
+
+            var message = await client.PostAsync(address, form, cancellationToken);
+           
+            var content = await message.Content.ReadAsStringAsync(cancellationToken);
+            return JsonSerializer.Deserialize<List<string>>(content)!.First();
+        }
     }
 }

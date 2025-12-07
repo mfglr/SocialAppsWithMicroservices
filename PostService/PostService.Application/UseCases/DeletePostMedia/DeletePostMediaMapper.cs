@@ -24,6 +24,8 @@ namespace PostService.Application.UseCases.DeletePostMedia
             new(
                 post.Id,
                 post.Version,
+                post.CreatedAt,
+                post.UpdatedAt,
                 Map(post.Content),
                 [..post.Media.Select(Map)],
                 Map(deletedMedia)

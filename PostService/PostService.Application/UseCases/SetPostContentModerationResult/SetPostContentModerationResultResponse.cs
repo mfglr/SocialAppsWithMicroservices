@@ -15,6 +15,8 @@ namespace PostService.Application.UseCases.SetPostContentModerationResult
     public record SetPostContentModerationResultResponse(
         Guid Id,
         int Version,
+        DateTime CreatedAt,
+        DateTime? UpdatedAt,
         SetPostContentModerationResultResponse_Content Content,
         IReadOnlyList<SetPostContentModerationResultResponse_Media> Media
     );
