@@ -9,7 +9,8 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
         {
             CreateMap<UpdatePostRequest_Content, Content>();
             CreateMap<UpdatePostRequest_Media, Media>();
-            CreateMap<UpdatePostRequest, Post>();
+            CreateMap<UpdatePostRequest, Post>()
+                .BeforeMap((request,post) => request.Media.RemoveAll(x => x.IsDeleted));
         }
     }
 }

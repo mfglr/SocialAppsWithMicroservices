@@ -4,6 +4,7 @@ using MassTransit.Mediator;
 using Microsoft.AspNetCore.Mvc;
 using PostService.Application.UseCases.CreatePost;
 using PostService.Application.UseCases.CreatePostMedia;
+using PostService.Application.UseCases.DeletePost;
 using PostService.Application.UseCases.DeletePostMedia;
 using PostService.Application.UseCases.UpdatePostContent;
 using Shared.Events.PostService;
@@ -33,10 +34,10 @@ namespace PostService.Api.Controllers
         }
 
         [HttpPut]
-        public async Task CreateMedia([FromForm] Guid id, [FromForm] IFormFileCollection media, [FromForm] int index, CancellationToken cancellationToken)
+        public async Task CreateMedia([FromForm] Guid id, [FromForm] IFormFileCollection media, [FromForm] string? offset, CancellationToken cancellationToken)
         {
             var client = _mediator.CreateRequestClient<CreatePostMediaRequest>();
-            var response = await client.GetResponse<CreatePostMediaResponse>(new CreatePostMediaRequest(id, media, index), cancellationToken);
+            var response = await client.GetResponse<CreatePostMediaResponse>(new CreatePostMediaRequest(id, media, offset), cancellationToken);
 
             await _publishEndpoint.Publish(
                 _mapper.Map<CreatePostMediaResponse, PostMediaCreatedEvent>(response.Message),
@@ -66,6 +67,18 @@ namespace PostService.Api.Controllers
             );
         }
 
-        
+        [HttpDelete("{id:guid}")]
+        public async Task Delete(Guid id, CancellationToken cancellationToken)
+        {
+            var client = _mediator.CreateRequestClient<DeletePostRequest>();
+            var response = await client.GetResponse<DeletePostResponse>(
+                new DeletePostRequest(id),
+                cancellationToken
+            );
+            await _publishEndpoint.Publish(
+                _mapper.Map<DeletePostResponse, PostDeletedEvent>(response.Message),
+                cancellationToken
+            );
+        }
     }
 }

@@ -15,5 +15,10 @@ namespace QueryService.Infrastructure
 
         public Task<Post?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
             _sqlContext.Posts.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+        public Task<Post?> GetAsNoTrackingByIdAsync(Guid id, CancellationToken cancellationToken) =>
+            _sqlContext.Posts
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 }

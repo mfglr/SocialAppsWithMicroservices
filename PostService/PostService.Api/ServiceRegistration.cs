@@ -11,7 +11,8 @@ namespace PostService.Api
                     cfg => {
                         cfg.LicenseKey = configuration["AutoMapper:LicenseKey"]!;
                     },
-                    Assembly.GetExecutingAssembly()
+                    Assembly.GetExecutingAssembly(),
+                    Assembly.GetAssembly(typeof(Application.ServiceRegistration))
                 );
 
         public static IServiceCollection AddMassTransit(this IServiceCollection services, IConfiguration configuration) =>

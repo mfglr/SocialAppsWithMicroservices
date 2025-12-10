@@ -18,6 +18,7 @@ namespace PostService.Infrastructure
                 cm.MapMember(q => q.Version);
                 cm.MapMember(q => q.Content);
                 cm.MapMember(q => q.Media);
+                cm.MapMember(q => q.IsDeleted);
             });
         }
     }

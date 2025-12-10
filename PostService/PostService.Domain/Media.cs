@@ -12,16 +12,10 @@ namespace PostService.Domain
         public Metadata? Metadata { get; private set; }
         public ModerationResult? ModerationResult { get; private set; }
         public IReadOnlyList<Thumbnail> Thumbnails { get; private set; }
-
-        public bool IsValidVersion =>
-            Metadata != null &&
-            Metadata.Duration <= 180 &&
-            ModerationResult != null &&
-            Thumbnails.Count == 2 &&
-            (Type == MediaType.Image || TranscodedBlobName != null);
+        public bool IsDeleted { get; private set; }
 
         [JsonConstructor]
-        private Media(string containerName, string blobName, MediaType type, string? transcodedBlobName, Metadata? metadata, ModerationResult? moderationResult, IReadOnlyList<Thumbnail> thumbnails)
+        private Media(string containerName, string blobName, MediaType type, string? transcodedBlobName, Metadata? metadata, ModerationResult? moderationResult, IReadOnlyList<Thumbnail> thumbnails, bool isDeleted)
         {
             ContainerName = containerName;
             BlobName = blobName;
@@ -30,6 +24,7 @@ namespace PostService.Domain
             Metadata = metadata;
             ModerationResult = moderationResult;
             Thumbnails = thumbnails;
+            IsDeleted = isDeleted;
         }
 
         public Media(string blobName, MediaType type)
@@ -40,11 +35,8 @@ namespace PostService.Domain
             Thumbnails = [];
         }
 
-        public Media Set(string? transcodedBlobName, Metadata metaData, ModerationResult? moderationResult, IEnumerable<Thumbnail> thumbnails) => new(ContainerName, BlobName, Type, transcodedBlobName, metaData, moderationResult, [.. thumbnails]);
+        public Media Set(string? transcodedBlobName, Metadata metadata, ModerationResult? moderationResult, IEnumerable<Thumbnail> thumbnails) => new(ContainerName, BlobName, Type, transcodedBlobName, metadata, moderationResult, [.. thumbnails], IsDeleted);
 
-        public IReadOnlyList<string> BlobNames =>
-            TranscodedBlobName == null
-                ? [.. Thumbnails.Select(x => x.BlobName), BlobName]
-                : [.. Thumbnails.Select(x => x.BlobName), BlobName, TranscodedBlobName];
+        public Media Delete() => new(ContainerName, BlobName, Type, TranscodedBlobName, Metadata, ModerationResult, Thumbnails, true);
     }
 }

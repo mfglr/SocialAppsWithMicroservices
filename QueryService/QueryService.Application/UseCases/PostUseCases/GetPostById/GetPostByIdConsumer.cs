@@ -12,7 +12,7 @@ namespace QueryService.Application.UseCases.PostUseCases.GetPostById
         public async Task Consume(ConsumeContext<GetPostByIdRequest> context)
         {
             var post =
-               await _postRepository.GetByIdAsync(context.Message.Id, context.CancellationToken) ??
+               await _postRepository.GetAsNoTrackingByIdAsync(context.Message.Id, context.CancellationToken) ??
                throw new Exception("Post not found exception");
             var response = _mapper.Map<Post,GetPostByIdResponse>(post);
             await context.RespondAsync(response);

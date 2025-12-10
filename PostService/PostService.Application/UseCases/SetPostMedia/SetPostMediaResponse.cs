@@ -10,13 +10,15 @@ namespace PostService.Application.UseCases.SetPostMedia
         string? TranscodedBlobName,
         Metadata? Metadata,
         ModerationResult? ModerationResult,
-        IReadOnlyList<Thumbnail> Thumbnails
+        IReadOnlyList<Thumbnail> Thumbnails,
+        bool IsDeleted
     );
     public record SetPostMediaResponse(
         Guid Id,
-        int Version,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        bool IsDeleted,
+        int Version,
         SetPostMediaResponse_Content? Content,
         IReadOnlyList<SetPostMediaResponse_Media> Media
     );

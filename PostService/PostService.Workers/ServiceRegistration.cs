@@ -1,6 +1,8 @@
 ﻿using MassTransit;
 using PostService.Infrastructure;
 using PostService.Workers;
+using PostService.Workers.Consumers.SetPostContentModerationResult;
+using PostService.Workers.Consumers.SetPostMedia;
 using System.Reflection;
 
 namespace PostService.Workers

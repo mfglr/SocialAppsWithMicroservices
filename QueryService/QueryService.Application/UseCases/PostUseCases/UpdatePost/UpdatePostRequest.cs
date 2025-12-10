@@ -10,14 +10,22 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
         string? TranscodedBlobName,
         Metadata Metadata,
         ModerationResult ModerationResult,
-        IReadOnlyList<Thumbnail> Thumbnails
-    );
+        IReadOnlyList<Thumbnail> Thumbnails,
+        bool IsDeleted
+    )
+    {
+        public bool IsValidVersion => ModerationResult != null;
+    }
     public record UpdatePostRequest(
         Guid Id,
-        int Version,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        bool IsDeleted,
+        int Version,
         UpdatePostRequest_Content? Content,
-        IReadOnlyList<UpdatePostRequest_Media> Media
-    );
+        List<UpdatePostRequest_Media> Media
+    )
+    {
+        public bool IsValidVersion => !Media.Any(x => !x.IsValidVersion);
+    }
 }

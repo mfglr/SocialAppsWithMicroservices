@@ -13,13 +13,15 @@ namespace Shared.Events.PostService
         string? TranscodedBlobName,
         Metadata? Metadata,
         ModerationResult? ModerationResult,
-        IReadOnlyList<Thumbnail> Thumbnails
+        IReadOnlyList<Thumbnail> Thumbnails,
+        bool IsDeleted
     );
     public record PostContentModerationResultSetEvent(
         Guid Id,
-        int Version,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        int Version,
+        bool IsDeleted,
         PostContentModerationResultSetEvent_Content? Content,
         IReadOnlyList<PostContentModerationResultSetEvent_Media> Media
     );

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MassTransit;
+using PostService.Application.Exceptions;
 using PostService.Domain;
 
 namespace PostService.Application.UseCases.SetPostMedia
@@ -11,7 +12,10 @@ namespace PostService.Application.UseCases.SetPostMedia
 
         public async Task Consume(ConsumeContext<SetPostMediaRequest> context)
         {
-            var post = (await _postRepository.GetByIdAsync(context.Message.OwnerId, context.CancellationToken))!;
+            var post =
+                await _postRepository.GetByIdAsync(context.Message.OwnerId, context.CancellationToken) ??
+                throw new PostNotFoundException();
+
             post.SetMedia(
                 context.Message.BlobName,
                 context.Message.TranscodedBlobName,

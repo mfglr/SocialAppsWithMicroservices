@@ -10,15 +10,16 @@ namespace PostService.Application.UseCases.DeletePostMedia
         string? TranscodedBlobName,
         Metadata Metadata,
         ModerationResult ModerationResult,
-        IReadOnlyList<Thumbnail> Thumbnails
+        IReadOnlyList<Thumbnail> Thumbnails,
+        bool IsDeleted
     );
     public record DeletePostMediaResponse(
         Guid Id,
-        int Version,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        int Version,
+        bool IsDeleted,
         DeletePostMediaResponse_Content? Content,
-        IReadOnlyList<DeletePostMediaResponse_Media> Media,
-        DeletePostMediaResponse_Media DeletedMedia
+        IReadOnlyList<DeletePostMediaResponse_Media> Media
     );
 }

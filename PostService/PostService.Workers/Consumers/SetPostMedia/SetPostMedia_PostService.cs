@@ -5,7 +5,7 @@ using PostService.Application.UseCases.SetPostMedia;
 using Shared.Events.Media;
 using Shared.Events.PostService;
 
-namespace PostService.Workers
+namespace PostService.Workers.Consumers.SetPostMedia
 {
     internal class SetPostMedia_PostService(IMapper mapper, IPublishEndpoint publishEndpoint, IMediator mediator) : IConsumer<MediaPreprocessingCompletedEvent>
     {
@@ -21,7 +21,6 @@ namespace PostService.Workers
                 request,
                 context.CancellationToken
             );
-
             await _publishEndpoint
                 .Publish(
                     _mapper.Map<SetPostMediaResponse, PostMediaSetEvent>(response.Message),

@@ -4,7 +4,7 @@ using MassTransit.Mediator;
 using QueryService.Application.UseCases.PostUseCases.UpdatePost;
 using Shared.Events.PostService;
 
-namespace QueryService.Workers.PostDomain
+namespace QueryService.Workers.Consumers.PostDomain.SetPostMedia
 {
     internal class SetPostMedia_QueryService(IMediator mediator, IMapper mapper) : IConsumer<PostMediaSetEvent>
     {

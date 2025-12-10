@@ -2,5 +2,5 @@
 
 namespace PostService.Application.UseCases.CreatePostMedia
 {
-    public record CreatePostMediaRequest(Guid Id, IFormFileCollection Media, int Index);
+    public record CreatePostMediaRequest(Guid Id, IFormFileCollection Media, string? Offset);
 }

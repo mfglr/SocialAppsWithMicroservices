@@ -15,16 +15,5 @@ namespace QueryService.Domain.PostDomain
         public bool IsValidVersion => ModerationResult != null;
 
         private Media() { }
-
-        public Media(string containerName, string blobName, MediaType type, string? transcodedBlobName, Metadata metadata, ModerationResult? moderationResult, IEnumerable<Thumbnail> thumbnails)
-        {
-            ContainerName = containerName;
-            BlobName = blobName;
-            Type = type;
-            TranscodedBlobName = transcodedBlobName;
-            Metadata = metadata;
-            ModerationResult = moderationResult;
-            Thumbnails = [..thumbnails];
-        }
     }
 }

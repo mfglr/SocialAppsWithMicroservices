@@ -5,5 +5,6 @@
         Task CreateAsync(Post post, CancellationToken cancellationToken);
         void Delete(Post post);
         Task<Post?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<Post?> GetAsNoTrackingByIdAsync(Guid id, CancellationToken cancellationToken);
     }
 }

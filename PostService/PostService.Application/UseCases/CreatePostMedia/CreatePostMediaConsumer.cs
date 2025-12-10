@@ -1,10 +1,11 @@
 ﻿using MassTransit;
+using PostService.Application.Exceptions;
 using PostService.Application.UseCases.CreatePost;
 using PostService.Domain;
 
 namespace PostService.Application.UseCases.CreatePostMedia
 {
-    internal class CreatePostMediaRequestConsumer(IBlobService blobService, IPostRepository postRepository) : IConsumer<CreatePostMediaRequest>
+    internal class CreatePostMediaConsumer(IBlobService blobService, IPostRepository postRepository) : IConsumer<CreatePostMediaRequest>
     {
         private readonly IBlobService _blobService = blobService;
         private readonly IPostRepository _postRepository = postRepository;
@@ -15,14 +16,18 @@ namespace PostService.Application.UseCases.CreatePostMedia
 
             var post = 
                 await _postRepository.GetByIdAsync(context.Message.Id, context.CancellationToken) ??
-                throw new Exception("Post not found!");
+                throw new PostNotFoundException();
+
+            if (post.IsDeleted)
+                throw new PostNotFoundException();
+
             var blobNames = await _blobService.UploadAsync(Post.MediaContainerName, context.Message.Media, context.CancellationToken);
 
             var media = CreatePostHelpers.GenerateMedia(types, blobNames);
 
             try
             {
-                post.AddMedia(media,context.Message.Index);
+                post.AddMedia(media,context.Message.Offset);
                 await _postRepository.UpdateAsync(post, context.CancellationToken);
                 await context.RespondAsync(CreatePostMediaMapper.ToCreatePostMediaResponse(post.Id, media));
             }
