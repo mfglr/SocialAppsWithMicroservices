@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using QueryService.Domain.CommentDomain;
 using QueryService.Domain.PostDomain;
 using System.Reflection;
 
@@ -8,6 +9,7 @@ namespace QueryService.Infrastructure
     internal class SqlContext(DbContextOptions<SqlContext> options) : DbContext(options)
     {
         public DbSet<Post> Posts { get; private set; }
+        public DbSet<Comment> Comments { get; private set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

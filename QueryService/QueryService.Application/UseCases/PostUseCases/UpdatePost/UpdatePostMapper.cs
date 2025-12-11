@@ -7,7 +7,7 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
     {
         public UpdatePostMapper()
         {
-            CreateMap<UpdatePostRequest_Content, Content>();
+            CreateMap<UpdatePostRequest_Content, PostContent>();
             CreateMap<UpdatePostRequest_Media, Media>();
             CreateMap<UpdatePostRequest, Post>()
                 .BeforeMap((request,post) => request.Media.RemoveAll(x => x.IsDeleted));

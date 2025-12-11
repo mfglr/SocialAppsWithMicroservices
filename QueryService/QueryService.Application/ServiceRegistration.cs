@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
+using QueryService.Application.UseCases.CommentUseCases.UpdateComent;
 using QueryService.Application.UseCases.PostUseCases.GetPostById;
 using QueryService.Application.UseCases.PostUseCases.UpdatePost;
 
@@ -12,6 +13,8 @@ namespace QueryService.Application
             {
                 cfg.AddConsumer<UpdatePostConsumer>();
                 cfg.AddConsumer<GetPostByIdConsumer>();
+
+                cfg.AddConsumer<UpdateCommentConsumer>();
             });
     }
 }

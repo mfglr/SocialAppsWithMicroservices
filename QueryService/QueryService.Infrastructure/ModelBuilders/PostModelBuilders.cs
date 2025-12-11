@@ -13,7 +13,6 @@ namespace QueryService.Infrastructure.ModelBuilders
                     x => x.Content,
                     x => {
                         x.OwnsOne(x => x.ModerationResult);
-                        x.ToJson();
                     }
                 );
 

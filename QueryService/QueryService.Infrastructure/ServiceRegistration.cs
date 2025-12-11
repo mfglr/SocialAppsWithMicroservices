@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QueryService.Application;
+using QueryService.Domain.CommentDomain;
 using QueryService.Domain.PostDomain;
 
 namespace QueryService.Infrastructure
@@ -12,6 +13,7 @@ namespace QueryService.Infrastructure
             services
                 .AddDbContext<SqlContext>(x => x.UseSqlServer(configuration.GetConnectionString("SqlServer")))
                 .AddScoped<IPostRepository,PostRepository>()
+                .AddScoped<ICommentRepository,CommentRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

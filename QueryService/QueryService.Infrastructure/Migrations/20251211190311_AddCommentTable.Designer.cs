@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QueryService.Infrastructure;
 
@@ -11,9 +12,11 @@ using QueryService.Infrastructure;
 namespace QueryService.Infrastructure.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20251211190311_AddCommentTable")]
+    partial class AddCommentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,36 +238,31 @@ namespace QueryService.Infrastructure.Migrations
 
                     b.OwnsOne("QueryService.Domain.PostDomain.PostContent", "Content", b1 =>
                         {
-                            b1.Property<Guid>("PostId")
-                                .HasColumnType("uniqueidentifier");
+                            b1.Property<Guid>("PostId");
 
                             b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                                .IsRequired();
 
                             b1.HasKey("PostId");
 
                             b1.ToTable("Posts");
+
+                            b1.ToJson("Content");
 
                             b1.WithOwner()
                                 .HasForeignKey("PostId");
 
                             b1.OwnsOne("Shared.Objects.ModerationResult", "ModerationResult", b2 =>
                                 {
-                                    b2.Property<Guid>("PostContentPostId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<Guid>("PostContentPostId");
 
-                                    b2.Property<int>("Hate")
-                                        .HasColumnType("int");
+                                    b2.Property<int>("Hate");
 
-                                    b2.Property<int>("SelfHarm")
-                                        .HasColumnType("int");
+                                    b2.Property<int>("SelfHarm");
 
-                                    b2.Property<int>("Sexual")
-                                        .HasColumnType("int");
+                                    b2.Property<int>("Sexual");
 
-                                    b2.Property<int>("Violence")
-                                        .HasColumnType("int");
+                                    b2.Property<int>("Violence");
 
                                     b2.HasKey("PostContentPostId");
 
