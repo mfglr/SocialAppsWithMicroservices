@@ -1,7 +1,7 @@
 ﻿using MassTransit;
-using PostService.Application.Exceptions;
 using PostService.Application.UseCases.CreatePost;
 using PostService.Domain;
+using PostService.Domain.Exceptions;
 
 namespace PostService.Application.UseCases.CreatePostMedia
 {
@@ -16,9 +16,6 @@ namespace PostService.Application.UseCases.CreatePostMedia
 
             var post = 
                 await _postRepository.GetByIdAsync(context.Message.Id, context.CancellationToken) ??
-                throw new PostNotFoundException();
-
-            if (post.IsDeleted)
                 throw new PostNotFoundException();
 
             var blobNames = await _blobService.UploadAsync(Post.MediaContainerName, context.Message.Media, context.CancellationToken);

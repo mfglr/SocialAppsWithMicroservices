@@ -3,22 +3,21 @@ using MassTransit;
 using PostService.Domain;
 using PostService.Domain.Exceptions;
 
-namespace PostService.Application.UseCases.DeletePostMedia
+namespace PostService.Application.UseCases.RestorePost
 {
-    internal class DeletePostMediaConsumer(IPostRepository postRepository, IMapper mapper) : IConsumer<DeletePostMediaRequest>
+    internal class RestorePostConsumer(IPostRepository postRepository, IMapper mapper) : IConsumer<RestorePostRequest>
     {
         private readonly IPostRepository _postRepository = postRepository;
         private readonly IMapper _mapper = mapper;
 
-        public async Task Consume(ConsumeContext<DeletePostMediaRequest> context)
+        public async Task Consume(ConsumeContext<RestorePostRequest> context)
         {
             var post =
                 await _postRepository.GetByIdAsync(context.Message.Id, context.CancellationToken) ??
                 throw new PostNotFoundException();
-
-            post.DeleMedia(context.Message.BlobName);
+            post.Restore();
             await _postRepository.UpdateAsync(post, context.CancellationToken);
-            await context.RespondAsync(_mapper.Map<Post, DeletePostMediaResponse>(post));
+            await context.RespondAsync(_mapper.Map<Post, RestorePostResponse>(post));
         }
     }
 }

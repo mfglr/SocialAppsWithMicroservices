@@ -2,7 +2,6 @@
 
 namespace CommentService.Application.UseCases.RestoreCommentReplies
 {
-
     public record RestoreCommentRepliesResponse_Content(
        string Value,
        ModerationResult ModerationResult

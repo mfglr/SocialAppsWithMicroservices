@@ -4,6 +4,7 @@ using PostService.Application.UseCases.CreatePost;
 using PostService.Application.UseCases.CreatePostMedia;
 using PostService.Application.UseCases.DeletePost;
 using PostService.Application.UseCases.DeletePostMedia;
+using PostService.Application.UseCases.RestorePost;
 using PostService.Application.UseCases.SetPostContentModerationResult;
 using PostService.Application.UseCases.SetPostMedia;
 using PostService.Application.UseCases.UpdatePostContent;
@@ -23,6 +24,7 @@ namespace PostService.Application
                     cfg.AddConsumer<CreatePostMediaConsumer>();
                     cfg.AddConsumer<UpdatePostContentConsumer>();
                     cfg.AddConsumer<DeletePostConsumer>();
+                    cfg.AddConsumer<RestorePostConsumer>();
                 });
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MassTransit;
-using PostService.Application.Exceptions;
 using PostService.Domain;
+using PostService.Domain.Exceptions;
 
 namespace PostService.Application.UseCases.DeletePost
 {
@@ -13,9 +13,6 @@ namespace PostService.Application.UseCases.DeletePost
         {
             var post =
                 await _postRepository.GetByIdAsync(context.Message.Id, context.CancellationToken) ??
-                throw new PostNotFoundException();
-
-            if (post.IsDeleted)
                 throw new PostNotFoundException();
 
             post.Delete();

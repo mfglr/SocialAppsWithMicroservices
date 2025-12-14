@@ -5,6 +5,7 @@ using QueryService.Workers.Consumers.CommentDomain.RestoreComment;
 using QueryService.Workers.Consumers.CommentDomain.SetCommentContentModerationResult;
 using QueryService.Workers.Consumers.PostDomain.DeletePost;
 using QueryService.Workers.Consumers.PostDomain.DeletePostMedia;
+using QueryService.Workers.Consumers.PostDomain.RestorePost;
 using QueryService.Workers.Consumers.PostDomain.SetPostContentModerationResult;
 using QueryService.Workers.Consumers.PostDomain.SetPostMedia;
 using System.Reflection;
@@ -31,6 +32,7 @@ namespace QueryService.Workers
                     x.AddConsumer<SetPostMedia_QueryService>();
                     x.AddConsumer<DeletePostMedia_QueryService>();
                     x.AddConsumer<DeletePost_QueryService>();
+                    x.AddConsumer<RestorePost>();
 
                     x.AddConsumer<SetCommentContentModerationResult_QueryService>();
                     x.AddConsumer<DeleteComment>();

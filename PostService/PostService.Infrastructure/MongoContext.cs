@@ -14,6 +14,9 @@ namespace PostService.Infrastructure
             Client = new MongoClient(configuration["MongoDbSettings:ConnectionString"]!);
             var database = Client.GetDatabase(configuration["MongoDbSettings:DatabaseName"]!);
             Posts = database.GetCollection<Post>("posts");
+
+            //var indexModel = new CreateIndexModel<Post>(Builders<Post>.IndexKeys.Ascending(m => m.UserId));
+            //Posts.Indexes.CreateOne(indexModel);
         }
 
     }

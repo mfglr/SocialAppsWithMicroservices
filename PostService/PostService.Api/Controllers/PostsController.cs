@@ -6,6 +6,7 @@ using PostService.Application.UseCases.CreatePost;
 using PostService.Application.UseCases.CreatePostMedia;
 using PostService.Application.UseCases.DeletePost;
 using PostService.Application.UseCases.DeletePostMedia;
+using PostService.Application.UseCases.RestorePost;
 using PostService.Application.UseCases.UpdatePostContent;
 using Shared.Events.PostService;
 
@@ -77,6 +78,17 @@ namespace PostService.Api.Controllers
             );
             await _publishEndpoint.Publish(
                 _mapper.Map<DeletePostResponse, PostDeletedEvent>(response.Message),
+                cancellationToken
+            );
+        }
+
+        [HttpPut]
+        public async Task Restore(RestorePostRequest request, CancellationToken cancellationToken)
+        {
+            var client = _mediator.CreateRequestClient<RestorePostRequest>();
+            var response = await client.GetResponse<RestorePostResponse>(request,cancellationToken);
+            await _publishEndpoint.Publish(
+                _mapper.Map<RestorePostResponse,PostRestoredEvent>(response.Message),
                 cancellationToken
             );
         }

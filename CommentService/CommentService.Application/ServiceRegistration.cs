@@ -4,6 +4,7 @@ using CommentService.Application.UseCases.DeleteComment;
 using CommentService.Application.UseCases.DeletePostComments;
 using CommentService.Application.UseCases.RestoreComment;
 using CommentService.Application.UseCases.RestoreCommentReplies;
+using CommentService.Application.UseCases.RestorePostComments;
 using CommentService.Application.UseCases.SetCommentContentModerationResult;
 using CommentService.Application.UseCases.UpdateCommentContent;
 using CommentService.Domain;
@@ -27,6 +28,7 @@ namespace CommentService.Application
                     cfg.AddConsumer<RestoreCommentConsumer>();
                     cfg.AddConsumer<RestoreCommentRepliesConsumer>();
                     cfg.AddConsumer<DeletePostCommentsConsumer>();
+                    cfg.AddConsumer<RestorePostCommentsConsumer>();
                 });
     }
 }

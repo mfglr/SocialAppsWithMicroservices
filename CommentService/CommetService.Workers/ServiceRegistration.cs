@@ -1,6 +1,7 @@
 ﻿using CommetService.Workers;
 using CommetService.Workers.Consumers.DeletePostCommentsOnPostDeleted;
 using CommetService.Workers.Consumers.DeleteRepliesOnCommentDeleted;
+using CommetService.Workers.Consumers.RestorePostCommentsOnPostRestored;
 using CommetService.Workers.Consumers.RestoreRepliesOnCommentRestored;
 using CommetService.Workers.Consumers.SetCommentContentModerationResult;
 using MassTransit;
@@ -28,6 +29,7 @@ namespace CommetService.Workers
                     x.AddConsumer<DeleteRepliesOnCommentDeleted>();
                     x.AddConsumer<RestoreRepliesOnCommentRestored>();
                     x.AddConsumer<DeletePostCommentsOnPostDeleted>();
+                    x.AddConsumer<RestorePostCommentsOnPostRestored>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

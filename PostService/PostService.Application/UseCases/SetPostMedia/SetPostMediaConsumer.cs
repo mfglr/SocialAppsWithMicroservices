@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MassTransit;
-using PostService.Application.Exceptions;
 using PostService.Domain;
+using PostService.Domain.Exceptions;
 
 namespace PostService.Application.UseCases.SetPostMedia
 {

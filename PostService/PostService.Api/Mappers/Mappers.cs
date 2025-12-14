@@ -3,14 +3,15 @@ using PostService.Application.UseCases.CreatePost;
 using PostService.Application.UseCases.CreatePostMedia;
 using PostService.Application.UseCases.DeletePost;
 using PostService.Application.UseCases.DeletePostMedia;
+using PostService.Application.UseCases.RestorePost;
 using PostService.Domain;
 using Shared.Events.PostService;
 
-namespace PostService.Api.MappingProfiles
+namespace PostService.Api.Mappers
 {
-    public class MappingProfile : Profile
+    public class Mappers : Profile
     {
-        public MappingProfile()
+        public Mappers()
         {
             CreateMap<Content, CreatePostResponse_Content>();
             CreateMap<Media, CreatePostResponse_Media>();
@@ -30,6 +31,10 @@ namespace PostService.Api.MappingProfiles
             CreateMap<DeletePostResponse_Content, PostDeletedEvent_Content>();
             CreateMap<DeletePostResponse_Media, PostDeletedEvent_Media>();
             CreateMap<DeletePostResponse, PostDeletedEvent>();
+
+            CreateMap<RestorePostResponse_Content, PostRestoredEvent_Content>();
+            CreateMap<RestorePostResponse_Media, PostRestoredEvent_Media>();
+            CreateMap<RestorePostResponse, PostRestoredEvent>();
         }
     }
 }
