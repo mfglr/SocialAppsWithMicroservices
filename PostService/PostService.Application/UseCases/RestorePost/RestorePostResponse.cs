@@ -17,6 +17,7 @@ namespace PostService.Application.UseCases.RestorePost
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        Guid UserId,
         int Version,
         bool IsDeleted,
         RestorePostResponse_Content? Content,

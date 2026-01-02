@@ -13,21 +13,20 @@ using Shared.Events.PostService;
 
 namespace PostService.Api.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class PostsController(IMediator mediator, IPublishEndpoint publishEndpoint, IMapper mapper) : ControllerBase
     {
-
         private readonly IMediator _mediator = mediator;
         private readonly IMapper _mapper = mapper;
         private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
 
-        [Authorize("Password", Roles = "user")]
+        [Authorize("user")]
         [HttpPost]
-        public async Task<Guid> Create([FromForm] string content, [FromForm] IFormFileCollection media, CancellationToken cancellationToken)
+        public async Task<Guid> Create([FromForm] CreatePostRequest request, CancellationToken cancellationToken)
         {
             var client = _mediator.CreateRequestClient<CreatePostRequest>();
-            var response = await client.GetResponse<CreatePostResponse>(new(content, media), cancellationToken);
+            var response = await client.GetResponse<CreatePostResponse>(request, cancellationToken);
 
             await _publishEndpoint.Publish(
                 _mapper.Map<CreatePostResponse,PostCreatedEvent>(response.Message),
@@ -36,12 +35,12 @@ namespace PostService.Api.Controllers
             return response.Message.Id;
         }
 
-        [Authorize("Password", Roles = "user")]
+        [Authorize("user")]
         [HttpPut]
-        public async Task CreateMedia([FromForm] Guid id, [FromForm] IFormFileCollection media, [FromForm] string? offset, CancellationToken cancellationToken)
+        public async Task CreateMedia([FromForm] CreatePostMediaRequest request, CancellationToken cancellationToken)
         {
             var client = _mediator.CreateRequestClient<CreatePostMediaRequest>();
-            var response = await client.GetResponse<CreatePostMediaResponse>(new CreatePostMediaRequest(id, media, offset), cancellationToken);
+            var response = await client.GetResponse<CreatePostMediaResponse>(request, cancellationToken);
 
             await _publishEndpoint.Publish(
                 _mapper.Map<CreatePostMediaResponse, PostMediaCreatedEvent>(response.Message),
@@ -49,7 +48,7 @@ namespace PostService.Api.Controllers
             );
         }
 
-        [Authorize("Password", Roles = "user")]
+        [Authorize("user")]
         [HttpPut]
         public async Task DeleteMedia(DeletePostMediaRequest request, CancellationToken cancellationToken)
         {
@@ -62,7 +61,7 @@ namespace PostService.Api.Controllers
             );
         }
 
-        [Authorize("Password", Roles = "user")]
+        [Authorize("user")]
         [HttpPut]
         public async Task UpdateContent(UpdatePostContentRequest request, CancellationToken cancellationToken)
         {
@@ -73,7 +72,7 @@ namespace PostService.Api.Controllers
             );
         }
 
-        [Authorize("Password", Roles = "user, admin")]
+        [Authorize("adminOrUser")]
         [HttpDelete("{id:guid}")]
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
@@ -88,7 +87,7 @@ namespace PostService.Api.Controllers
             );
         }
 
-        [Authorize("Password", Roles = "admin")]
+        [Authorize("admin")]
         [HttpPut]
         public async Task Restore(RestorePostRequest request, CancellationToken cancellationToken)
         {

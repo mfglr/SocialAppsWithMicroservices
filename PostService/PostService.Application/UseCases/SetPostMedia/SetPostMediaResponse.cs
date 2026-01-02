@@ -17,6 +17,7 @@ namespace PostService.Application.UseCases.SetPostMedia
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        Guid UserId,
         bool IsDeleted,
         int Version,
         SetPostMediaResponse_Content? Content,

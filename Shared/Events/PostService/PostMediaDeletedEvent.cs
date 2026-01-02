@@ -17,6 +17,7 @@ namespace Shared.Events.PostService
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        Guid UserId,
         int Version,
         bool IsDeleted,
         PostMediaDeletedEvent_Content? Content,

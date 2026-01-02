@@ -23,7 +23,7 @@ namespace QueryService.Infrastructure
         public SqlContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<SqlContext>();
-            builder.UseSqlServer("Server=localhost;Database=AppQueryDB;User Id=sa;Password=123456789Abc*;TrustServerCertificate=True;");
+            builder.UseSqlServer("Server=localhost; Database=AppQueryDB; User Id=sa; Password=123456789Abc*;TrustServerCertificate=True;");
             return new SqlContext(builder.Options);
         }
     }

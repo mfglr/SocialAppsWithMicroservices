@@ -20,6 +20,7 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        Guid UserId,
         bool IsDeleted,
         int Version,
         UpdatePostRequest_Content? Content,

@@ -46,6 +46,7 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
                 context.Message.Id,
                 context.Message.CreatedAt,
                 context.Message.UpdatedAt,
+                context.Message.UserId,
                 context.Message.Version,
                 content,
                 media

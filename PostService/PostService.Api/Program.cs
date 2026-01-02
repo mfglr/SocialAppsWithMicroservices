@@ -1,5 +1,5 @@
 using PostService.Infrastructure;
-using PostService.Api;
+using PostService.Api.ServiceRegistrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,15 +7,15 @@ DbConfiguration.Configure();
 
 builder.Services.AddControllers();
 builder.Services
-    .AddApplicationServices()
+    .AddUseCases()
     .AddInfrastructureServices(builder.Configuration)
-    .AddJwt(builder.Configuration)
+    .AddIdentity(builder.Configuration)
     .AddAutoMapper(builder.Configuration)
     .AddMassTransit(builder.Configuration);
 
 var app = builder.Build();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

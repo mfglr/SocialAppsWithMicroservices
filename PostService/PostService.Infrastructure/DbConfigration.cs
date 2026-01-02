@@ -15,6 +15,7 @@ namespace PostService.Infrastructure
                 cm.MapIdMember(q => q.Id);
                 cm.MapMember(q => q.CreatedAt);
                 cm.MapMember(q => q.UpdatedAt);
+                cm.MapMember(q => q.UserId);
                 cm.MapMember(q => q.Version);
                 cm.MapMember(q => q.Content);
                 cm.MapMember(q => q.Media);

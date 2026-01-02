@@ -17,6 +17,7 @@ namespace PostService.Application.UseCases.SetPostContentModerationResult
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        Guid UserId,
         bool IsDeleted,
         int Version,
         SetPostContentModerationResultResponse_Content Content,

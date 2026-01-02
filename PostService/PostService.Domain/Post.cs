@@ -11,12 +11,13 @@ namespace PostService.Domain
         public Guid Id { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
+        public Guid UserId { get; private set; }
         public bool IsDeleted { get; private set; }
         public int Version { get; private set; }
         public Content? Content { get; private set; }
         public IReadOnlyList<Media> Media { get; private set; }
 
-        public Post(Content? content, IReadOnlyList<Media> media)
+        public Post(Guid userId, Content? content, IReadOnlyList<Media> media)
         {
             if (media.Count <= 0)
                 throw new PostMediaRequiredException();
@@ -24,6 +25,7 @@ namespace PostService.Domain
             if (media.Count > MaxMediaCount)
                 throw new PostMediaCountException();
 
+            UserId = userId;
             Content = content;
             Media = media;
         }
@@ -32,7 +34,7 @@ namespace PostService.Domain
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;
-            Version = 0;
+            Version = 1;
             IsDeleted = false;
         }
         public void Delete()

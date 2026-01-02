@@ -91,6 +91,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Comment.Api", "CommentServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommetService.Workers", "CommentService\CommetService.Workers\CommetService.Workers.csproj", "{BC0DE7FC-F319-4A5C-A01A-A8ADC968BF4F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{18C0A591-1D3E-4F9C-8450-C6EDE4773A86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway", "Gateway\Gateway\Gateway.csproj", "{FF76C9DA-6B76-4FD9-9F19-CCA144958C00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -237,6 +241,10 @@ Global
 		{BC0DE7FC-F319-4A5C-A01A-A8ADC968BF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC0DE7FC-F319-4A5C-A01A-A8ADC968BF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC0DE7FC-F319-4A5C-A01A-A8ADC968BF4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF76C9DA-6B76-4FD9-9F19-CCA144958C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF76C9DA-6B76-4FD9-9F19-CCA144958C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF76C9DA-6B76-4FD9-9F19-CCA144958C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF76C9DA-6B76-4FD9-9F19-CCA144958C00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -276,6 +284,7 @@ Global
 		{17ED2733-7775-440E-A8CB-EDDA39992464} = {B67C5389-9E61-4BB4-9D8A-70BB277BD165}
 		{ADB7B165-4E5C-44C4-A7ED-AD0FDC664E32} = {B67C5389-9E61-4BB4-9D8A-70BB277BD165}
 		{BC0DE7FC-F319-4A5C-A01A-A8ADC968BF4F} = {B67C5389-9E61-4BB4-9D8A-70BB277BD165}
+		{FF76C9DA-6B76-4FD9-9F19-CCA144958C00} = {18C0A591-1D3E-4F9C-8450-C6EDE4773A86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E394BB55-5333-4ABF-B4E9-BEAC4395597E}

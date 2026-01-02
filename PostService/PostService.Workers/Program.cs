@@ -1,6 +1,5 @@
-using PostService.Application;
 using PostService.Infrastructure;
-using PostService.Workers;
+using PostService.Workers.ServiceRegistrations;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -9,7 +8,7 @@ DbConfiguration.Configure();
 builder.Services
     .AddAutoMapper(builder.Configuration)
     .AddMassTransit(builder.Configuration)
-    .AddApplicationServices()
+    .AddUseCases()
     .AddInfrastructureServices(builder.Configuration);
 
 var host = builder.Build();

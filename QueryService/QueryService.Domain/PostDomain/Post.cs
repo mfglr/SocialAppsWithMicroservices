@@ -1,7 +1,4 @@
-﻿using System;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace QueryService.Domain.PostDomain
+﻿namespace QueryService.Domain.PostDomain
 {
     public class Post
     {
@@ -9,6 +6,7 @@ namespace QueryService.Domain.PostDomain
         public byte[] RowVersion { get; private set; } = null!;
         public DateTime CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
+        public Guid UserId { get; private set; }
         public int Version { get; private set; }
         public PostContent? Content { get; private set; }
         public List<Media> Media { get; private set; } = [];
@@ -17,11 +15,12 @@ namespace QueryService.Domain.PostDomain
 
         private Post() { }
 
-        public Post(Guid id,DateTime createdAt, DateTime? updatedAt, int version, PostContent? content, IEnumerable<Media> media)
+        public Post(Guid id,DateTime createdAt, DateTime? updatedAt, Guid userId, int version, PostContent? content, IEnumerable<Media> media)
         {
             Id = id;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
+            UserId = userId;
             Version = version;
             Content = content;
             Media = [.. media];

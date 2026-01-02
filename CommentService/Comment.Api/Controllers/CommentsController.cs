@@ -11,7 +11,7 @@ using Shared.Events.Comment;
 
 namespace Comment.Api.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class CommentsController(IMediator mediator, IPublishEndpoint publishEndpoint, IMapper mapper) : ControllerBase
     {

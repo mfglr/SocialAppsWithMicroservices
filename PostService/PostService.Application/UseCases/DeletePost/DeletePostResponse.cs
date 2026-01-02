@@ -17,6 +17,7 @@ namespace PostService.Application.UseCases.DeletePost
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,
+        Guid UserId,
         bool IsDeleted,
         int Version,
         DeletePostResponse_Content Content,
