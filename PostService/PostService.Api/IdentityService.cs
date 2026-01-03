@@ -17,5 +17,14 @@ namespace PostService.Api
                     .Value ??
                 string.Empty
             );
+
+        public bool IsAdmin =>
+            _httpContextAccessor
+                .HttpContext?
+                .User
+                .Claims
+                .Any(x => x.Type == ClaimTypes.Role && x.Value == "admin") ?? false;
+
+        public bool IsAdminOrOwner(Guid userId) => IsAdmin || UserId == userId;
     }
 }
