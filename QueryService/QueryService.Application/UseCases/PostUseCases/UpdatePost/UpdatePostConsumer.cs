@@ -33,7 +33,9 @@ namespace QueryService.Application.UseCases.PostUseCases.UpdatePost
             var content = context.Message.Content != null
                 ? _mapper.Map<UpdatePostRequest_Content, PostContent>(context.Message.Content)
                 : null;
-            var media = _mapper.Map<IEnumerable<UpdatePostRequest_Media>, IEnumerable<Media>>(context.Message.Media);
+            var media = _mapper.Map<IEnumerable<UpdatePostRequest_Media>, IEnumerable<Media>>(
+                context.Message.Media.Where(x => !x.IsDeleted)
+            );
 
             if (prev != null)
             {
