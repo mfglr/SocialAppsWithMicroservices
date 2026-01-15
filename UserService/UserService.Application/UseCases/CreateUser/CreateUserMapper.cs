@@ -9,9 +9,9 @@ namespace UserService.Application.UseCases.CreateUser
         public CreateUserMapper()
         {
             CreateMap<User, UserCreatedEvent>()
-                .ForMember(x => x.Username, cfg => cfg.MapFrom(x => x.Username.Value))
-                .ForMember(x => x.Name, cfg => cfg.MapFrom(x => x.Name.Value))
-                .ForMember(x => x.Gender, cfg => cfg.MapFrom(x => x.Gender.Value));
+                .ForCtorParam("Username", cfg => cfg.MapFrom(x => x.Username.Value))
+                .ForCtorParam("Name", cfg => cfg.MapFrom(x => x.Name.Value))
+                .ForCtorParam("Gender", cfg => cfg.MapFrom(x => x.Gender.Value));
         }
     }
 }

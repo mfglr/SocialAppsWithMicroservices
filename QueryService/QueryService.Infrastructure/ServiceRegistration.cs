@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using QueryService.Application;
 using QueryService.Domain.CommentDomain;
 using QueryService.Domain.PostDomain;
+using QueryService.Domain.UserDomain;
 
 namespace QueryService.Infrastructure
 {
@@ -14,6 +15,7 @@ namespace QueryService.Infrastructure
                 .AddDbContext<SqlContext>(x => x.UseSqlServer(configuration.GetConnectionString("SqlServer")))
                 .AddScoped<IPostRepository,PostRepository>()
                 .AddScoped<ICommentRepository,CommentRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

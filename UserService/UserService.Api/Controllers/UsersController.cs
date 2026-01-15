@@ -13,7 +13,6 @@ namespace UserService.Api.Controllers
         private readonly ISender _sender = sender;
 
         [HttpPost]
-        [Authorize("client")]
         public Task Create(CreateUserRequest request, CancellationToken cancellationToken)
             => _sender.Send(request, cancellationToken);
 

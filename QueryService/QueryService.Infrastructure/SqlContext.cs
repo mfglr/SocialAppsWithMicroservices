@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using QueryService.Domain.CommentDomain;
 using QueryService.Domain.PostDomain;
+using QueryService.Domain.UserDomain;
 using System.Reflection;
 
 namespace QueryService.Infrastructure
@@ -10,6 +11,7 @@ namespace QueryService.Infrastructure
     {
         public DbSet<Post> Posts { get; private set; }
         public DbSet<Comment> Comments { get; private set; }
+        public DbSet<User> Users { get; private set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

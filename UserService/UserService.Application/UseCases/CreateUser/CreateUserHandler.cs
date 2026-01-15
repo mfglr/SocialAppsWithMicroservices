@@ -27,8 +27,10 @@ namespace UserService.Application.UseCases.CreateUser
             var user = new User(userId, username);
             await _userRepository.CreateUserAsync(user, cancellationToken);
 
+            var @event = _mapper.Map<User, UserCreatedEvent>(user);
+
             await _publishEndpoint.Publish(
-                _mapper.Map<User, UserCreatedEvent>(user),
+                @event,
                 cancellationToken
             );
         }

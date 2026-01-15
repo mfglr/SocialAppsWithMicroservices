@@ -8,6 +8,7 @@ using QueryService.Workers.Consumers.PostDomain.DeletePostMedia;
 using QueryService.Workers.Consumers.PostDomain.RestorePost;
 using QueryService.Workers.Consumers.PostDomain.SetPostContentModerationResult;
 using QueryService.Workers.Consumers.PostDomain.SetPostMedia;
+using QueryService.Workers.Consumers.UserDomain.CreateUser;
 using System.Reflection;
 
 namespace QueryService.Workers
@@ -37,6 +38,8 @@ namespace QueryService.Workers
                     x.AddConsumer<SetCommentContentModerationResult_QueryService>();
                     x.AddConsumer<DeleteComment>();
                     x.AddConsumer<RestoreComment>();
+
+                    x.AddConsumer<CreateUserConsumer_QueryService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

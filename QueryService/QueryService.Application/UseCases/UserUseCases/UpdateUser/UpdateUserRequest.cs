@@ -1,8 +1,8 @@
 ﻿using Shared.Objects;
 
-namespace Shared.Events.UserService
+namespace QueryService.Application.UseCases.UserUseCases.UpdateUser
 {
-    public record UserCreatedEvent(
+    public record UpdateUserRequest(
         Guid Id,
         DateTime CreatedAt,
         DateTime? UpdatedAt,

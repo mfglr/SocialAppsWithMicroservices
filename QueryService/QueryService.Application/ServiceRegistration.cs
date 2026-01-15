@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using QueryService.Application.UseCases.CommentUseCases.UpdateComent;
 using QueryService.Application.UseCases.PostUseCases.GetPostById;
 using QueryService.Application.UseCases.PostUseCases.UpdatePost;
+using QueryService.Application.UseCases.UserUseCases.UpdateUser;
 
 namespace QueryService.Application
 {
@@ -15,6 +16,8 @@ namespace QueryService.Application
                 cfg.AddConsumer<GetPostByIdConsumer>();
 
                 cfg.AddConsumer<UpdateCommentConsumer>();
+
+                cfg.AddConsumer<UpdateUserConsumer>();
             });
     }
 }
