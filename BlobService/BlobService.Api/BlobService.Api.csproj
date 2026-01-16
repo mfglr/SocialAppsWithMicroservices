@@ -7,9 +7,4 @@
     <UserSecretsId>1a865e74-146f-473a-8da3-16bad257bd79</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BlobService.Application\BlobService.Application.csproj" />
-    <ProjectReference Include="..\BlobService.Infrastructure\BlobService.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

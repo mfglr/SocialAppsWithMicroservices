@@ -1,7 +1,7 @@
-﻿using BlobService.Application;
-using BlobService.Infrastructure.Exceptions;
+﻿using BlobService.Api.Abstracts;
+using BlobService.Api.Concretes.Exceptions;
 
-namespace BlobService.Infrastructure
+namespace BlobService.Api.Concretes
 {
     internal class LocalContainerService(PathFinder pathFinder) : IContainerService
     {

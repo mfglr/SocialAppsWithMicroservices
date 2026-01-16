@@ -7,10 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostService", "PostService"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlobService", "BlobService", "{44190F96-4EED-4AE7-92FC-1255F0D865D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobService.Application", "BlobService\BlobService.Application\BlobService.Application.csproj", "{29A29845-A8D0-4A30-BA44-1C4E0352DEA1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobService.Infrastructure", "BlobService\BlobService.Infrastructure\BlobService.Infrastructure.csproj", "{7C6CDC94-0576-4E52-9948-897A33C3C963}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobService.Api", "BlobService\BlobService.Api\BlobService.Api.csproj", "{1C4DC52F-2E87-4963-9120-341B27044457}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{EFD0BA2C-8541-41D6-B37E-81F182FF7D32}"
@@ -119,14 +115,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29A29845-A8D0-4A30-BA44-1C4E0352DEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29A29845-A8D0-4A30-BA44-1C4E0352DEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29A29845-A8D0-4A30-BA44-1C4E0352DEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29A29845-A8D0-4A30-BA44-1C4E0352DEA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C6CDC94-0576-4E52-9948-897A33C3C963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C6CDC94-0576-4E52-9948-897A33C3C963}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C6CDC94-0576-4E52-9948-897A33C3C963}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C6CDC94-0576-4E52-9948-897A33C3C963}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C4DC52F-2E87-4963-9120-341B27044457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C4DC52F-2E87-4963-9120-341B27044457}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C4DC52F-2E87-4963-9120-341B27044457}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -292,8 +280,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{29A29845-A8D0-4A30-BA44-1C4E0352DEA1} = {44190F96-4EED-4AE7-92FC-1255F0D865D9}
-		{7C6CDC94-0576-4E52-9948-897A33C3C963} = {44190F96-4EED-4AE7-92FC-1255F0D865D9}
 		{1C4DC52F-2E87-4963-9120-341B27044457} = {44190F96-4EED-4AE7-92FC-1255F0D865D9}
 		{2DA0ED40-1B87-4D9F-9C16-603012319EFE} = {1E45B0B0-1187-4F90-8DE3-4CF71BD6484A}
 		{719FB6BA-9290-4751-B80E-9BF55A689616} = {1E45B0B0-1187-4F90-8DE3-4CF71BD6484A}

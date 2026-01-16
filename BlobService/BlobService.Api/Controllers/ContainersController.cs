@@ -1,17 +1,17 @@
-﻿using BlobService.Application.UseCases.CreateContainer;
-using MediatR;
+﻿using BlobService.Api.Abstracts;
+using BlobService.Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlobService.Api.Controllers
 {
     [Route("api/v1/[controller]/[action]")]
     [ApiController]
-    public class ContainersController(ISender sender) : ControllerBase
+    public class ContainersController(IContainerService containerService) : ControllerBase
     {
-        private readonly ISender _sender = sender;
+        private readonly IContainerService _containerService = containerService;
 
         [HttpPost]
         public Task Create(CreateContainerRequest request, CancellationToken cancellationToken) =>
-            _sender.Send(request, cancellationToken);
+            _containerService.CreateAsync(request.ContainerName, cancellationToken);
     }
 }

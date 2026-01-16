@@ -1,8 +1,7 @@
-﻿using BlobService.Application;
-using BlobService.Infrastructure.Exceptions;
-using Microsoft.AspNetCore.Http;
+﻿using BlobService.Api.Abstracts;
+using BlobService.Api.Concretes.Exceptions;
 
-namespace BlobService.Infrastructure
+namespace BlobService.Api.Concretes
 {
     internal class LocalBlobService(PathFinder pathFinder, UniqNameGenerator uniqNameGenerator) : IBlobService
     {

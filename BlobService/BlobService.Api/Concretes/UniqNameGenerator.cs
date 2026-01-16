@@ -1,4 +1,4 @@
-﻿namespace BlobService.Infrastructure
+﻿namespace BlobService.Api.Concretes
 {
     internal class UniqNameGenerator
     {

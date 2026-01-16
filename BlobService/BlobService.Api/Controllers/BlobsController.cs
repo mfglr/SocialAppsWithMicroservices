@@ -1,28 +1,26 @@
-﻿using BlobService.Application.UseCases.DeleteBlob;
-using BlobService.Application.UseCases.GetBlob;
-using BlobService.Application.UseCases.UploadBlob;
-using MediatR;
+﻿using BlobService.Api.Abstracts;
+using BlobService.Api.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlobService.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class BlobsController(ISender sender) : ControllerBase
+    public class BlobsController(IBlobService blobService) : ControllerBase
     {
-        private readonly ISender _sender = sender;
+        private readonly IBlobService _blobService = blobService;
 
         [RequestSizeLimit(104857600)]
         [HttpPost]
-        public async Task<IEnumerable<string>> Upload([FromForm]string containerName, [FromForm]IFormFileCollection media, CancellationToken cancellationToken) =>
-            (await _sender.Send(new UploadBlobRequest(containerName, media),cancellationToken)).BlobNames;
+        public Task<IEnumerable<string>> Upload([FromForm]string containerName, [FromForm]IFormFileCollection media, CancellationToken cancellationToken) =>
+            _blobService.UploadAsync(containerName, media, cancellationToken);
 
         [HttpPost]
-        public Task Delete(DeleteBlobRequest request, CancellationToken cancellationToken)
-             => _sender.Send(request,cancellationToken);
+        public Task Delete(DeleteBlobRequest request, CancellationToken cancellationToken) =>
+            _blobService.DeleteAsync(request.ContainerName, request.ContainerName, cancellationToken);
 
         [HttpGet("{containerName}/{blobName}")]
-        public async Task<Stream> Get(string containerName, string blobName, CancellationToken cancellationToken) =>
-            (await _sender.Send(new GetBlobRequest(containerName, blobName), cancellationToken)).Stream;
+        public Task<Stream> Get(string containerName, string blobName, CancellationToken cancellationToken) =>
+            _blobService.ReadAsync(containerName, blobName, cancellationToken);
     }
 }

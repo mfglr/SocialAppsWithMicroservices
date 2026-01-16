@@ -1,4 +1,4 @@
-﻿namespace BlobService.Application
+﻿namespace BlobService.Api.Abstracts
 {
     public interface IContainerService
     {

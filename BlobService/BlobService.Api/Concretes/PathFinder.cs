@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace BlobService.Infrastructure
+namespace BlobService.Api.Concretes
 {
     internal class PathFinder(IConfiguration configuration)
     {

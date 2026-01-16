@@ -1,11 +1,14 @@
-using BlobService.Application;
-using BlobService.Infrastructure;
+using BlobService.Api.Abstracts;
+using BlobService.Api.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddApplication(builder.Configuration);
-builder.Services.AddInfrastructureServices();
+builder.Services
+    .AddSingleton<PathFinder>()
+    .AddSingleton<UniqNameGenerator>()
+    .AddSingleton<IContainerService, LocalContainerService>()
+    .AddSingleton<IBlobService, LocalBlobService>();
 
 var app = builder.Build();
 
