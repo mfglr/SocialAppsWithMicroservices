@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MassTransit;
+﻿using MassTransit;
 using MediatR;
 using PostService.Application.UseCases.SetPostMedia;
 using Shared.Events.MediaService;
@@ -14,7 +13,7 @@ namespace PostService.Workers.Consumers
             _sender
                 .Send(
                     new SetPostMediaRequest(
-                        context.Message.Id,
+                        context.Message.OwnerId,
                         context.Message.BlobName,
                         context.Message.TranscodedBlobName,
                         context.Message.Metadata,

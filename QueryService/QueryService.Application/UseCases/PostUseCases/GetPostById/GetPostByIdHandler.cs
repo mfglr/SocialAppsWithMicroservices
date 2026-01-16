@@ -1,20 +1,18 @@
-﻿using AutoMapper;
-using MediatR;
-using QueryService.Domain.PostDomain;
+﻿using MediatR;
+using QueryService.Application.QueryRepositories;
 
 namespace QueryService.Application.UseCases.PostUseCases.GetPostById
 {
-    public class GetPostByIdHandler(IPostRepository postRepository, IMapper mapper) : IRequestHandler<GetPostByIdRequest, GetPostByIdResponse>
+    public class GetPostByIdHandler(IPostQueryRepository postRepository) : IRequestHandler<GetPostByIdRequest, PostResponse>
     {
-        private readonly IPostRepository _postRepository = postRepository;
-        private readonly IMapper _mapper = mapper;
+        private readonly IPostQueryRepository _postRepository = postRepository;
 
-        public async Task<GetPostByIdResponse> Handle(GetPostByIdRequest request, CancellationToken cancellationToken)
+        public async Task<PostResponse> Handle(GetPostByIdRequest request, CancellationToken cancellationToken)
         {
             var post =
-               await _postRepository.GetAsNoTrackingByIdAsync(request.Id, cancellationToken) ??
-               throw new Exception("Post not found exception");
-            return _mapper.Map<Post, GetPostByIdResponse>(post);
+               await _postRepository.GetByIdAsync(request.Id, cancellationToken) ??
+               throw new PostNotFoundException();
+            return post;
         }
     }
 }

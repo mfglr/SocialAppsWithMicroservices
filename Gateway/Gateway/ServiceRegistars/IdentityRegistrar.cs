@@ -32,6 +32,7 @@ namespace Gateway.ServiceRegistars
                             ValidateIssuerSigningKey = true,
                             ValidateLifetime = true,
                             ValidateIssuer = true,
+
                         };
                     }
                 );

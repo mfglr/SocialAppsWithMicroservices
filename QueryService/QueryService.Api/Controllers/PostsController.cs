@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QueryService.Application.UseCases.PostUseCases;
 using QueryService.Application.UseCases.PostUseCases.GetPostById;
 
 namespace QueryService.Api.Controllers
@@ -12,7 +13,7 @@ namespace QueryService.Api.Controllers
     {
         private readonly ISender _sender = sender;
         [HttpGet("{id:guid}")]
-        public Task<GetPostByIdResponse> GetById(Guid id, CancellationToken cancellationToken) =>
+        public Task<PostResponse> GetById(Guid id, CancellationToken cancellationToken) =>
             _sender.Send(new GetPostByIdRequest(id), cancellationToken);
     }
 }

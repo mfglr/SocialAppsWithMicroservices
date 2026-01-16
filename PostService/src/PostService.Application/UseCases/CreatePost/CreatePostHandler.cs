@@ -23,7 +23,6 @@ namespace PostService.Application.UseCases.CreatePost
             try
             {
                 var post = new Post(_identityService.UserId, content, media);
-                post.Create();
                 await _postRepository.CreateAsync(post, cancellationToken);
 
                 var @event = _mapper.Map<Post, PostCreatedEvent>(post);

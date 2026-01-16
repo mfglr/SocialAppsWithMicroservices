@@ -9,7 +9,8 @@ builder.Services
     .AddDomain()
     .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration)
-    .AddMassTransit(builder.Configuration);
+    .AddMassTransit(builder.Configuration)
+    .AddScoped<IIdentityService, WorkerIdentiyService>();
 
 DbConfigurator.Configure(builder.Services);
 

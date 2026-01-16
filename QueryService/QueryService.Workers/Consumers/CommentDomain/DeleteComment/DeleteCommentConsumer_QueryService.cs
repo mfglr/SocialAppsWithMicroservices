@@ -6,7 +6,7 @@ using Shared.Events.Comment;
 
 namespace QueryService.Workers.Consumers.CommentDomain.DeleteComment
 {
-    internal class DeleteComment(ISender _sender, IMapper mapper) : IConsumer<CommentDeletedEvent>
+    internal class DeleteCommentConsumer_QueryService(ISender _sender, IMapper mapper) : IConsumer<CommentDeletedEvent>
     {
         private readonly ISender _sender = _sender;
         private readonly IMapper _mapper = mapper;

@@ -29,15 +29,15 @@ namespace QueryService.Workers
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<SetPostContentModerationResult_QueryService>();
-                    x.AddConsumer<SetPostMedia_QueryService>();
+                    x.AddConsumer<SetPostContentModerationResultConsumer_QueryService>();
+                    x.AddConsumer<SetPostMediaConsumer_QueryService>();
                     x.AddConsumer<DeletePostMedia_QueryService>();
-                    x.AddConsumer<DeletePost_QueryService>();
-                    x.AddConsumer<RestorePost>();
+                    x.AddConsumer<DeletePostConsumer_QueryService>();
+                    x.AddConsumer<RestorePostConsumer_QueryService>();
 
-                    x.AddConsumer<SetCommentContentModerationResult_QueryService>();
-                    x.AddConsumer<DeleteComment>();
-                    x.AddConsumer<RestoreComment>();
+                    x.AddConsumer<SetCommentContentModerationResultConsumer_QueryService>();
+                    x.AddConsumer<DeleteCommentConsumer_QueryService>();
+                    x.AddConsumer<RestoreCommentConsumer_QueryService>();
 
                     x.AddConsumer<CreateUserConsumer_QueryService>();
 

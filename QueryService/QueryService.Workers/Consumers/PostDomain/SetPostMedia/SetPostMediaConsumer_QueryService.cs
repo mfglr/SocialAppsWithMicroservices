@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
 using MassTransit;
-using MassTransit.Mediator;
+using MediatR;
 using QueryService.Application.UseCases.PostUseCases.UpdatePost;
 using Shared.Events.PostService;
 
 namespace QueryService.Workers.Consumers.PostDomain.SetPostMedia
 {
-    internal class SetPostMedia_QueryService(IMediator mediator, IMapper mapper) : IConsumer<PostMediaSetEvent>
+    internal class SetPostMediaConsumer_QueryService(ISender sender, IMapper mapper) : IConsumer<PostMediaSetEvent>
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly ISender _sender = sender;
         private readonly IMapper _mapper = mapper;
 
         public Task Consume(ConsumeContext<PostMediaSetEvent> context) =>
-            _mediator
+            _sender
                 .Send(
                     _mapper.Map<PostMediaSetEvent, UpdatePostRequest>(context.Message),
                     context.CancellationToken

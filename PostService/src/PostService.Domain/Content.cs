@@ -6,6 +6,7 @@ namespace PostService.Domain
     {
         public readonly static int MinLength = 2;
         public readonly static int MaxLength = 1024;
+
         public string Value { get; private set; }
         public ModerationResult? ModerationResult { get; private set; }
 
