@@ -2,29 +2,37 @@
 using Microsoft.Extensions.Configuration;
 using PostService.Application;
 using System.Net.Http.Headers;
-using System.Text;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace PostService.Infrastructure
 {
-    internal class LocalBlobService(IConfiguration configuration) : IBlobService
+    internal class LocalBlobService(IConfiguration configuration, IAccessTokenProvider accessTokenProvider) : IBlobService
     {
         private readonly IConfiguration _configuration = configuration;
+        private readonly IAccessTokenProvider _accessTokenProvider = accessTokenProvider;
 
         public async Task DeleteAsync(string containerName, IEnumerable<string> blobNames, CancellationToken cancellationToken)
         {
-            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
-            var address = $"{baseAddress}/delete";
-            var client = new HttpClient();
-            var content = new StringContent(JsonSerializer.Serialize(new { containerName, blobNames }), Encoding.UTF8, "application/json");
-            await client.PostAsync(address, content, cancellationToken);
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_configuration["BlobService:ConnectionString"]!),
+            };
+            var accessToken = _accessTokenProvider.Get();
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
+
+            var content = JsonContent.Create(new { containerName, blobNames });
+            await client.PostAsync("api/v1/blobs/delete", content, cancellationToken);
         }
 
         public async Task<IReadOnlyList<string>> UploadAsync(string containerName, IFormFileCollection files, CancellationToken cancellationToken)
         {
-            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
-            var address = $"{baseAddress}/upload";
-            var client = new HttpClient();
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_configuration["BlobService:Host"]!),
+            };
+            var accessToken = _accessTokenProvider.Get();
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {accessToken}");
             var form = new MultipartFormDataContent { { new StringContent(containerName), "containerName" } };
 
             List<Stream> streams = [];
@@ -37,34 +45,14 @@ namespace PostService.Infrastructure
                 streamContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
                 form.Add(streamContent, "media", "media");
             }
-            var message = await client.PostAsync(address, form, cancellationToken);
-            streams.ForEach(stream => {
+            var message = await client.PostAsync("api/v1/blobs/upload", form, cancellationToken);
+            streams.ForEach(stream =>
+            {
                 stream.Close();
                 stream.Dispose();
             });
             var content = await message.Content.ReadAsStringAsync(cancellationToken);
             return JsonSerializer.Deserialize<List<string>>(content)!;
-        }
-
-        public async Task<string> UploadAsync(string containerName, IFormFile file, CancellationToken cancellationToken)
-        {
-            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
-            var address = $"{baseAddress}/upload";
-            var client = new HttpClient();
-            var form = new MultipartFormDataContent { { new StringContent(containerName), "containerName" } };
-
-            List<Stream> streams = [];
-
-            var stream = file.OpenReadStream();
-            streams.Add(stream);
-            var streamContent = new StreamContent(stream);
-            streamContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
-            form.Add(streamContent, "media", "media");
-
-            var message = await client.PostAsync(address, form, cancellationToken);
-           
-            var content = await message.Content.ReadAsStringAsync(cancellationToken);
-            return JsonSerializer.Deserialize<List<string>>(content)!.First();
         }
     }
 }

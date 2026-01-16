@@ -1,6 +1,7 @@
 using PostService.Api.ServiceRegistrations;
 using PostService.Application;
 using PostService.Infrastructure;
+using PostService.Infrastructure.MongoDb;
 
 var builder = WebApplication.CreateBuilder(args);
 

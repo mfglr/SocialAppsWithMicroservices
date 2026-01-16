@@ -7,4 +7,8 @@
     <UserSecretsId>1a865e74-146f-473a-8da3-16bad257bd79</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.2" />
+  </ItemGroup>
+
 </Project>

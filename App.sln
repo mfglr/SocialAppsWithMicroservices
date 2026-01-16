@@ -109,6 +109,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F460F2AC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostService.Domain.Test", "PostService\tests\PostService.Domain.Test\PostService.Domain.Test.csproj", "{8569AAF1-93F6-43B8-9991-9F295D2ADAC1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TokenManager", "TokenManager", "{00AFA2ED-29DC-437D-81BD-387D919AE04A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenManager", "TokenManager\TokenManager\TokenManager.csproj", "{218410EE-C349-4E1C-85AD-04DDBFF5C84B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -275,6 +279,10 @@ Global
 		{8569AAF1-93F6-43B8-9991-9F295D2ADAC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8569AAF1-93F6-43B8-9991-9F295D2ADAC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8569AAF1-93F6-43B8-9991-9F295D2ADAC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{218410EE-C349-4E1C-85AD-04DDBFF5C84B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218410EE-C349-4E1C-85AD-04DDBFF5C84B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218410EE-C349-4E1C-85AD-04DDBFF5C84B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218410EE-C349-4E1C-85AD-04DDBFF5C84B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -321,6 +329,7 @@ Global
 		{394418E7-5AD4-308F-E25B-74CAC02D0443} = {F7E75CF8-F4C5-43B2-BF06-BF767CC140B8}
 		{F460F2AC-8E17-4DD4-B49C-D688218DC0AA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8569AAF1-93F6-43B8-9991-9F295D2ADAC1} = {F460F2AC-8E17-4DD4-B49C-D688218DC0AA}
+		{218410EE-C349-4E1C-85AD-04DDBFF5C84B} = {00AFA2ED-29DC-437D-81BD-387D919AE04A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E394BB55-5333-4ABF-B4E9-BEAC4395597E}

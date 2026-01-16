@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using PostService.Infrastructure;
+using PostService.Infrastructure.MongoDb;
 using PostService.Workers.Consumers;
 using PostService.Workers.ServiceRegistrations;
 

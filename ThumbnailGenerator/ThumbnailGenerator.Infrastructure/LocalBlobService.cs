@@ -1,46 +1,52 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System.Text;
+using System.Net.Http.Json;
 using System.Text.Json;
 using ThumbnailGenerator.Application;
 
 namespace ThumbnailGenerator.Infrastructure
 {
-    internal class LocalBlobService(IConfiguration configuration) : IBlobService
+    internal class LocalBlobService(IConfiguration configuration, IAccessTokenProvider accessTokenProvider) : IBlobService
     {
         private readonly IConfiguration _configuration = configuration;
+        private readonly IAccessTokenProvider _accessTokenProvider = accessTokenProvider;
 
         public async Task<string> UploadAsync(Stream stream, string containerName, CancellationToken cancellationToken)
         {
-            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
-            var address = $"{baseAddress}/Upload";
-            var client = new HttpClient();
-            
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_configuration["BlobService:Host"]!)
+            };
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessTokenProvider.GetAccessToken()}");
+
             var form = new MultipartFormDataContent
             {
                 { new StringContent(containerName), "containerName" },
                 { new StreamContent(stream), "media", "media" }
             };
 
-            var response = await client.PostAsync(address, form, cancellationToken);
+            var response = await client.PostAsync("api/v1/blobs/upload", form, cancellationToken);
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
             return JsonSerializer.Deserialize<List<string>>(content)!.First();
         }
         public async Task DeleteAsync(string containerName, string blobName, CancellationToken cancellationToken)
         {
-            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
-            var address = $"{baseAddress}/delete";
-            var client = new HttpClient();
-            var json = JsonSerializer.Serialize( new { containerName, blobNames = new[] { blobName } } );
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var message = await client.PostAsync(address, content, cancellationToken);
-            await message.Content.ReadAsStringAsync(cancellationToken);
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_configuration["BlobService:Host"]!)
+            };
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessTokenProvider.GetAccessToken()}");
+
+            var content = JsonContent.Create(new { containerName, blobNames = new[] { blobName } });
+            await client.PostAsync("api/v1/blobs/delete", content, cancellationToken);
         }
         public async Task<Stream> GetAsync(string containerName, string blobName, CancellationToken cancellationToken)
         {
-            var baseAddress = new Uri(_configuration["BlobService:ConnectionString"]!);
-            var address = $"{baseAddress}/get/{containerName}/{blobName}";
-            var client = new HttpClient();
-            return await client.GetStreamAsync(address, cancellationToken);
+            var client = new HttpClient()
+            {
+                BaseAddress = new Uri(_configuration["BlobService:Host"]!)
+            };
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessTokenProvider.GetAccessToken()}");
+            return await client.GetStreamAsync($"api/v1/blobs/get/{containerName}/{blobName}", cancellationToken);
         }
     }
 }

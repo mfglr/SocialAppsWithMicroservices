@@ -86,6 +86,17 @@ namespace Gateway.ServiceRegistars
                                     p.RequireRole("admin", "user");
                                 }
                             );
+
+                        options
+                            .AddPolicy(
+                                "media-read",
+                                p =>
+                                {
+                                    p.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+                                    p.RequireAuthenticatedUser();
+                                    p.RequireRole("media-read");
+                                }
+                            );
                     }
                 );
             return services;

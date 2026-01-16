@@ -2,7 +2,7 @@
 using MongoDB.Driver;
 using PostService.Domain;
 
-namespace PostService.Infrastructure
+namespace PostService.Infrastructure.MongoDb
 {
     internal class MongoContext
     {

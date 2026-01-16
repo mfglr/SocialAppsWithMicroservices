@@ -1,5 +1,6 @@
 using PostService.Application;
 using PostService.Infrastructure;
+using PostService.Infrastructure.MongoDb;
 using PostService.Workers;
 using PostService.Workers.ServiceRegistrations;
 

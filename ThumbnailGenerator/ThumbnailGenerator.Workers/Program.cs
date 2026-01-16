@@ -9,7 +9,7 @@ FFmpegConfigration.Configure();
 builder.Services
     .AddMassTransit(builder.Configuration)
     .AddApplicationServices()
-    .AddInfrastructureServices();
+    .AddInfrastructureServices(builder.Configuration);
 
 var host = builder.Build();
 host.Run();

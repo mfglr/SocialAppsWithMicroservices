@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using PostService.Domain;
 
-namespace PostService.Infrastructure
+namespace PostService.Infrastructure.MongoDb
 {
     public static class DbConfiguration
     {
