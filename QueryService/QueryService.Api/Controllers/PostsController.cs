@@ -1,19 +1,24 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using QueryService.Api.Exceptions;
+using QueryService.Application.Pagination;
+using QueryService.Application.QueryRepositories;
 using QueryService.Application.UseCases.PostUseCases;
-using QueryService.Application.UseCases.PostUseCases.GetPostById;
 
 namespace QueryService.Api.Controllers
 {
-    [Authorize($"ClientCredential")]
-    [Route("api/[controller]/[action]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
-    public class PostsController(ISender sender) : ControllerBase
+    public class PostsController(IPostQueryRepository postQueryRepository) : ControllerBase
     {
-        private readonly ISender _sender = sender;
+        private readonly IPostQueryRepository _postQueryRepository = postQueryRepository;
+
         [HttpGet("{id:guid}")]
-        public Task<PostResponse> GetById(Guid id, CancellationToken cancellationToken) =>
-            _sender.Send(new GetPostByIdRequest(id), cancellationToken);
+        public async Task<PostResponse?> GetById(Guid id, CancellationToken cancellationToken) =>
+            await _postQueryRepository.GetByIdAsync(id, cancellationToken) ??
+            throw new PostNotFoundException();
+
+        [HttpGet("{userId:guid}")]
+        public Task<List<PostResponse>> GetByUserId(Guid userId,[FromQuery]DateTime cursor, [FromQuery] int recordsPerPage, [FromQuery]bool Isdescending, CancellationToken cancellationToken) =>
+            _postQueryRepository.GetPostsByUserId(userId, new Page<DateTime>(cursor, recordsPerPage,Isdescending), cancellationToken);
     }
 }

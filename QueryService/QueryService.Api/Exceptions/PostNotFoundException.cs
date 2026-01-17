@@ -1,4 +1,4 @@
-﻿namespace QueryService.Application.UseCases.PostUseCases.GetPostById
+﻿namespace QueryService.Api.Exceptions
 {
     public class PostNotFoundException() : Exception("Post not found!");
 }

@@ -8,6 +8,9 @@ namespace QueryService.Infrastructure.ModelBuilders
     {
         public void Configure(EntityTypeBuilder<Post> builder)
         {
+            builder.HasIndex(x => x.UserId);
+            builder.HasIndex(x => x.CreatedAt);
+            builder.Property(x => x.RowVersion).IsRowVersion();
             builder
                 .OwnsOne(
                     x => x.Content,
@@ -15,7 +18,6 @@ namespace QueryService.Infrastructure.ModelBuilders
                         x.OwnsOne(x => x.ModerationResult);
                     }
                 );
-
             builder
                 .OwnsMany(
                     x => x.Media,
@@ -26,8 +28,6 @@ namespace QueryService.Infrastructure.ModelBuilders
                         x.ToJson();
                     }
                 );
-
-            builder.Property(x => x.RowVersion).IsRowVersion();
         }
     }
 }
