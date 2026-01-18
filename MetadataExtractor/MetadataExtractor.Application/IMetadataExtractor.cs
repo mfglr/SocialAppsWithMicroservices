@@ -4,6 +4,6 @@ namespace MetadataExtractor.Application
 {
     public interface IMetadataExtractor
     {
-        Task<Metadata> Extract(string input, string tempPath, CancellationToken cancellationToken);
+        Task<Metadata> ExtractAsync(Stream input, CancellationToken cancellationToken);
     }
 }

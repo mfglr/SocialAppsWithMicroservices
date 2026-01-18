@@ -1,6 +1,6 @@
 ﻿using Xabe.FFmpeg;
 
-namespace MetadataExtractor.Infrastructure
+namespace MetadataExtractor.Infrastructure.FFmpegMetadataExtractor
 {
     public static class FFmpegConfigration
     {

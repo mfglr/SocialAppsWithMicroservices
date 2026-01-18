@@ -1,4 +1,4 @@
-﻿namespace MetadataExtractor.Application
+﻿namespace MetadataExtractor.Infrastructure.LocalBlobService
 {
     public interface IAccessTokenProvider
     {

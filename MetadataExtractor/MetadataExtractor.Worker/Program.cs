@@ -4,12 +4,10 @@ using MetadataExtractor.Worker;
 
 var builder = Host.CreateApplicationBuilder(args);
 
-FFmpegConfigration.Configure();
-
 builder.Services
     .AddMassTransit(builder.Configuration)
-    .AddInfrastructureServices(builder.Configuration)
-    .AddApplicationServices();
+    .AddInfrastructure(builder.Configuration)
+    .AddApplication(builder.Configuration);
 
 var host = builder.Build();
 host.Run();

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MetadataExtractor.Application;
 
-namespace MetadataExtractor.Infrastructure
+namespace MetadataExtractor.Infrastructure.LocalBlobService
 {
     internal class LocalBlobService(IConfiguration configuration, IAccessTokenProvider accessTokenProvider) : IBlobService
     {

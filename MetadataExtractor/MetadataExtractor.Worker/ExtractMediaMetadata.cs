@@ -1,34 +1,24 @@
 ﻿using MassTransit;
-using MassTransit.Mediator;
+using MediatR;
 using MetadataExtractor.Application.UseCases.ExtractMediaMetadata;
 using Shared.Events.MediaService;
-using Shared.Objects;
 
 namespace MetadataExtractor.Worker
 {
-    internal class ExtractMediaMetadata(IMediator mediator, IPublishEndpoint publishEndpoint) : IConsumer<MediaCreatedEvent>
+    internal class ExtractMediaMetadata(ISender sender) : IConsumer<MediaCreatedEvent>
     {
-        private readonly IMediator _mediator = mediator;
-        private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
+        private readonly ISender _sender = sender;
 
-        public async Task Consume(ConsumeContext<MediaCreatedEvent> context)
-        {
-            var client = _mediator.CreateRequestClient<ExtractMediaMetadataRequest>();
-            var response = await client.GetResponse<Metadata>(new ExtractMediaMetadataRequest(
-                context.Message.ContainerName,
-                context.Message.BlobName
-            ));
-
-            await _publishEndpoint.Publish(
-                new MediaMetadataExtractedEvent(
-                    context.Message.Id,
-                    context.Message.ContainerName,
-                    context.Message.BlobName,
-                    context.Message.Type,
-                    response.Message
-                ),
-                context.CancellationToken
-            );
-        }
+        public Task Consume(ConsumeContext<MediaCreatedEvent> context) =>
+            _sender
+                .Send(
+                    new ExtractMediaMetadataRequest(
+                        context.Message.Id,
+                        context.Message.ContainerName,
+                        context.Message.BlobName,
+                        context.Message.Type
+                    ),
+                    context.CancellationToken
+                );
     }
 }

@@ -1,8 +1,7 @@
-﻿using MetadataExtractor.Application;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 
-namespace MetadataExtractor.Infrastructure
+namespace MetadataExtractor.Infrastructure.LocalBlobService
 {
     internal class RedisAccessTokenProvider : IAccessTokenProvider
     {

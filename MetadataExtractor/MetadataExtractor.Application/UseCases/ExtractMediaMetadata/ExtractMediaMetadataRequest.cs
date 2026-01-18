@@ -1,4 +1,7 @@
-﻿namespace MetadataExtractor.Application.UseCases.ExtractMediaMetadata
+﻿using MediatR;
+using Shared.Objects;
+
+namespace MetadataExtractor.Application.UseCases.ExtractMediaMetadata
 {
-    public record ExtractMediaMetadataRequest(string ContainerName, string BlobName);
+    public record ExtractMediaMetadataRequest(Guid Id, string ContainerName, string BlobName, MediaType Type) : IRequest;
 }
