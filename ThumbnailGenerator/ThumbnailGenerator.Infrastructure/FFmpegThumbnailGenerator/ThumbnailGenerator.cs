@@ -1,7 +1,7 @@
 ﻿using ThumbnailGenerator.Application;
 using Xabe.FFmpeg;
 
-namespace ThumbnailGenerator.Infrastructure
+namespace ThumbnailGenerator.Infrastructure.FFmpegThumbnailGenerator
 {
     internal class ThumbnailGenerator : IThumbnailGenerator
     {
@@ -9,7 +9,17 @@ namespace ThumbnailGenerator.Infrastructure
         {
             string filter;
             if (isSquare)
-                filter = $"crop='if(gt(iw,ih),ih,iw):if(gt(iw,ih),ih,iw):(iw-if(gt(iw,ih),ih,iw))/2:(ih-if(gt(iw,ih),ih,iw))/2',scale='if(gt(iw,ih),if(gt({resulation},ih),ih,{resulation}),if(gt({resulation},iw),iw,{resulation})):if(gt(iw,ih),if(gt({resulation},ih),ih,{resulation}),if(gt({resulation},iw),iw,{resulation}))'";
+            {
+                var shorterSide = "if(gt(iw,ih),ih,iw)";
+                var offsetX = $"(iw-{shorterSide})/2";
+                var offsetY = $"(ih-{shorterSide})/2";
+                var crop = $"crop='{shorterSide}:{shorterSide}:{offsetX}:{offsetY}'";
+
+                var calculatedResulation = $"if(gt(iw,ih),if(gt({resulation},ih),ih,{resulation}),if(gt({resulation},iw),iw,{resulation}))";
+                var scale = $"scale='{calculatedResulation}:{calculatedResulation}'";
+
+                filter = $"{crop},{scale}";
+            }
             else
                 filter = $"scale='if(gt(iw,ih),if(gt({resulation},iw),iw,{resulation}),-2)':'if(gt(ih,iw),if(gt({resulation},ih),ih,{resulation}),-2)'";
 

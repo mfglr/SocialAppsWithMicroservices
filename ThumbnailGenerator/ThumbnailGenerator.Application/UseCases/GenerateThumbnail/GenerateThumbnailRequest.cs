@@ -1,4 +1,6 @@
-﻿namespace ThumbnailGenerator.Application.UseCases.GenerateThumbnail
+﻿using MediatR;
+
+namespace ThumbnailGenerator.Application.UseCases.GenerateThumbnail
 {
-    public record GenerateThumbnailRequest(string ContainerName, string BlobName, double Resulation, bool IsSquare);
+    public record GenerateThumbnailRequest(Guid Id, string ContainerName, string BlobName, double Resulation, bool IsSquare) : IRequest;
 }

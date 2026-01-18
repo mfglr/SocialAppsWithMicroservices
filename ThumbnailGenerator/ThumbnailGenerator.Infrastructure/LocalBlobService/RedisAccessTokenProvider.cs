@@ -2,7 +2,7 @@
 using StackExchange.Redis;
 using ThumbnailGenerator.Application;
 
-namespace ThumbnailGenerator.Infrastructure
+namespace ThumbnailGenerator.Infrastructure.LocalBlobService
 {
     internal class RedisAccessTokenProvider : IAccessTokenProvider
     {

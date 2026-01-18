@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using ThumbnailGenerator.Application;
 
-namespace ThumbnailGenerator.Infrastructure
+namespace ThumbnailGenerator.Infrastructure.LocalBlobService
 {
     internal class LocalBlobService(IConfiguration configuration, IAccessTokenProvider accessTokenProvider) : IBlobService
     {

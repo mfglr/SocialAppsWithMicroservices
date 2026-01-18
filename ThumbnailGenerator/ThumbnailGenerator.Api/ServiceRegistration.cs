@@ -1,8 +1,7 @@
 ﻿using MassTransit;
-using ThumbnailGenerator.Workers;
-using ThumbnailGenerator.Workers.Consumers;
+using ThumbnailGenerator.Api;
 
-namespace ThumbnailGenerator.Workers
+namespace ThumbnailGenerator.Api
 {
     internal static class ServiceRegistration
     {
@@ -10,9 +9,6 @@ namespace ThumbnailGenerator.Workers
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<Generate720ThumbnailConsumer_ThumbnailGenerator>();
-                    x.AddConsumer<Generate360SquareThumbnailConsumer_ThumbnailGenerator>();
-                    
                     x.UsingRabbitMq((context, cfg) =>
                     {
                         cfg.Host(configuration["RabbitMQ:Host"], configuration["RabbitMQ:VirtualHost"], h =>

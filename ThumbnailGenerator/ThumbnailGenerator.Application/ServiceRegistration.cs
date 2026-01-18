@@ -1,17 +1,20 @@
-﻿using MassTransit;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ThumbnailGenerator.Application.UseCases.GenerateThumbnail;
+using System.Reflection;
 
 namespace ThumbnailGenerator.Application
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration) =>
             services
                 .AddScoped<TempDirectoryManager>()
-                .AddMediator(cfg =>
-                {
-                    cfg.AddConsumer<GenerateThumbnailConsumer>();
-                });
+                .AddMediatR(
+                    cfg =>
+                    {
+                        cfg.LicenseKey = configuration["LuckPenny:LicenseKey"];
+                        cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                    }
+                );
     }
 }
