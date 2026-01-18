@@ -2,7 +2,7 @@
 using StackExchange.Redis;
 using VideoTranscoder.Application;
 
-namespace VideoTranscoder.Infrastructure
+namespace VideoTranscoder.Infrastructure.LocalBlobService
 {
     internal class RedisAccessTokenProvider : IAccessTokenProvider
     {

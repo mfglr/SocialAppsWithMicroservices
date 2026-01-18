@@ -1,17 +1,18 @@
-﻿using MassTransit;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using VideoTranscoder.Application.UseCases.TranscodeVideo;
+using System.Reflection;
 
 namespace VideoTranscoder.Application
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services) =>
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration) =>
             services
                 .AddScoped<TempDirectoryManager>()
-                .AddMediator(cfg =>
+                .AddMediatR(cfg =>
                 {
-                    cfg.AddConsumer<TranscodeVideoConsumer>();
+                    cfg.LicenseKey = configuration["LuckPenny:LicenseKey"];
+                    cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
                 });
     }
 }

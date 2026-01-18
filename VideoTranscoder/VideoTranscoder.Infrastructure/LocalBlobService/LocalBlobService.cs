@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using VideoTranscoder.Application;
 
-namespace VideoTranscoder.Infrastructure
+namespace VideoTranscoder.Infrastructure.LocalBlobService
 {
     internal class LocalBlobService(IConfiguration configuration, IAccessTokenProvider accessTokenProvider) : IBlobService
     {

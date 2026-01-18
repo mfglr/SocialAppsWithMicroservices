@@ -117,6 +117,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataExtractor.Api", "Me
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailGenerator.Api", "ThumbnailGenerator\ThumbnailGenerator.Api\ThumbnailGenerator.Api.csproj", "{5BE7CB5F-CBCC-43DA-A008-BE339BD28B6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VideoTranscoder.Api", "VideoTranscoder\VideoTranscoder.Api\VideoTranscoder.Api.csproj", "{05A93511-077C-4EE1-84E6-F26420AE6A86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -295,6 +297,10 @@ Global
 		{5BE7CB5F-CBCC-43DA-A008-BE339BD28B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE7CB5F-CBCC-43DA-A008-BE339BD28B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE7CB5F-CBCC-43DA-A008-BE339BD28B6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05A93511-077C-4EE1-84E6-F26420AE6A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A93511-077C-4EE1-84E6-F26420AE6A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A93511-077C-4EE1-84E6-F26420AE6A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05A93511-077C-4EE1-84E6-F26420AE6A86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -344,6 +350,7 @@ Global
 		{218410EE-C349-4E1C-85AD-04DDBFF5C84B} = {00AFA2ED-29DC-437D-81BD-387D919AE04A}
 		{386B3AF2-8674-4C3A-9B08-8261CF2B659A} = {B5B62DEB-6E6E-4848-8DDC-B4B4272558D2}
 		{5BE7CB5F-CBCC-43DA-A008-BE339BD28B6D} = {24BD65DC-3850-4E13-ABB9-8B7512D78EB0}
+		{05A93511-077C-4EE1-84E6-F26420AE6A86} = {8D6970E2-E9BD-4CDA-A76B-CDD9FFD1445A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E394BB55-5333-4ABF-B4E9-BEAC4395597E}

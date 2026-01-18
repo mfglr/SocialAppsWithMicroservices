@@ -1,8 +1,8 @@
 ﻿using Xabe.FFmpeg;
 
-namespace VideoTranscoder.Infrastructure
+namespace VideoTranscoder.Infrastructure.FFmpegVideoTranscoder
 {
-    public static class FFmpegConfigration
+    internal static class FFmpegConfigration
     {
         public static void Configure() =>
                 FFmpeg.SetExecutablesPath($"{AppContext.BaseDirectory}/FFmpeg");

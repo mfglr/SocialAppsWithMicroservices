@@ -1,7 +1,7 @@
 ﻿using VideoTranscoder.Application;
 using Xabe.FFmpeg;
 
-namespace VideoTranscoder.Infrastructure
+namespace VideoTranscoder.Infrastructure.FFmpegVideoTranscoder
 {
     internal class VideoTranscoder : IVideoTranscoder
     {

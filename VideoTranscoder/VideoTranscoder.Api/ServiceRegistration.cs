@@ -1,8 +1,6 @@
 ﻿using MassTransit;
-using VideoTranscoder.Worker;
-using VideoTranscoder.Worker.Consumers;
 
-namespace VideoTranscoder.Worker
+namespace VideoTranscoder.Api
 {
     internal static class ServiceRegistration
     {
@@ -10,8 +8,6 @@ namespace VideoTranscoder.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<TranscodeVideoConsumer_VideoTranscoder>();
-                    
                     x.UsingRabbitMq((context, cfg) =>
                     {
                         cfg.Host(configuration["RabbitMQ:Host"], configuration["RabbitMQ:VirtualHost"], h =>

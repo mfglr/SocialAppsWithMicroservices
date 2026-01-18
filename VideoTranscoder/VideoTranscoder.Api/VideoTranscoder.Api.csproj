@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>27ff0bcb-5224-4cad-b8fc-ee6ae1d8708c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="9.0.0" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VideoTranscoder.Application\VideoTranscoder.Application.csproj" />
+    <ProjectReference Include="..\VideoTranscoder.Infrastructure\VideoTranscoder.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

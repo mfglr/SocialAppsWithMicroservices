@@ -1,17 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
-using VideoTranscoder.Application;
+using VideoTranscoder.Infrastructure.FFmpegVideoTranscoder;
+using VideoTranscoder.Infrastructure.LocalBlobService;
 
 namespace VideoTranscoder.Infrastructure
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,IConfiguration configuration) =>
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
             services
-                .AddSingleton(ConnectionMultiplexer.Connect(configuration["Redis:Host"]!))
-                .AddSingleton<IAccessTokenProvider, RedisAccessTokenProvider>()
-                .AddSingleton<IBlobService,LocalBlobService>()
-                .AddScoped<IVideoTranscoder, VideoTranscoder>();
+                .AddLocalBlobService(configuration)
+                .AddFFmpegVideoTranscoder();
     }
 }

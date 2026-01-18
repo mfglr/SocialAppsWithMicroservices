@@ -1,13 +1,17 @@
+using VideoTranscoder.Api;
 using VideoTranscoder.Application;
 using VideoTranscoder.Infrastructure;
-using VideoTranscoder.Worker;
 
-var builder = Host.CreateApplicationBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services
     .AddMassTransit(builder.Configuration)
     .AddApplication(builder.Configuration)
     .AddInfrastructure(builder.Configuration);
 
-var host = builder.Build();
-host.Run();
+var app = builder.Build();
+
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
