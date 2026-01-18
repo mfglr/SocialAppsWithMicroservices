@@ -1,4 +1,6 @@
-﻿namespace MediaService.Application.UseCases.DeleteMedia
+﻿using MediatR;
+
+namespace MediaService.Application.UseCases.DeleteMedia
 {
-    public record DeleteMediaRequest(Guid Id);
+    public record DeleteMediaRequest(Guid Id) : IRequest;
 }

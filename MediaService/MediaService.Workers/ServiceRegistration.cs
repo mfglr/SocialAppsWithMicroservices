@@ -1,5 +1,12 @@
 ﻿using MassTransit;
 using MediaService.Infrastructure;
+using MediaService.Workers.Consumers.CreataPostMedia;
+using MediaService.Workers.Consumers.CreateMedia;
+using MediaService.Workers.Consumers.DeleteMedia;
+using MediaService.Workers.Consumers.SetMediaMetadata;
+using MediaService.Workers.Consumers.SetMediaModerationResul;
+using MediaService.Workers.Consumers.SetMediaThumbnail;
+using MediaService.Workers.Consumers.SetMediaTranscodedBlobName;
 using System.Reflection;
 
 namespace MediaService.Workers
@@ -11,7 +18,7 @@ namespace MediaService.Workers
             services
                 .AddAutoMapper(
                     cfg => {
-                        cfg.LicenseKey = configuration["AutoMapper:LicenseKey"]!;
+                        cfg.LicenseKey = configuration["LuckPenny:LicenseKey"]!;
                     },
                     Assembly.GetExecutingAssembly()
                 );
@@ -22,13 +29,13 @@ namespace MediaService.Workers
                 .AddMassTransit(
                     x =>
                     {
-                        x.AddConsumer<CreateMedia>();
-                        x.AddConsumer<DeleteMedia>();
+                        x.AddConsumer<CreateMediaConsumer_MediaService>();
+                        x.AddConsumer<DeleteMediaConsumer_MediaService>();
                         x.AddConsumer<SetMediaModerationResult>();
-                        x.AddConsumer<SetMediaThumbnail>();
-                        x.AddConsumer<SetMediaTranscodedBlobName>();
-                        x.AddConsumer<SetMediaMetadata>();
-                        x.AddConsumer<CreatePostMedia_MediaService>();
+                        x.AddConsumer<SetMediaThumbnailConsumer_MediaService>();
+                        x.AddConsumer<SetMediaTranscodedBlobNameConsumer_MediaService>();
+                        x.AddConsumer<SetMediaMetadataConsumer_MediaService>();
+                        x.AddConsumer<CreatePostMediaConsumer_MediaService>();
 
                         x.UsingRabbitMq((context, cfg) =>
                         {
@@ -58,7 +65,7 @@ namespace MediaService.Workers
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaThumbnail>(context);
+                                e.ConfigureConsumer<SetMediaThumbnailConsumer_MediaService>(context);
                             });
 
                             cfg.ReceiveEndpoint("SetMediaTranscodedBlobName", e =>
@@ -68,7 +75,7 @@ namespace MediaService.Workers
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaTranscodedBlobName>(context);
+                                e.ConfigureConsumer<SetMediaTranscodedBlobNameConsumer_MediaService>(context);
                             });
 
                             cfg.ReceiveEndpoint("SetMediaMetadata", e =>
@@ -78,7 +85,7 @@ namespace MediaService.Workers
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaMetadata>(context);
+                                e.ConfigureConsumer<SetMediaMetadataConsumer_MediaService>(context);
                             });
 
                             cfg.ConfigureEndpoints(context);

@@ -16,21 +16,31 @@ namespace MediaService.Domain
         public ModerationResult? ModerationResult { get; private set; }
         public IReadOnlyCollection<Thumbnail> Thumbnails { get; private set; }
 
+        //[JsonConstructor]
+        //private Media(Guid id, Guid ownerId, int version, string containerName, string blobName, string? transcodedBlobName, Metadata? metadata, MediaType type, ModerationResult? moderationResult, IEnumerable<Thumbnail> thumbnails)
+        //{
+        //    Id = id;
+        //    OwnerId = ownerId;
+        //    Version = version;
+        //    ContainerName = containerName;
+        //    BlobName = blobName;
+        //    TranscodedBlobName = transcodedBlobName;
+        //    Metadata = metadata;
+        //    Type = type;
+        //    ModerationResult = moderationResult;
+        //    Thumbnails = [..thumbnails];
+        //}
 
-        [JsonConstructor]
-        private Media(Guid id, Guid ownerId, int version, string containerName, string blobName, string? transcodedBlobName, Metadata? metadata, MediaType type, ModerationResult? moderationResult, IEnumerable<Thumbnail> thumbnails)
-        {
-            Id = id;
-            OwnerId = ownerId;
-            Version = version;
-            ContainerName = containerName;
-            BlobName = blobName;
-            TranscodedBlobName = transcodedBlobName;
-            Metadata = metadata;
-            Type = type;
-            ModerationResult = moderationResult;
-            Thumbnails = [..thumbnails];
-        }
+        public bool IsPreprocessingCompleted =>
+            Version == 6 ||
+            (
+                Version == 5 &&
+                (
+                    Type == MediaType.Image ||
+                    (Type == MediaType.Video && Metadata != null && Metadata.Duration > 180)
+                )
+
+            );
 
         public Media(Guid ownerId, string containerName, string blobName, MediaType type)
         {
@@ -43,8 +53,8 @@ namespace MediaService.Domain
 
         public void Create()
         {
-            Version = 0;
-            Id = Guid.NewGuid();
+            Version = 1;
+            Id = Guid.CreateVersion7();
         }
 
         public void SetModerationResult(ModerationResult moderationResult)
