@@ -6,11 +6,11 @@ using VideoTranscoder.Application.UseCases.TranscodeVideo;
 
 namespace VideoTranscoder.Worker.Consumers
 {
-    internal class TranscodeVideoConsumer_VideoTranscoder(ISender sender) : IConsumer<MediaCreatedEvent>
+    internal class TranscodeVideo_OnMediaMetadataExtractionSuccess_VideoTranscoder(ISender sender) : IConsumer<MediaMetadataExtractionSuccessEvent>
     {
         private readonly ISender _sender = sender;
 
-        public Task Consume(ConsumeContext<MediaCreatedEvent> context)
+        public Task Consume(ConsumeContext<MediaMetadataExtractionSuccessEvent> context)
         {
             if (context.Message.Type != MediaType.Video) return Task.CompletedTask;
 

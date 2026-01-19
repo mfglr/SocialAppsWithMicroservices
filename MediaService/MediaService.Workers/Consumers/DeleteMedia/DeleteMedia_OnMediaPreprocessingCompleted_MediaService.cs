@@ -5,7 +5,7 @@ using Shared.Events.MediaService;
 
 namespace MediaService.Workers.Consumers.DeleteMedia
 {
-    internal class DeleteMediaConsumer_MediaService(ISender sender) : IConsumer<MediaPreprocessingCompletedEvent>
+    internal class DeleteMedia_OnMediaPreprocessingCompleted_MediaService(ISender sender) : IConsumer<MediaPreprocessingCompletedEvent>
     {
         private readonly ISender _sender = sender;
 

@@ -10,8 +10,8 @@ namespace ThumbnailGenerator.Workers
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<Generate720ThumbnailConsumer_ThumbnailGenerator>();
-                    x.AddConsumer<Generate360SquareThumbnailConsumer_ThumbnailGenerator>();
+                    x.AddConsumer<Generate720Thumbnail_OnMediaMetadataExtractedSuccess_ThumbnailGenerator>();
+                    x.AddConsumer<Generate360SquareThumbnail_OnMediaMetadaExtractedSuccess_ThumbnailGenerator>();
                     
                     x.UsingRabbitMq((context, cfg) =>
                     {

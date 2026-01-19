@@ -5,7 +5,7 @@ using Shared.Events.MediaService;
 
 namespace MediaService.Workers.Consumers.SetMediaTranscodedBlobName
 {
-    internal class SetMediaTranscodedBlobNameConsumer_MediaService(ISender sender) : IConsumer<VideoTranscodedEvent>
+    internal class SetMediaTranscodedBlobName_OnVideoTranscoded_MediaService(ISender sender) : IConsumer<VideoTranscodedEvent>
     {
         private readonly ISender _sender = sender;
 

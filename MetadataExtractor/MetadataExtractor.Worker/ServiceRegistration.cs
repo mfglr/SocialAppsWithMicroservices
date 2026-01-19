@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using MetadataExtractor.Worker;
+using MetadataExtractor.Worker.Consumers;
 
 namespace MetadataExtractor.Worker
 {
@@ -9,7 +10,7 @@ namespace MetadataExtractor.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<ExtractMediaMetadata>();
+                    x.AddConsumer<ExtractMediaMetadata_OnMediaCreated_MetadataExtractor>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

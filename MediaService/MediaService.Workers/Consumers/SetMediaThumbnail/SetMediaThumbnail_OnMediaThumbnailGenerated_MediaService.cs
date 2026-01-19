@@ -5,7 +5,7 @@ using Shared.Events.MediaService;
 
 namespace MediaService.Workers.Consumers.SetMediaThumbnail
 {
-    internal class SetMediaThumbnailConsumer_MediaService(ISender sender) : IConsumer<MediaThumbnailGeneratedEvent>
+    internal class SetMediaThumbnail_OnMediaThumbnailGenerated_MediaService(ISender sender) : IConsumer<MediaThumbnailGeneratedEvent>
     {
         private readonly ISender _sender = sender;
 

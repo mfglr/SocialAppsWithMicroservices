@@ -4,7 +4,7 @@ using MediaService.Workers.Consumers.CreataPostMedia;
 using MediaService.Workers.Consumers.CreateMedia;
 using MediaService.Workers.Consumers.DeleteMedia;
 using MediaService.Workers.Consumers.SetMediaMetadata;
-using MediaService.Workers.Consumers.SetMediaModerationResul;
+using MediaService.Workers.Consumers.SetMediaModerationResult;
 using MediaService.Workers.Consumers.SetMediaThumbnail;
 using MediaService.Workers.Consumers.SetMediaTranscodedBlobName;
 using System.Reflection;
@@ -29,13 +29,14 @@ namespace MediaService.Workers
                 .AddMassTransit(
                     x =>
                     {
-                        x.AddConsumer<CreateMediaConsumer_MediaService>();
-                        x.AddConsumer<DeleteMediaConsumer_MediaService>();
-                        x.AddConsumer<SetMediaModerationResult>();
-                        x.AddConsumer<SetMediaThumbnailConsumer_MediaService>();
-                        x.AddConsumer<SetMediaTranscodedBlobNameConsumer_MediaService>();
-                        x.AddConsumer<SetMediaMetadataConsumer_MediaService>();
-                        x.AddConsumer<CreatePostMediaConsumer_MediaService>();
+                        x.AddConsumer<CreateMedia_OnPostCreated_MediaService>();
+                        x.AddConsumer<DeleteMedia_OnMediaPreprocessingCompleted_MediaService>();
+                        x.AddConsumer<SetMediaModerationResult_OnMediaClassfied_MediaService>();
+                        x.AddConsumer<SetMediaThumbnail_OnMediaThumbnailGenerated_MediaService>();
+                        x.AddConsumer<SetMediaTranscodedBlobName_OnVideoTranscoded_MediaService>();
+                        x.AddConsumer<SetMediaMetadata_OnMediaMetadataExtractionSuccess_MediaService>();
+                        x.AddConsumer<SetMediaMetadata_OnMediaMetadataExtractionFailed_MediaService>();
+                        x.AddConsumer<CreatePostMedia_OnPostMediaCreated_MediaService>();
 
                         x.UsingRabbitMq((context, cfg) =>
                         {
@@ -47,45 +48,55 @@ namespace MediaService.Workers
 
                             var retryLimit = 4;
 
-                            cfg.ReceiveEndpoint("SetMediaModerationResult", e =>
+                            cfg.ReceiveEndpoint(nameof(SetMediaModerationResult_OnMediaClassfied_MediaService), e =>
                             {
                                 e.UseMessageRetry(cfg =>
                                 {
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaModerationResult>(context);
+                                e.ConfigureConsumer<SetMediaModerationResult_OnMediaClassfied_MediaService>(context);
                             });
 
                             //720 and 360Squre
-                            cfg.ReceiveEndpoint("SetMediaThumbnail", e =>
+                            cfg.ReceiveEndpoint(nameof(SetMediaThumbnail_OnMediaThumbnailGenerated_MediaService), e =>
                             {
                                 e.UseMessageRetry(cfg =>
                                 {
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaThumbnailConsumer_MediaService>(context);
+                                e.ConfigureConsumer<SetMediaThumbnail_OnMediaThumbnailGenerated_MediaService>(context);
                             });
 
-                            cfg.ReceiveEndpoint("SetMediaTranscodedBlobName", e =>
+                            cfg.ReceiveEndpoint(nameof(SetMediaTranscodedBlobName_OnVideoTranscoded_MediaService), e =>
                             {
                                 e.UseMessageRetry(cfg =>
                                 {
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaTranscodedBlobNameConsumer_MediaService>(context);
+                                e.ConfigureConsumer<SetMediaTranscodedBlobName_OnVideoTranscoded_MediaService>(context);
                             });
 
-                            cfg.ReceiveEndpoint("SetMediaMetadata", e =>
+                            cfg.ReceiveEndpoint(nameof(SetMediaMetadata_OnMediaMetadataExtractionSuccess_MediaService), e =>
                             {
                                 e.UseMessageRetry(cfg =>
                                 {
                                     cfg.Immediate(retryLimit);
                                     cfg.Handle<AppConcurrencyException>();
                                 });
-                                e.ConfigureConsumer<SetMediaMetadataConsumer_MediaService>(context);
+                                e.ConfigureConsumer<SetMediaMetadata_OnMediaMetadataExtractionSuccess_MediaService>(context);
+                            });
+
+                            cfg.ReceiveEndpoint(nameof(SetMediaMetadata_OnMediaMetadataExtractionFailed_MediaService), e =>
+                            {
+                                e.UseMessageRetry(cfg =>
+                                {
+                                    cfg.Immediate(retryLimit);
+                                    cfg.Handle<AppConcurrencyException>();
+                                });
+                                e.ConfigureConsumer<SetMediaMetadata_OnMediaMetadataExtractionFailed_MediaService>(context);
                             });
 
                             cfg.ConfigureEndpoints(context);

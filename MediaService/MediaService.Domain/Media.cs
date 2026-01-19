@@ -33,14 +33,8 @@ namespace MediaService.Domain
 
         public bool IsPreprocessingCompleted =>
             Version == 6 ||
-            (
-                Version == 5 &&
-                (
-                    Type == MediaType.Image ||
-                    (Type == MediaType.Video && Metadata != null && Metadata.Duration > 180)
-                )
-
-            );
+            (Version == 5 && Type == MediaType.Image) ||
+            (Metadata != null && !Metadata.IsValid);
 
         public Media(Guid ownerId, string containerName, string blobName, MediaType type)
         {

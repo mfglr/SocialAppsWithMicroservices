@@ -3,9 +3,9 @@ using MediaService.Application.UseCases.SetMediaModerationResult;
 using MediatR;
 using Shared.Events.MediaService;
 
-namespace MediaService.Workers.Consumers.SetMediaModerationResul
+namespace MediaService.Workers.Consumers.SetMediaModerationResult
 {
-    internal class SetMediaModerationResult(ISender sender) : IConsumer<MediaClassfiedEvent>
+    internal class SetMediaModerationResult_OnMediaClassfied_MediaService(ISender sender) : IConsumer<MediaClassfiedEvent>
     {
         private readonly ISender _sender = sender;
 

@@ -10,7 +10,7 @@ namespace VideoTranscoder.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<TranscodeVideoConsumer_VideoTranscoder>();
+                    x.AddConsumer<TranscodeVideo_OnMediaMetadataExtractionSuccess_VideoTranscoder>();
                     
                     x.UsingRabbitMq((context, cfg) =>
                     {

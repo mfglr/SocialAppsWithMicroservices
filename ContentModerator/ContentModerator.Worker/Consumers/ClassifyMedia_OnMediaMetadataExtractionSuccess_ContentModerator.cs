@@ -5,15 +5,12 @@ using Shared.Events.MediaService;
 
 namespace ContentModerator.Worker.Consumers
 {
-    internal class ClassifyMedia_OnMediaMetadataExtracted_ContentModerator(ISender sender) : IConsumer<MediaMetadataExtractedEvent>
+    internal class ClassifyMedia_OnMediaMetadataExtractionSuccess_ContentModerator(ISender sender) : IConsumer<MediaMetadataExtractionSuccessEvent>
     {
         private readonly ISender _sender = sender;
 
-        public Task Consume(ConsumeContext<MediaMetadataExtractedEvent> context)
-        {
-            if (context.Message.Metadata.Duration > 180) return Task.CompletedTask;
-
-            return _sender
+        public Task Consume(ConsumeContext<MediaMetadataExtractionSuccessEvent> context) =>
+            _sender
                 .Send(
                     new ClassifyMediaRequest(
                         context.Message.Id,
@@ -23,6 +20,6 @@ namespace ContentModerator.Worker.Consumers
                 ), 
                 context.CancellationToken
             );
-        }
+        
     }
 }

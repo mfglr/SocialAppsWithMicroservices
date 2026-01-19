@@ -1,23 +1,22 @@
 ﻿using MassTransit;
 using MediatR;
+using MetadataExtractor.Application.UseCases.ExtractMediaMetadata;
 using Shared.Events.MediaService;
-using ThumbnailGenerator.Application.UseCases.GenerateThumbnail;
 
-namespace ThumbnailGenerator.Workers.Consumers
+namespace MetadataExtractor.Worker.Consumers
 {
-    internal class Generate720ThumbnailConsumer_ThumbnailGenerator(ISender sender) : IConsumer<MediaCreatedEvent>
+    internal class ExtractMediaMetadata_OnMediaCreated_MetadataExtractor(ISender sender) : IConsumer<MediaCreatedEvent>
     {
         private readonly ISender _sender = sender;
 
         public Task Consume(ConsumeContext<MediaCreatedEvent> context) =>
             _sender
                 .Send(
-                    new GenerateThumbnailRequest(
+                    new ExtractMediaMetadataRequest(
                         context.Message.Id,
                         context.Message.ContainerName,
                         context.Message.BlobName,
-                        720,
-                        false
+                        context.Message.Type
                     ),
                     context.CancellationToken
                 );

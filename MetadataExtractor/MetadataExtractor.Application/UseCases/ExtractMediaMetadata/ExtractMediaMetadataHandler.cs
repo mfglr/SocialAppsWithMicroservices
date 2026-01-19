@@ -14,16 +14,33 @@ namespace MetadataExtractor.Application.UseCases.ExtractMediaMetadata
         {
             using var stream = await _blobService.ReadAsync(request.ContainerName, request.BlobName, cancellationToken);
             var metadata = await _extractor.ExtractAsync(stream, cancellationToken);
-            await _publishEndpoint.Publish(
-                new MediaMetadataExtractedEvent(
-                    request.Id,
-                    request.ContainerName,
-                    request.BlobName,
-                    request.Type,
-                    metadata
-                ),
-                cancellationToken
-            );
+
+            if(metadata.IsValid)
+            {
+                await _publishEndpoint.Publish(
+                    new MediaMetadataExtractionSuccessEvent(
+                        request.Id,
+                        request.ContainerName,
+                        request.BlobName,
+                        request.Type,
+                        metadata
+                    ),
+                    cancellationToken
+                );
+            }
+            else
+            {
+                await _publishEndpoint.Publish(
+                    new MediaMetadataExtractionFailedEvent(
+                        request.Id,
+                        request.ContainerName,
+                        request.BlobName,
+                        request.Type,
+                        metadata
+                    ),
+                    cancellationToken
+                );
+            }
         }
     }
 }

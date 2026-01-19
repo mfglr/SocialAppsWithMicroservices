@@ -10,7 +10,7 @@ namespace ContentModerator.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<ClassifyMedia_OnMediaMetadataExtracted_ContentModerator>();
+                    x.AddConsumer<ClassifyMedia_OnMediaMetadataExtractionSuccess_ContentModerator>();
                     x.AddConsumer<ClassifyPostContent_OnPostCreated_ContentModerator>();
                     x.AddConsumer<ClassifyPostContent_OnPostContentUpdated_ContentModerator>();
                     x.AddConsumer<ClassifyCommentContent_OnCommentCreated_ContentModerator>();

@@ -1,24 +1,21 @@
 ﻿using ContentModerator.Application.UseCases.ClassifyText;
 using MassTransit;
-using MassTransit.Mediator;
+using MediatR;
 using Shared.Events.Comment;
-using Shared.Objects;
 
 namespace ContentModerator.Worker.Consumers
 {
-    internal class ClassifyCommentContent_OnCommentCreated_ContentModerator(IMediator mediator, IPublishEndpoint publishEndpoint) : IConsumer<CommentCreatedEvent>
+    internal class ClassifyCommentContent_OnCommentCreated_ContentModerator(ISender sender, IPublishEndpoint publishEndpoint) : IConsumer<CommentCreatedEvent>
     {
-        private readonly IMediator _mediator = mediator;
+        private readonly ISender _sender = sender;
         private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
 
         public async Task Consume(ConsumeContext<CommentCreatedEvent> context)
         {
-            var client = _mediator.CreateRequestClient<ClassifyTextRequest>();
-            var request = new ClassifyTextRequest(context.Message.Content.Value);
-            var response = await client.GetResponse<ModerationResult>(request);
+            var result = await _sender.Send(new ClassifyTextRequest(context.Message.Content.Value), context.CancellationToken);
 
             await _publishEndpoint.Publish(
-                new CommentContentClassifiedEvent(context.Message.Id, response.Message),
+                new CommentContentClassifiedEvent(context.Message.Id, result),
                 context.CancellationToken
             );
         }
