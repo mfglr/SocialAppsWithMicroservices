@@ -1,7 +1,12 @@
-﻿namespace Shared.Objects
+﻿using System.Text.Json.Serialization;
+
+namespace Shared.Objects
 {
     public record ModerationResult(int Hate, int SelfHarm, int Sexual, int Violence)
     {
+        [JsonIgnore]
+        public bool IsValid => Sexual == 0;
+
         public static ModerationResult Max(IEnumerable<ModerationResult> results)
         {
             int maxHate = 0, maxSelfHarm = 0, maxSexual = 0, maxViolence = 0;

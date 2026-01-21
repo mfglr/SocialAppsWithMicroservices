@@ -2,7 +2,6 @@
 
 namespace QueryService.Application.UseCases.PostUseCases
 {
-
     public record PostResponse_Content(
         string Value,
         ModerationResult ModerationResult

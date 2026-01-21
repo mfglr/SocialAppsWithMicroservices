@@ -1,4 +1,5 @@
 ﻿using Shared.Objects;
+using System.Text.Json;
 
 namespace QueryService.Domain.PostDomain
 {
@@ -11,11 +12,10 @@ namespace QueryService.Domain.PostDomain
         public Guid UserId { get; private set; }
         public int Version { get; private set; }
         public PostContent? Content { get; private set; }
-        public List<Media> Media { get; private set; } = [];
-
-        public bool IsValidVersion => !Media.Any(x => x.ModerationResult == null);
+        public string Media { get; private set; }
 
         private Post() { }
+
 
         public Post(Guid id,DateTime createdAt, DateTime? updatedAt, Guid userId, int version, PostContent? content, IEnumerable<Media> media)
         {
@@ -25,15 +25,15 @@ namespace QueryService.Domain.PostDomain
             UserId = userId;
             Version = version;
             Content = content;
-            Media = [.. media];
+            Media = JsonSerializer.Serialize(media);
         }
 
-        public void Set(int version, DateTime? updatedAt, PostContent? content, IEnumerable<Media> media)
+        public void Apply(int version, DateTime? updatedAt, PostContent? content, IEnumerable<Media> media)
         {
             UpdatedAt = updatedAt;
             Version = version;
             Content = content;
-            Media = [..media];
+            Media = JsonSerializer.Serialize(media);
         }
     }
 }

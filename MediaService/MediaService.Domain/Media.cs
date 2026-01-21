@@ -1,5 +1,4 @@
 ﻿using Shared.Objects;
-using System.Text.Json.Serialization;
 
 namespace MediaService.Domain
 {
@@ -15,21 +14,6 @@ namespace MediaService.Domain
         public Metadata? Metadata { get; private set; }
         public ModerationResult? ModerationResult { get; private set; }
         public IReadOnlyCollection<Thumbnail> Thumbnails { get; private set; }
-
-        //[JsonConstructor]
-        //private Media(Guid id, Guid ownerId, int version, string containerName, string blobName, string? transcodedBlobName, Metadata? metadata, MediaType type, ModerationResult? moderationResult, IEnumerable<Thumbnail> thumbnails)
-        //{
-        //    Id = id;
-        //    OwnerId = ownerId;
-        //    Version = version;
-        //    ContainerName = containerName;
-        //    BlobName = blobName;
-        //    TranscodedBlobName = transcodedBlobName;
-        //    Metadata = metadata;
-        //    Type = type;
-        //    ModerationResult = moderationResult;
-        //    Thumbnails = [..thumbnails];
-        //}
 
         public bool IsPreprocessingCompleted =>
             Version == 6 ||

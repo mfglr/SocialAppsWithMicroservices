@@ -6,6 +6,7 @@ using QueryService.Domain.CommentDomain;
 using QueryService.Domain.PostDomain;
 using QueryService.Domain.UserDomain;
 using QueryService.Infrastructure.QueryRepositories;
+using System.Reflection;
 
 namespace QueryService.Infrastructure
 {
@@ -14,6 +15,10 @@ namespace QueryService.Infrastructure
 
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) =>
             services
+                .AddAutoMapper(
+                    cfg => cfg.LicenseKey = configuration["LuckPenny:LicenseKey"],
+                    Assembly.GetExecutingAssembly()
+                )
                 .AddDbContext<SqlContext>(x => x.UseSqlServer(configuration.GetConnectionString("SqlServer")))
                 .AddQueryRepositories()
                 .AddScoped<IPostRepository,PostRepository>()
