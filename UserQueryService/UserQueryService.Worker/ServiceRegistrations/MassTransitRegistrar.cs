@@ -22,6 +22,7 @@ namespace UserQueryService.Worker.ServiceRegistrations
                 x =>
                 {
                     x.AddConsumer<CreateUser_OnUserCreated_UserQueryService>();
+                    x.AddConsumer<UpdateName_OnNameUpdated_UserQueryService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

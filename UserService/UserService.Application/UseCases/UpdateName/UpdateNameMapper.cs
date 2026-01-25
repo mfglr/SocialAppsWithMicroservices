@@ -8,7 +8,10 @@ namespace UserService.Application.UseCases.UpdateName
     {
         public UpdateNameMapper()
         {
-            CreateMap<User, NameUpdatedEvent>();
+            CreateMap<User, NameUpdatedEvent>()
+                .ForCtorParam("Username", cfg => cfg.MapFrom(x => x.Username.Value))
+                .ForCtorParam("Name", cfg => cfg.MapFrom(x => x.Name.Value))
+                .ForCtorParam("Gender", cfg => cfg.MapFrom(x => x.Gender.Value));
         }
     }
 }
