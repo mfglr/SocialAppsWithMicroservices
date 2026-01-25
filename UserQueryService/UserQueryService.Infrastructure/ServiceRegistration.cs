@@ -21,7 +21,7 @@ namespace UserQueryService.Infrastructure
                             .Date(u => u.CreatedAt)
                             .Date(u => u.UpdatedAt)
                             .Text(u => u.Name, tpd => tpd.Fields(pd => pd.Keyword(u => u.Name)))
-                            .Text(u => u.UserName, tpd => tpd.Fields(pd => pd.Keyword(u => u.UserName)))
+                            .Keyword(u => u.UserName)
                             .Keyword(u => u.Gender)
                             .Flattened(u => u.Media)
                         )
