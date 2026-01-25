@@ -2,7 +2,7 @@
 using MassTransit;
 using MediatR;
 using Shared.Events.UserService;
-using UserQueryService.Application.UseCases;
+using UserQueryService.Application.UseCases.UpsertUser;
 
 namespace UserQueryService.Worker.Consumers
 {

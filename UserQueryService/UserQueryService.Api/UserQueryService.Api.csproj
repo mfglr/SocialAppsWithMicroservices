@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3f3ca0dd-02a5-4781-b29f-f00d3cf3fb2d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UserQueryService.Application\UserQueryService.Application.csproj" />
+    <ProjectReference Include="..\UserQueryService.Infrastructure\UserQueryService.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

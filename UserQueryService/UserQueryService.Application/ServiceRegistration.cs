@@ -8,6 +8,10 @@ namespace UserQueryService.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration) =>
             services
+                .AddAutoMapper(
+                    cfg => cfg.LicenseKey = configuration["LuckPenny:LicenseKey"],
+                    Assembly.GetExecutingAssembly()
+                )
                 .AddMediatR(cfg =>
                 {
                     cfg.LicenseKey = configuration["LuckPenny:LicenseKey"];

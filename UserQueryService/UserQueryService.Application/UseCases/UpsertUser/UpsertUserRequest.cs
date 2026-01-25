@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Shared.Objects;
 
-namespace UserQueryService.Application.UseCases
+namespace UserQueryService.Application.UseCases.UpsertUser
 {
     public record UpsertUserRequest(
         Guid Id,

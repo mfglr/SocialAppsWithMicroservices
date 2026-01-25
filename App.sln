@@ -129,6 +129,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserQueryService.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserQueryService.Worker", "UserQueryService\UserQueryService.Worker\UserQueryService.Worker.csproj", "{11A02CC5-2771-4FD4-86D2-7DCE5659698D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserQueryService.Api", "UserQueryService\UserQueryService.Api\UserQueryService.Api.csproj", "{C161FB3F-76CF-4255-B266-7FC563451740}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -327,6 +329,10 @@ Global
 		{11A02CC5-2771-4FD4-86D2-7DCE5659698D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11A02CC5-2771-4FD4-86D2-7DCE5659698D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11A02CC5-2771-4FD4-86D2-7DCE5659698D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C161FB3F-76CF-4255-B266-7FC563451740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C161FB3F-76CF-4255-B266-7FC563451740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C161FB3F-76CF-4255-B266-7FC563451740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C161FB3F-76CF-4255-B266-7FC563451740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -381,6 +387,7 @@ Global
 		{0F96BD83-621C-432C-8CE1-CDF6CD7B9E0E} = {6A49C928-13A2-4A8B-B655-A600975734E0}
 		{1488259F-BA28-4905-BACA-02E47DC31739} = {6A49C928-13A2-4A8B-B655-A600975734E0}
 		{11A02CC5-2771-4FD4-86D2-7DCE5659698D} = {6A49C928-13A2-4A8B-B655-A600975734E0}
+		{C161FB3F-76CF-4255-B266-7FC563451740} = {6A49C928-13A2-4A8B-B655-A600975734E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E394BB55-5333-4ABF-B4E9-BEAC4395597E}

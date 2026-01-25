@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using UserQueryService.Domain;
 
-namespace UserQueryService.Application.UseCases
+namespace UserQueryService.Application.UseCases.UpsertUser
 {
     internal class UpsertUserHandler(IUserRepository userRepository) : IRequestHandler<UpsertUserRequest>
     {
