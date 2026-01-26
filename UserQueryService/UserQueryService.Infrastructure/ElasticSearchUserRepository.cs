@@ -40,5 +40,6 @@ namespace UserQueryService.Infrastructure
             if (!response.IsSuccess() && response.ElasticsearchServerError?.Status == 409)
                 throw new AppConcurrencyException();
         }
+
     }
 }

@@ -7,7 +7,7 @@ namespace UserQueryService.Application.UseCases
         DateTime CreatedAt,
         DateTime? UpdatedAt,
         string? Name,
-        string Username,
+        string UserName,
         string Gender,
         IEnumerable<Media> Media
     );

@@ -2,6 +2,7 @@
 using Elastic.Transport;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UserQueryService.Application;
 using UserQueryService.Domain;
 
 namespace UserQueryService.Infrastructure
@@ -43,7 +44,8 @@ namespace UserQueryService.Infrastructure
                 services
                 .AddSingleton(option)
                 .AddSingleton(client)
-                .AddSingleton<IUserRepository,ElasticSearchUserRepository>();
+                .AddSingleton<IUserRepository,ElasticSearchUserRepository>()
+                .AddSingleton<IUserQueryRepository, ElasticSearchUserQueryService>();
         }
     }
 }
