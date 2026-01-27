@@ -20,7 +20,7 @@ namespace BlobService.Api.Controllers
         [Authorize("client", Roles = "media-delete")]
         [HttpPost]
         public Task Delete(DeleteBlobRequest request, CancellationToken cancellationToken) =>
-            _blobService.DeleteAsync(request.ContainerName, request.ContainerName, cancellationToken);
+            _blobService.DeleteAsync(request.ContainerName, request.BlobNames, cancellationToken);
 
         [Authorize("client", Roles = "media-read")]
         [HttpGet("{containerName}/{blobName}")]
