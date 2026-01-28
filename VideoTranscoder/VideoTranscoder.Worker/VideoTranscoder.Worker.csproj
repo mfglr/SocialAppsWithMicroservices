@@ -17,4 +17,8 @@
     <ProjectReference Include="..\VideoTranscoder.Application\VideoTranscoder.Application.csproj" />
     <ProjectReference Include="..\VideoTranscoder.Infrastructure\VideoTranscoder.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Consumers\" />
+  </ItemGroup>
 </Project>

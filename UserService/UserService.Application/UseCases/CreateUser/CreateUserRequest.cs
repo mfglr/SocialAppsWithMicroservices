@@ -2,5 +2,5 @@
 
 namespace UserService.Application.UseCases.CreateUser
 {
-    public record CreateUserRequest(string Email, string Password) : IRequest;
+    public record CreateUserRequest(string Email, string Password) : MediatR.IRequest;
 }

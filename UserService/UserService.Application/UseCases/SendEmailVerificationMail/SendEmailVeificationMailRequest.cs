@@ -2,5 +2,5 @@
 
 namespace UserService.Application.UseCases.SendEmailVerificationMail
 {
-    public record SendEmailVeificationMailRequest : IRequest;
+    public record SendEmailVeificationMailRequest : MediatR.IRequest;
 }

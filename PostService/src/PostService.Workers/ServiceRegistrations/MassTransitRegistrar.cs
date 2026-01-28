@@ -23,7 +23,6 @@ namespace PostService.Workers.ServiceRegistrations
                 x =>
                 {
                     x.AddConsumer<SetPostContentModerationResultConsumer_PostService>();
-                    x.AddConsumer<SetPostMediaConsumer_PostService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {
@@ -43,16 +42,6 @@ namespace PostService.Workers.ServiceRegistrations
                                 rc.Handle<AppConcurrencyException>();
                             });
                             e.ConfigureConsumer<SetPostContentModerationResultConsumer_PostService>(context);
-                        });
-
-                        cfg.ReceiveEndpoint(nameof(SetPostMediaConsumer_PostService), e =>
-                        {
-                            e.UseMessageRetry(rc =>
-                            {
-                                rc.Immediate(retryLimit);
-                                rc.Handle<AppConcurrencyException>();
-                            });
-                            e.ConfigureConsumer<SetPostMediaConsumer_PostService>(context);
                         });
                     });
 

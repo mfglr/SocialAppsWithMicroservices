@@ -18,8 +18,11 @@ namespace UserQueryService.Application.UseCases.UpsertUser
                 await _userRepository.DeleteAsync(user, cancellationToken);
                 return;
             }
-            
-            if(user == null)
+
+
+            var media = request.Media.Where(x => !x.IsDeleted);
+
+            if (user == null)
             {
                 user = new User(
                     request.Id.ToString(),

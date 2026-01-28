@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserService.Application.UseCases.CreateMedia;
 using UserService.Application.UseCases.CreateUser;
+using UserService.Application.UseCases.GetUserById;
 using UserService.Application.UseCases.SendEmailVerificationMail;
 using UserService.Application.UseCases.UpdateName;
 
@@ -32,5 +33,9 @@ namespace UserService.Api.Controllers
         [Authorize("user")]
         public Task UpdateName(UpdateNameRequest request, CancellationToken cancellationToken) =>
             _sender.Send(request, cancellationToken);
+
+        [HttpGet("{id:guid}")]
+        public Task<GetUserByIdResponse> GetWriteModelById(Guid id,CancellationToken cancellationToken) =>
+            _sender.Send(new GetUserByIdRequest(id), cancellationToken);
     }
 }

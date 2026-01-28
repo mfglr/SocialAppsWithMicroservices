@@ -1,11 +1,8 @@
 using UserService.Api.ServiceRegistrations;
 using UserService.Application;
 using UserService.Infrastructure;
-using UserService.Infrastructure.Mongo;
 
 var builder = WebApplication.CreateBuilder(args);
-
-DbConfiguration.Configure();
 
 builder.Services.AddControllers();
 
@@ -17,9 +14,7 @@ builder.Services
 
 var app = builder.Build();
 
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

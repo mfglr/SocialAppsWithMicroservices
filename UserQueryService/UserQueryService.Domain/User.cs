@@ -22,7 +22,7 @@ namespace UserQueryService.Domain
             Name = name;
             UserName = userName;
             Gender = gender;
-            Media = [.. media];
+            Media = media;
         }
 
         public void Set(DateTime? updatedAt, int version, string? name, string userName, string gender, IEnumerable<Media> media)
@@ -32,7 +32,7 @@ namespace UserQueryService.Domain
             Name = name;
             UserName = userName;
             Gender = gender;
-            Media = [.. media];
+            Media = media;
         }
 
     }

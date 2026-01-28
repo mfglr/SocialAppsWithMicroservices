@@ -21,8 +21,9 @@ namespace UserQueryService.Worker.ServiceRegistrations
             return services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<CreateUser_OnUserCreated_UserQueryService>();
-                    x.AddConsumer<UpdateName_OnNameUpdated_UserQueryService>();
+                    x.AddConsumer<UpsertUser_OnUserCreated_UserQueryService>();
+                    x.AddConsumer<UpsertUser_OnNameUpdated_UserQueryService>();
+                    x.AddConsumer<UpsertUser_OnUserUpdated_UserQueryService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

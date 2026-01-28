@@ -1,6 +1,7 @@
 ﻿using MediatR;
+using Shared.Objects;
 
 namespace ThumbnailGenerator.Application.UseCases.GenerateThumbnail
 {
-    public record GenerateThumbnailRequest(Guid Id, string ContainerName, string BlobName, double Resulation, bool IsSquare) : IRequest;
+    public record GenerateThumbnailRequest(string ContainerName, string BlobName, double Resulation, bool IsSquare) : IRequest<Thumbnail>;
 }

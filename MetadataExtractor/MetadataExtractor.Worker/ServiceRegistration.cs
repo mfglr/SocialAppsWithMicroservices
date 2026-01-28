@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using MetadataExtractor.Worker;
-using MetadataExtractor.Worker.Consumers;
+using MetadataExtractor.Worker.Consumers.UserDomain;
 
 namespace MetadataExtractor.Worker
 {
@@ -10,8 +10,7 @@ namespace MetadataExtractor.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<ExtractMediaMetadata_OnMediaCreated_MetadataExtractor>();
-
+                    x.AddConsumer<ExtractMetadata_OnUserMediaCreated_MetadataExtractor>();
                     x.UsingRabbitMq((context, cfg) =>
                     {
                         cfg.Host(configration["RabbitMQ:Host"], configration["RabbitMQ:VirtualHost"], h =>

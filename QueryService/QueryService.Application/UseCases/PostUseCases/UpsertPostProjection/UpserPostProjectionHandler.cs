@@ -10,8 +10,6 @@ namespace QueryService.Application.UseCases.PostUseCases.UpsertPostProjection
 
         public async Task Handle(UpdatePostProjectionRequest request, CancellationToken cancellationToken)
         {
-            if (!request.IsValidVersion) return;
-
             var post = await _postRepository.GetByIdAsync(request.Id, cancellationToken);
             if (post != null && request.Version <= post.Version) return;
             if (post == null && request.IsDeleted) return;

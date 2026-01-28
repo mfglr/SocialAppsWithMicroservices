@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using ThumbnailGenerator.Workers;
-using ThumbnailGenerator.Workers.Consumers;
+using ThumbnailGenerator.Workers.Consumers.UserDomain;
 
 namespace ThumbnailGenerator.Workers
 {
@@ -10,9 +10,13 @@ namespace ThumbnailGenerator.Workers
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<Generate720Thumbnail_OnMediaMetadataExtractedSuccess_ThumbnailGenerator>();
-                    x.AddConsumer<Generate360SquareThumbnail_OnMediaMetadaExtractedSuccess_ThumbnailGenerator>();
-                    
+                    //x.AddConsumer<Generate720Thumbnail_OnMediaMetadataExtractedSuccess_ThumbnailGenerator>();
+                    //x.AddConsumer<Generate360SquareThumbnail_OnMediaMetadaExtractedSuccess_ThumbnailGenerator>();
+                    x.AddConsumer<Generate64SquareThumbnail_OnUserMediaCreated_ThumbnailGenerator>();
+                    x.AddConsumer<Generate128SquareThumbnail_OnUserMediaCreated_ThumbnailGenerator>();
+                    x.AddConsumer<Generate256SquareThumbnail_OnUserMediaCreated_ThumbnailGenerator>();
+                    x.AddConsumer<Generate720Thumbnail_OnUserMediaCreated_ThumbnailGenerator>();
+
                     x.UsingRabbitMq((context, cfg) =>
                     {
                         cfg.Host(configuration["RabbitMQ:Host"], configuration["RabbitMQ:VirtualHost"], h =>

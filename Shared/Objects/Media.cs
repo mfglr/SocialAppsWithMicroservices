@@ -13,14 +13,6 @@ namespace Shared.Objects
         public IReadOnlyList<Thumbnail> Thumbnails { get; private set; }
         public bool IsDeleted { get; private set; }
 
-
-        [JsonIgnore]
-        public bool IsValid =>
-            (Metadata?.IsValid ?? false) &&
-            (ModerationResult?.IsValid ?? false) &&
-            Thumbnails.Count == 2;
-
-
         [JsonConstructor]
         private Media(string containerName, string blobName, MediaType type, string? transcodedBlobName, Metadata? metadata, ModerationResult? moderationResult, IReadOnlyList<Thumbnail> thumbnails, bool isDeleted)
         {

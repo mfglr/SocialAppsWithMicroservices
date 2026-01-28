@@ -13,8 +13,6 @@ namespace QueryService.Application.UseCases.PostUseCases.UpsertPostProjection
         int Version,
         UpdatePostProjectionRequest_Content? Content,
         IEnumerable<Media> Media
-    ) : IRequest
-    {
-        public bool IsValidVersion => !Media.Any(x => !x.IsValid) && Media.Any();
-    }
+    ) : IRequest;
+    
 }

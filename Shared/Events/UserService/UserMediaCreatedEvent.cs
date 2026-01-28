@@ -4,13 +4,6 @@ namespace Shared.Events.UserService
 {
     public record UserMediaCreatedEvent(
         Guid Id,
-        DateTime CreatedAt,
-        DateTime? UpdatedAt,
-        int Version,
-        bool IsDeleted,
-        string? Name,
-        string Username,
-        string Gender,
-        IEnumerable<Media> Media
+        Media Media
     );
 }

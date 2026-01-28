@@ -43,7 +43,7 @@ namespace QueryService.Workers
                     //comment consumers
 
                     //user consumers
-                    x.AddConsumer<CreateUserConsumer_QueryService>();
+                    //x.AddConsumer<CreateUserConsumer_QueryService>();
                     //user consumers
 
                     x.UsingRabbitMq((context, cfg) =>

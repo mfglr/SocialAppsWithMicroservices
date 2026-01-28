@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using VideoTranscoder.Worker;
-using VideoTranscoder.Worker.Consumers;
 
 namespace VideoTranscoder.Worker
 {
@@ -10,8 +9,6 @@ namespace VideoTranscoder.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<TranscodeVideo_OnMediaMetadataExtractionSuccess_VideoTranscoder>();
-                    
                     x.UsingRabbitMq((context, cfg) =>
                     {
                         cfg.Host(configuration["RabbitMQ:Host"], configuration["RabbitMQ:VirtualHost"], h =>

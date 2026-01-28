@@ -22,6 +22,11 @@ namespace UserService.Worker.ServiceRegistrations
                     brc =>
                     {
                         brc.AddConsumer<SendEmailVerificationMailOnUserCreatedConsumer>();
+                        brc.AddConsumer<SetUserMediaMetadata_OnUserMediaMetadaExtracted_UserService>();
+                        brc.AddConsumer<SetUserMediaModerationResult_OnUserMediaClassfied_UserService>();
+
+                        brc.AddConsumer<AddUserMediaThumbnail_OnUserMediaThumbnailGenerated_UserService>();
+
                         brc.UsingRabbitMq((context, rbgc) =>
                         {
                             rbgc.Host(

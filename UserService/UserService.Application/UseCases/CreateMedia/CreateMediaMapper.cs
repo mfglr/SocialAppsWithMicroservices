@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Shared.Events.UserService;
 using UserService.Domain;
 
 namespace UserService.Application.UseCases.CreateMedia
@@ -8,10 +7,7 @@ namespace UserService.Application.UseCases.CreateMedia
     {
         public CreateMediaMapper()
         {
-            CreateMap<User, UserMediaCreatedEvent>()
-                .ForCtorParam("Username", cfg => cfg.MapFrom(x => x.Username.Value))
-                .ForCtorParam("Name", cfg => cfg.MapFrom(x => x.Name.Value))
-                .ForCtorParam("Gender", cfg => cfg.MapFrom(x => x.Gender.Value));
+            CreateMap<Media, Shared.Objects.Media>();
         }
     }
 }

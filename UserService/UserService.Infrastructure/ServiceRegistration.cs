@@ -2,8 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using UserService.Application;
+using UserService.Infrastructure.Grains;
 using UserService.Infrastructure.Keycloak;
-using UserService.Infrastructure.Mongo;
 
 namespace UserService.Infrastructure
 {
@@ -15,6 +15,6 @@ namespace UserService.Infrastructure
                 .AddSingleton<IAccessTokenProvider, RedisAccessTokenProvider>()
                 .AddSingleton<IBlobService,LocalBlobService>()
                 .AddKeycloak(configuration)
-                .AddMongoDb();
+                .AddOrleans();
     }
 }

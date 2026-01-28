@@ -1,46 +1,39 @@
-﻿using MassTransit;
-using MediatR;
-using Shared.Events.MediaService;
+﻿using MediatR;
 
 namespace VideoTranscoder.Application.UseCases.TranscodeVideo
 {
-    internal class TranscodeVideoHandler(IBlobService blobService, IVideoTranscoder videoTranscoder, TempDirectoryManager tempDirectoryManager, IPublishEndpoint publishEndpoint) : IRequestHandler<TranscodeVideoRequest>
+    internal class TranscodeVideoHandler(IBlobService blobService, IVideoTranscoder videoTranscoder, TempDirectoryManager tempDirectoryManager) : IRequestHandler<TranscodeVideoRequest, TranscodeVideoResponse>
     {
-        private readonly IBlobService _blobService = blobService;
-        private readonly IVideoTranscoder _videoTranscoder = videoTranscoder;
-        private readonly TempDirectoryManager _tempDirectoryManager = tempDirectoryManager;
-        private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
-
-        public async Task Handle(TranscodeVideoRequest request, CancellationToken cancellationToken)
+        public async Task<TranscodeVideoResponse> Handle(TranscodeVideoRequest request, CancellationToken cancellationToken)
         {
             string? blobName = null;
             try
             {
-                _tempDirectoryManager.Create();
+                tempDirectoryManager.Create();
 
-                var inputStream = await _blobService.GetAsync(request.ContainerName, request.BlobName, cancellationToken);
+                var inputStream = await blobService.GetAsync(request.ContainerName, request.BlobName, cancellationToken);
 
-                var inputPath = await _tempDirectoryManager.AddAsync(inputStream, cancellationToken);
+                var inputPath = await tempDirectoryManager.AddAsync(inputStream, cancellationToken);
                 inputStream.Close();
                 inputStream.Dispose();
 
-                var trancodedBlobPath = _tempDirectoryManager.GenerateUniqPath("mp4");
-                await _videoTranscoder.Transcode(inputPath, trancodedBlobPath, cancellationToken);
+                var trancodedBlobPath = tempDirectoryManager.GenerateUniqPath("mp4");
+                await videoTranscoder.Transcode(inputPath, trancodedBlobPath, cancellationToken);
 
-                var transcodedBlobStream = File.OpenRead(trancodedBlobPath);
-                blobName = await _blobService.UploadAsync(transcodedBlobStream, request.ContainerName, cancellationToken);
-                transcodedBlobStream.Close();
-                transcodedBlobStream.Dispose();
+                using (var transcodedBlobStream = File.OpenRead(trancodedBlobPath))
+                {
+                    blobName = await blobService.UploadAsync(transcodedBlobStream, request.ContainerName, cancellationToken);
+                }
 
-                _tempDirectoryManager.Delete();
+                tempDirectoryManager.Delete();
 
-                await _publishEndpoint.Publish(new VideoTranscodedEvent(request.Id, blobName), cancellationToken);
+                return new(blobName);
             }
             catch (Exception)
             {
-                _tempDirectoryManager.Delete();
+                tempDirectoryManager.Delete();
                 if (blobName != null)
-                    await _blobService.DeleteAsync(request.ContainerName, blobName, cancellationToken);
+                    await blobService.DeleteAsync(request.ContainerName, blobName, cancellationToken);
                 throw;
             }
         }

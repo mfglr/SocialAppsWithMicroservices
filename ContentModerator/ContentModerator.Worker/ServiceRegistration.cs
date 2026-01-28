@@ -1,5 +1,7 @@
 ﻿using ContentModerator.Worker;
-using ContentModerator.Worker.Consumers;
+using ContentModerator.Worker.Consumers.CommentDomain;
+using ContentModerator.Worker.Consumers.PostDomain;
+using ContentModerator.Worker.Consumers.UserDomain;
 using MassTransit;
 
 namespace ContentModerator.Worker
@@ -10,11 +12,12 @@ namespace ContentModerator.Worker
             services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<ClassifyMedia_OnMediaMetadataExtractionSuccess_ContentModerator>();
                     x.AddConsumer<ClassifyPostContent_OnPostCreated_ContentModerator>();
                     x.AddConsumer<ClassifyPostContent_OnPostContentUpdated_ContentModerator>();
                     x.AddConsumer<ClassifyCommentContent_OnCommentCreated_ContentModerator>();
                     x.AddConsumer<ClassifyCommentContent_OnContentUpdated_ContentModerator>();
+
+                    x.AddConsumer<ClassifyImage_OnUserMediaCreated_ContentModerator>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

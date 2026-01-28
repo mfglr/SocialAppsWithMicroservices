@@ -1,7 +1,6 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace UserService.Application.UseCases.CreateMedia
 {
-    public record CreateMediaRequest(IFormFile Media) : IRequest;
+    public record CreateMediaRequest(IFormFile Media) : MediatR.IRequest;
 }

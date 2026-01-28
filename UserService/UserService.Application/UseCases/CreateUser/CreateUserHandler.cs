@@ -1,38 +1,30 @@
 ﻿using AutoMapper;
 using MassTransit;
 using MediatR;
+using Orleans;
 using Shared.Events.UserService;
 using UserService.Domain;
 
 namespace UserService.Application.UseCases.CreateUser
 {
-    public class CreateUserHandler(IUserRepository userRepository, IAuthService authService, IPublishEndpoint publishEndpoint, IMapper mapper) : IRequestHandler<CreateUserRequest>
+    public class CreateUserHandler(IMapper mapper, IGrainFactory grainFactory, IAuthService authService, IPublishEndpoint publishEndpoint) : IRequestHandler<CreateUserRequest>
     {
-        private readonly IUserRepository _userRepository = userRepository;
-        private readonly IAuthService _authService = authService;
-        private readonly IMapper _mapper = mapper;
-        private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
-
         public async Task Handle(CreateUserRequest request, CancellationToken cancellationToken)
         {
             var username = Username.GenerateRandom();
-
-            Guid userId = await _authService.RegisterAsync(
+            Guid userId = await authService.RegisterAsync(
                 username.Value,
                 request.Email,
                 request.Password,
                 cancellationToken
             );
 
-            var user = new User(userId, username);
-            await _userRepository.CreateUserAsync(user, cancellationToken);
+            var userGrain = grainFactory.GetGrain<IUserGrain>(userId);
+            await userGrain.Create(username);
 
-            var @event = _mapper.Map<User, UserCreatedEvent>(user);
-
-            await _publishEndpoint.Publish(
-                @event,
-                cancellationToken
-            );
+            var user = await userGrain.Get();
+            var @event = mapper.Map<User, UserCreatedEvent>(user);
+            await publishEndpoint.Publish(@event,cancellationToken);
         }
     }
 }
