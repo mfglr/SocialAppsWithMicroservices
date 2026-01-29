@@ -23,6 +23,7 @@ namespace PostService.Application.UseCases.DeletePost
 
             if (!_identityService.IsAdminOrOwner(post.UserId))
                 throw new UnauthorizedOperationException();
+
             post.Delete();
             await _postRepository.UpdateAsync(post, cancellationToken);
 

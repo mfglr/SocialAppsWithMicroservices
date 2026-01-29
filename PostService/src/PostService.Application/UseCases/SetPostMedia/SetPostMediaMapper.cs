@@ -8,8 +8,11 @@ namespace PostService.Application.UseCases.SetPostMedia
     {
         public SetPostMediaMapper()
         {
-            CreateMap<Content, PostMediaSetEvent_Content>();
-            CreateMap<Post, PostMediaSetEvent>();
+            CreateMap<SetPostMediaRequest_Media, Media>();
+
+            CreateMap<Content, PostPreproccessingCompletedEvent_Content>();
+            CreateMap<Media, PostPreproccessingCompletedEvent_Media>();
+            CreateMap<Post, PostPreproccessingCompletedEvent>();
         }
     }
 }

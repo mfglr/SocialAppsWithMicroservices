@@ -1,6 +1,4 @@
-﻿using Shared.Objects;
-
-namespace UserQueryService.Domain
+﻿namespace UserQueryService.Domain
 {
     public class User
     {

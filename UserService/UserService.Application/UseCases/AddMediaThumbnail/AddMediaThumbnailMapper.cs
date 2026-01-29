@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Shared.Events;
 
 namespace UserService.Application.UseCases.AddMediaThumbnail
 {
@@ -6,7 +7,7 @@ namespace UserService.Application.UseCases.AddMediaThumbnail
     {
         public AddMediaThumbnailMapper()
         {
-            CreateMap<Shared.Objects.Thumbnail, Domain.Thumbnail>();
+            CreateMap<Thumbnail, Domain.Thumbnail>();
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using Shared.Objects;
+using Shared.Events;
 
 namespace ContentModerator.Application.UseCases.ClassifyMedia
 {
-    internal class ClassifyMediaHandler(IImageFrameExtractor imageFrameExtractor, IVideoFrameExtractor videoFrameExtractor, TempDirectoryManager tempDirectoryManager, IBlobService blobService, IModerator moderator) : IRequestHandler<ClassifyMediaRequest>
+    internal class ClassifyMediaHandler(IImageFrameExtractor imageFrameExtractor, IVideoFrameExtractor videoFrameExtractor, TempDirectoryManager tempDirectoryManager, IBlobService blobService, IModerator moderator) : IRequestHandler<ClassifyMediaRequest, ModerationResult>
     {
-        public async Task Handle(ClassifyMediaRequest request, CancellationToken cancellationToken)
+        public async Task<ModerationResult> Handle(ClassifyMediaRequest request, CancellationToken cancellationToken)
         {
             double resolution = 720;
             double fps = 1;
@@ -30,6 +30,8 @@ namespace ContentModerator.Application.UseCases.ClassifyMedia
                 var moderationResult = ModerationResult.Max(await Task.WhenAll(tasks));
 
                 tempDirectoryManager.Delete();
+
+                return moderationResult;
             }
             catch (Exception)
             {

@@ -1,10 +1,17 @@
-﻿using Shared.Objects;
-
-namespace Shared.Events.PostService
+﻿namespace Shared.Events.PostService
 {
     public record PostDeletedEvent_Content(
         string Value,
         ModerationResult ModerationResult
+    );
+    public record PostDeletedEvent_Media(
+        string ContainerName,
+        string BlobName,
+        MediaType Type,
+        Metadata? Metadata,
+        ModerationResult? ModerationResult,
+        IEnumerable<Thumbnail> Thumbnails,
+        string? TranscodedBlobName
     );
     public record PostDeletedEvent(
         Guid Id,
@@ -14,6 +21,6 @@ namespace Shared.Events.PostService
         int Version,
         bool IsDeleted,
         PostDeletedEvent_Content? Content,
-        IReadOnlyList<Media> Media
+        IEnumerable<PostDeletedEvent_Media> Media
     );
 }

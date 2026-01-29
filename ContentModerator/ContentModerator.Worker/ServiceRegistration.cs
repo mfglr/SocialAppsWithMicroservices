@@ -12,12 +12,14 @@ namespace ContentModerator.Worker
             services.AddMassTransit(
                 x =>
                 {
+                    x.AddConsumer<ClassifyPostMedia_OnPostMediaMetadataExtracted_ContentModerator>();
                     x.AddConsumer<ClassifyPostContent_OnPostCreated_ContentModerator>();
                     x.AddConsumer<ClassifyPostContent_OnPostContentUpdated_ContentModerator>();
-                    x.AddConsumer<ClassifyCommentContent_OnCommentCreated_ContentModerator>();
-                    x.AddConsumer<ClassifyCommentContent_OnContentUpdated_ContentModerator>();
 
                     x.AddConsumer<ClassifyImage_OnUserMediaCreated_ContentModerator>();
+
+                    x.AddConsumer<ClassifyCommentContent_OnCommentCreated_ContentModerator>();
+                    x.AddConsumer<ClassifyCommentContent_OnContentUpdated_ContentModerator>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {

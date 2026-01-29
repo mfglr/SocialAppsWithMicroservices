@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
-using Shared.Objects;
+using Shared.Events;
 
 namespace MetadataExtractor.Application.UseCases.ExtractFileMetadata
 {

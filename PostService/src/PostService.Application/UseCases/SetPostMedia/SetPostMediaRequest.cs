@@ -1,14 +1,19 @@
 ﻿using MediatR;
-using Shared.Objects;
+using Shared.Events;
 
 namespace PostService.Application.UseCases.SetPostMedia
 {
-    public record SetPostMediaRequest(
-        Guid OwnerId,
+    public record SetPostMediaRequest_Media(
+        string ContainerName,
         string BlobName,
-        string? TranscodedBlobName,
-        Metadata Metadata,
+        MediaType Type,
+        Metadata? Metadata,
         ModerationResult? ModerationResult,
-        IReadOnlyList<Thumbnail> Thumbnails
+        IEnumerable<Thumbnail> Thumbnails,
+        string? TranscodedBlobName
+    );
+    public record SetPostMediaRequest(
+        Guid Id,
+        IEnumerable<SetPostMediaRequest_Media> Media
     ) : IRequest;
 }

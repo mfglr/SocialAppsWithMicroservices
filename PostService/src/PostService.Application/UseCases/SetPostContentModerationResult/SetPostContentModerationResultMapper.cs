@@ -9,6 +9,7 @@ namespace PostService.Application.UseCases.SetPostContentModerationResult
         public SetPostContentModerationResultMapper()
         {
             CreateMap<Content, PostContentModerationResultSetEvent_Content>();
+            CreateMap<Media, PostContentModerationResultSetEvent_Media>();
             CreateMap<Post, PostContentModerationResultSetEvent>();
         }
     }

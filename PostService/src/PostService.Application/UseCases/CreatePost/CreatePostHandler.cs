@@ -17,7 +17,7 @@ namespace PostService.Application.UseCases.CreatePost
         public async Task<CreatePostResponse> Handle(CreatePostRequest request, CancellationToken cancellationToken)
         {
             var types = CreatePostHelpers.GetMediaTypes(request.Media);
-            var content = new Content(request.Content);
+            var content = request.Content != null ? new Content(request.Content) : null;
             var blobNames = await _blobService.UploadAsync(Post.MediaContainerName, request.Media, cancellationToken);
             var media = CreatePostHelpers.GenerateMedia(types, blobNames);
             try

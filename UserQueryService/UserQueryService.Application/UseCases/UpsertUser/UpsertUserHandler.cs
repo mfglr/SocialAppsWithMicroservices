@@ -1,26 +1,25 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using UserQueryService.Domain;
 
 namespace UserQueryService.Application.UseCases.UpsertUser
 {
-    internal class UpsertUserHandler(IUserRepository userRepository) : IRequestHandler<UpsertUserRequest>
+    internal class UpsertUserHandler(IUserRepository userRepository, IMapper mapper) : IRequestHandler<UpsertUserRequest>
     {
-        private readonly IUserRepository _userRepository = userRepository;
-
         public async Task Handle(UpsertUserRequest request, CancellationToken cancellationToken)
         {
-            var userVersion = await _userRepository.GetByIdAsync(request.Id.ToString(), cancellationToken);
+            var userVersion = await userRepository.GetByIdAsync(request.Id.ToString(), cancellationToken);
             var user = userVersion?.User;
             if (user != null && request.Version <= user.Version) return;
             if (user == null && request.IsDeleted) return;
             if (user != null && request.IsDeleted)
             {
-                await _userRepository.DeleteAsync(user, cancellationToken);
+                await userRepository.DeleteAsync(user, cancellationToken);
                 return;
             }
 
 
-            var media = request.Media.Where(x => !x.IsDeleted);
+            var media = mapper.Map<IEnumerable<UpsertUserRequest_Media>, IEnumerable<Media>>(request.Media).Where(x => !x.IsDeleted);
 
             if (user == null)
             {
@@ -32,9 +31,9 @@ namespace UserQueryService.Application.UseCases.UpsertUser
                     request.Name,
                     request.Username,
                     request.Gender,
-                    request.Media
+                    media
                 );
-                await _userRepository.CreateAsync(user, cancellationToken);
+                await userRepository.CreateAsync(user, cancellationToken);
                 return;
             }
 
@@ -45,9 +44,9 @@ namespace UserQueryService.Application.UseCases.UpsertUser
                 request.Name,
                 request.Username,
                 request.Gender,
-                request.Media
+                media
             );
-            await _userRepository.UpdateAsync(user, version, cancellationToken);
+            await userRepository.UpdateAsync(user, version, cancellationToken);
         }
     }
 }

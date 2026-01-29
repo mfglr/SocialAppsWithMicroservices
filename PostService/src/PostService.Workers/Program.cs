@@ -9,6 +9,7 @@ var builder = Host.CreateApplicationBuilder(args);
 DbConfiguration.Configure();
 
 builder.Services
+    .AddAutoMapper(builder.Configuration)
     .AddApplication(builder.Configuration)
     .AddMassTransit(builder.Configuration)
     .AddInfrastructure(builder.Configuration)

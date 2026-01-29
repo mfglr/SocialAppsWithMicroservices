@@ -3,5 +3,5 @@ using Microsoft.AspNetCore.Http;
 
 namespace PostService.Application.UseCases.CreatePost
 {
-    public record CreatePostRequest(string Content, IFormFileCollection Media) : IRequest<CreatePostResponse>;
+    public record CreatePostRequest(string? Content, IFormFileCollection Media) : IRequest<CreatePostResponse>;
 }

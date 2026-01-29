@@ -9,6 +9,7 @@ namespace PostService.Application.UseCases.CreatePost
         public CreatePostMapper()
         {
             CreateMap<Content, PostCreatedEvent_Content>();
+            CreateMap<Media, PostCreatedEvent_Media>();
             CreateMap<Post, PostCreatedEvent>();
         }
     }

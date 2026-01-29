@@ -1,4 +1,4 @@
-﻿using Shared.Objects;
+﻿using Shared.Events;
 
 namespace MetadataExtractor.Application
 {

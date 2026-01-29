@@ -9,6 +9,7 @@ namespace PostService.Application.UseCases.DeletePost
         public DeletePostMapper()
         {
             CreateMap<Content, PostDeletedEvent_Content>();
+            CreateMap<Media, PostDeletedEvent_Media>();
             CreateMap<Post, PostDeletedEvent>();
         }
     }

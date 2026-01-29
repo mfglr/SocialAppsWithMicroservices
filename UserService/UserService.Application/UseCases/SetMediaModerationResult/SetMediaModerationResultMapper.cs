@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Shared.Events;
 
 namespace UserService.Application.UseCases.SetMediaModerationResult
 {
@@ -6,7 +7,7 @@ namespace UserService.Application.UseCases.SetMediaModerationResult
     {
         public SetMediaModerationResultMapper()
         {
-            CreateMap<Shared.Objects.ModerationResult, Domain.ModerationResult>();
+            CreateMap<ModerationResult, Domain.ModerationResult>();
         }
     }
 }

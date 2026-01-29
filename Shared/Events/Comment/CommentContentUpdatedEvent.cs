@@ -1,6 +1,4 @@
-﻿using Shared.Objects;
-
-namespace Shared.Events.Comment
+﻿namespace Shared.Events.Comment
 {
     public record CommentContentUpdatedEvent_Content(
         string Value,

@@ -7,29 +7,23 @@ using Shared.Events.PostService;
 
 namespace PostService.Application.UseCases.SetPostMedia
 {
-    internal class SetPostMediaHandler(IPostRepository postRepository, IMapper mapper, IPublishEndpoint publishEndpoint) : IRequestHandler<SetPostMediaRequest>
+    internal class SetPostMediaHandler(IPostRepository postRepository, IPublishEndpoint publishEndpoint, IMapper mapper) : IRequestHandler<SetPostMediaRequest>
     {
-        private readonly IPostRepository _postRepository = postRepository;
-        private readonly IMapper _mapper = mapper;
-        private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
-
         public async Task Handle(SetPostMediaRequest request, CancellationToken cancellationToken)
         {
-            var post =
-                await _postRepository.GetByIdAsync(request.OwnerId, cancellationToken) ??
+            var post = 
+                await postRepository.GetByIdAsync(request.Id,cancellationToken) ??
                 throw new PostNotFoundException();
 
-            post.SetMedia(
-                request.BlobName,
-                request.TranscodedBlobName,
-                request.Metadata,
-                request.ModerationResult,
-                request.Thumbnails
-            );
-            await _postRepository.UpdateAsync(post, cancellationToken);
+            var media = mapper.Map<IEnumerable<SetPostMediaRequest_Media>, IEnumerable<Media>>(request.Media);
+            post.SetMedia(media);
+            await postRepository.UpdateAsync(post, cancellationToken);
 
-            var @event = _mapper.Map<Post, PostMediaSetEvent>(post);
-            await _publishEndpoint.Publish(@event, cancellationToken);
+            if (post.IsValid())
+            {
+                var @event = mapper.Map<Post, PostPreproccessingCompletedEvent>(post);
+                await publishEndpoint.Publish(@event, cancellationToken);
+            }
         }
     }
 }

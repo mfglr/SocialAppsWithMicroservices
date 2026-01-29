@@ -1,7 +1,14 @@
-﻿using Shared.Objects;
-
-namespace Shared.Events.UserService
+﻿namespace Shared.Events.UserService
 {
+    public record NameUpdatedEvent_Media(
+        string ContainerName,
+        string BlobName,
+        MediaType Type,
+        Metadata? Metadata,
+        ModerationResult? ModerationResult,
+        IEnumerable<Thumbnail> Thumbnails
+    );
+
     public record NameUpdatedEvent(
         Guid Id,
         DateTime CreatedAt,
@@ -11,6 +18,6 @@ namespace Shared.Events.UserService
         string? Name,
         string Username,
         string Gender,
-        IEnumerable<Media> Media
+        IEnumerable<NameUpdatedEvent_Media> Media
     );
 }

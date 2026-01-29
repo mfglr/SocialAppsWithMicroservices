@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MassTransit;
 using MediatR;
-using Orleans;
 using Shared.Events.UserService;
 using UserService.Domain;
 
@@ -13,7 +12,7 @@ namespace UserService.Application.UseCases.AddMediaThumbnail
         {
             var userGrain = grainFactory.GetGrain<IUserGrain>(request.Id);
 
-            var tumbnail = mapper.Map<Shared.Objects.Thumbnail, Thumbnail>(request.Thumbnail);
+            var tumbnail = mapper.Map<Shared.Events.Thumbnail, Domain.Thumbnail>(request.Thumbnail);
             await userGrain.AddMediaThumbnail(request.BlobName, tumbnail);
 
             var user = await userGrain.Get();

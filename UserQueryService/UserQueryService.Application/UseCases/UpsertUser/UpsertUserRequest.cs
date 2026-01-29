@@ -1,8 +1,17 @@
 ﻿using MediatR;
-using Shared.Objects;
+using Shared.Events;
 
 namespace UserQueryService.Application.UseCases.UpsertUser
 {
+    public record UpsertUserRequest_Media(
+        string ContainerName,
+        string BlobName,
+        MediaType Type,
+        Metadata? Metadata,
+        ModerationResult? ModerationResult,
+        IEnumerable<Thumbnail> Thumbnails,
+        bool IsDeleted
+    );
     public record UpsertUserRequest(
         Guid Id,
         DateTime CreatedAt,
@@ -12,6 +21,6 @@ namespace UserQueryService.Application.UseCases.UpsertUser
         string? Name,
         string Username,
         string Gender,
-        IEnumerable<Media> Media
+        IEnumerable<UpsertUserRequest_Media> Media
     ) : IRequest;
 }

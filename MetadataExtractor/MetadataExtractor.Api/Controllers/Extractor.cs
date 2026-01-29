@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using MetadataExtractor.Application.UseCases.ExtractFileMetadata;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Objects;
+using Shared.Events;
 
 namespace MetadataExtractor.Api.Controllers
 {

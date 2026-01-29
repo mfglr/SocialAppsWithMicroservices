@@ -1,5 +1,5 @@
 ﻿using MetadataExtractor.Application;
-using Shared.Objects;
+using Shared.Events;
 using Xabe.FFmpeg;
 
 namespace MetadataExtractor.Infrastructure.FFmpegMetadataExtractor

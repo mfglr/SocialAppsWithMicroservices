@@ -12,8 +12,8 @@ namespace ThumbnailGenerator.Workers.Consumers.UserDomain
             var thumbnail = await sender
                 .Send(
                     new GenerateThumbnailRequest(
-                        context.Message.Media.ContainerName,
-                        context.Message.Media.BlobName,
+                        context.Message.ContainerName,
+                        context.Message.BlobName,
                         64,
                         true
                     ),
@@ -21,7 +21,11 @@ namespace ThumbnailGenerator.Workers.Consumers.UserDomain
                 );
 
             await publishEndpoint.Publish(
-                new UserMediaThumbnailGeneratedEvent(context.Message.Id, context.Message.Media.BlobName, thumbnail),
+                new UserMediaThumbnailGeneratedEvent(
+                    context.Message.Id,
+                    context.Message.BlobName,
+                    thumbnail
+                ),
                 context.CancellationToken
             );
         }

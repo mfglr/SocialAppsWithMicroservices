@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using MediatR;
-using Shared.Objects;
+using Shared.Events;
 
 namespace MetadataExtractor.Application.UseCases.ExtractMediaMetadata
 {

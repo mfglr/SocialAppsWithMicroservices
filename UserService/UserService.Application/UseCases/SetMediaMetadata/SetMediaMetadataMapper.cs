@@ -7,7 +7,7 @@ namespace UserService.Application.UseCases.SetMediaMetadata
     {
         public SetMediaMetadataMapper() 
         {
-            CreateMap<Shared.Objects.Metadata, Metadata>();
+            CreateMap<Shared.Events.Metadata, Metadata>();
         }
     }
 }

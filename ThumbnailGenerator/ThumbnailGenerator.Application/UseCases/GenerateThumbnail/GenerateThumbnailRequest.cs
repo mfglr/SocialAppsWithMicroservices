@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Shared.Objects;
+using Shared.Events;
 
 namespace ThumbnailGenerator.Application.UseCases.GenerateThumbnail
 {

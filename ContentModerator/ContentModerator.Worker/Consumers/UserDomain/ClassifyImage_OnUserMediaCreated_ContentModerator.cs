@@ -10,14 +10,14 @@ namespace ContentModerator.Worker.Consumers.UserDomain
         public async Task Consume(ConsumeContext<UserMediaCreatedEvent> context)
         {
             var result = await sender.Send(
-                new ClassifyImageRequest(context.Message.Media.ContainerName, context.Message.Media.BlobName),
+                new ClassifyImageRequest(context.Message.ContainerName, context.Message.BlobName),
                 context.CancellationToken
             );
             await publishEndpoint
                 .Publish(
                     new UserMediaClassfiedEvent(
                         context.Message.Id,
-                        context.Message.Media.BlobName,
+                        context.Message.BlobName,
                         result
                     ),
                     context.CancellationToken

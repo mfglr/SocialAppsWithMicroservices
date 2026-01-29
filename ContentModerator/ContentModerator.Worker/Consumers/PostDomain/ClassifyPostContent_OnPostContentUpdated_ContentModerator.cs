@@ -14,7 +14,7 @@ namespace ContentModerator.Worker.Consumers.PostDomain
         {
             if (context.Message.Content == null) return;
             
-            var result = await _sender.Send(new ClassifyTextRequest(context.Message.Content.Value), context.CancellationToken);
+            var result = await _sender.Send(new ClassifyTextRequest(context.Message.Content), context.CancellationToken);
             
             await _publishEndpoint.Publish(
                 new PostContentClassifiedEvent(context.Message.Id, result),

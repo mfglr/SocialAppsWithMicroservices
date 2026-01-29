@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PostService.Application.UseCases.SetPostContentModerationResult;
-using PostService.Application.UseCases.SetPostMedia;
 using System.Reflection;
 
 namespace PostService.Application

@@ -22,7 +22,8 @@ namespace PostService.Workers.ServiceRegistrations
             return services.AddMassTransit(
                 x =>
                 {
-                    x.AddConsumer<SetPostContentModerationResultConsumer_PostService>();
+                    x.AddConsumer<SetPostContentModerationResult_OnPostContentClassified_PostService>();
+                    x.AddConsumer<SetPostMedia_OnPostMediaPreproccessingCompleted_PostService>();
 
                     x.UsingRabbitMq((context, cfg) =>
                     {
@@ -32,16 +33,26 @@ namespace PostService.Workers.ServiceRegistrations
                             h.Password(option.Password);
                         });
 
-                        var retryLimit = 5;
+                        var retryLimit = 1;
 
-                        cfg.ReceiveEndpoint(nameof(SetPostContentModerationResultConsumer_PostService), e =>
+                        cfg.ReceiveEndpoint(nameof(SetPostContentModerationResult_OnPostContentClassified_PostService), e =>
                         {
                             e.UseMessageRetry(rc =>
                             {
                                 rc.Immediate(retryLimit);
                                 rc.Handle<AppConcurrencyException>();
                             });
-                            e.ConfigureConsumer<SetPostContentModerationResultConsumer_PostService>(context);
+                            e.ConfigureConsumer<SetPostContentModerationResult_OnPostContentClassified_PostService>(context);
+                        });
+
+                        cfg.ReceiveEndpoint(nameof(SetPostMedia_OnPostMediaPreproccessingCompleted_PostService), e =>
+                        {
+                            e.UseMessageRetry(rc =>
+                            {
+                                rc.Immediate(retryLimit);
+                                rc.Handle<AppConcurrencyException>();
+                            });
+                            e.ConfigureConsumer<SetPostMedia_OnPostMediaPreproccessingCompleted_PostService>(context);
                         });
                     });
 

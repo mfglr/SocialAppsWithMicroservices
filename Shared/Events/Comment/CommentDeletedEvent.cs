@@ -1,6 +1,4 @@
-﻿using Shared.Objects;
-
-namespace Shared.Events.Comment
+﻿namespace Shared.Events.Comment
 {
     public record CommentDeletedEvent_Content(
         string Value,
