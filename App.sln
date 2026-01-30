@@ -127,6 +127,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMedia.Worker", "PostMed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMediaActor.Host", "PostMediaService\PostMediaActor.Host\PostMediaActor.Host.csproj", "{4BBB5533-A2D8-DA3C-F31F-A6D8F3F7296F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessService", "BusinessService", "{77458275-C818-4DB3-803F-AD4821809EC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessService.Domain", "BusinessService\BusinessService.Domain\BusinessService.Domain.csproj", "{A83AE588-B4B8-4EAE-9380-A5C20DDC87DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -321,6 +325,10 @@ Global
 		{4BBB5533-A2D8-DA3C-F31F-A6D8F3F7296F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBB5533-A2D8-DA3C-F31F-A6D8F3F7296F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBB5533-A2D8-DA3C-F31F-A6D8F3F7296F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A83AE588-B4B8-4EAE-9380-A5C20DDC87DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83AE588-B4B8-4EAE-9380-A5C20DDC87DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83AE588-B4B8-4EAE-9380-A5C20DDC87DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A83AE588-B4B8-4EAE-9380-A5C20DDC87DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -375,6 +383,7 @@ Global
 		{D4B5EADA-0FB5-C84D-C5EC-FEA977F51334} = {E042081B-8626-4892-9193-824D42985FA0}
 		{30115525-2031-C881-74FF-3BDA4697C7BC} = {E042081B-8626-4892-9193-824D42985FA0}
 		{4BBB5533-A2D8-DA3C-F31F-A6D8F3F7296F} = {E042081B-8626-4892-9193-824D42985FA0}
+		{A83AE588-B4B8-4EAE-9380-A5C20DDC87DC} = {77458275-C818-4DB3-803F-AD4821809EC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E394BB55-5333-4ABF-B4E9-BEAC4395597E}
